@@ -5,6 +5,8 @@ from threading import Thread
 
 from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
 from Logging.PrintLog import Log
+from Plugins import Plugins
+from ConfigLoader.ConfigLoader import ConfigLoader
 log = Log()
 
 
@@ -12,13 +14,14 @@ class Event:
     flask_log = logging.getLogger('werkzeug')
     flask_log.setLevel(logging.ERROR)
 
-    def __init__(self, plugins_list, debug):
+    def __init__(self, plugins_list: list[Plugins], config_loader: ConfigLoader, debug:bool):
         try:
             self.app = Flask(__name__)
             self.debug = debug
             self.register_routes()
             self.plugins_list = plugins_list
             self.plugins_config = None
+            self.config_loader = config_loader
         except Exception as e:
             log.error(f"初始化事件处理器时失败：{e}")
             raise e

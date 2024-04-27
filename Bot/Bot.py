@@ -2,6 +2,7 @@ from Plugins import plugins_path
 from Event.EventController import Event
 from Interface.Api import Api
 from Logging.PrintLog import Log
+from ConfigLoader.ConfigLoader import ConfigLoader
 
 from importlib import import_module
 from pkgutil import iter_modules
@@ -11,7 +12,7 @@ log = Log()
 
 
 class Bot:
-    def __init__(self, server_address, client_address, debug):
+    def __init__(self, server_address: str, client_address: str, config_file: str, debug: bool):
         """
         初始化bot对象
         :param server_address: bot监听端启用的ip地址和端口
@@ -22,9 +23,11 @@ class Bot:
             self.server_address = server_address
             self.client_address = client_address
             self.debug = debug
+            self.config_file = config_file
 
             # 成员对象初始化
             self.api = Api(server_address)
+            self.configLoader = ConfigLoader(config_file)
 
             # 初始化插件列表
             self.plugins_list = []
@@ -39,10 +42,15 @@ class Bot:
         try:
             login_info = await self.api.botSelfInfo.get_login_info()
             log.info(f"获取到Bot的登录信息：{login_info}")
+            log.info(f"开始加载Bot配置文件，文件路径：{self.config_file}")
+            config = self.configLoader.bot_init_loader()
+            log.info(f"成功加载配置文件，如果需要查看详细信息，请开启debug模式")
+            if self.debug:
+                log.debug(f"配置文件中的详细信息：\n{config}")
             log.info("Bot初始化成功！")
             self.init_plugins()
         except Exception as e:
-            log.error(e)
+            log.error(f"初始化Bot时失败：{e}")
 
     def init_plugins(self):
         """
@@ -67,11 +75,11 @@ class Bot:
                 log.error(f"加载插件{name}失败：{e}")
 
     def run(self):
-        self.event = Event(self.plugins_list, self.debug)
+        event = Event(self.plugins_list, self.configLoader, self.debug)
         ip_address, port = self.client_address.split(":")
         # 使用Flask实例的run方法启动Flask服务
         log.info("启动Flask监听服务")
-        self.event.app.run(host=ip_address, port=int(port), debug=False)
+        event.app.run(host=ip_address, port=int(port), debug=False)
 
 
 if __name__ == "__main__":

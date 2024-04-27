@@ -1,18 +1,18 @@
 from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
 from Interface.Api import Api
 from Logging.PrintLog import Log
+from Plugins import Plugins
 log = Log()
 
 
-class SayHello:
+class SayHello(Plugins):
     """
     插件名：say_hello_private
     插件类型：私聊插件
     插件功能：当有人通过私聊向bot发送“Hello”时，bot会自动回复一个Hello消息
     """
     def __init__(self, server_address):
-        self.server_address = server_address
-        self.api = Api(server_address)
+        super().__init__(server_address)
         self.name = "say_hello_private"
         self.type = "Private"
 
