@@ -12,25 +12,49 @@ log = Log()
 
 
 class Bot:
-    def __init__(self, server_address: str, client_address: str, config_file: str, debug: bool):
+    def __init__(self, config_file: str):
         """
         初始化bot对象
-        :param server_address: bot监听端启用的ip地址和端口
-        :param client_address: bot插件端的消息接收ip地址和端口
+        :param config_file: 配置文件的路径（绝对/相对）
         """
         try:
             # 成员变量初始化
-            self.server_address = server_address
-            self.client_address = client_address
-            self.debug = debug
             self.config_file = config_file
 
-            # 成员对象初始化
-            self.api = Api(server_address)
+            # 初始化配置加载器
             self.configLoader = ConfigLoader(config_file)
 
             # 初始化插件列表
             self.plugins_list = []
+
+            # 通过configLoader加载其他初始化参数
+            log.info(f"开始加载Bot配置文件，文件路径：{self.config_file}")
+            init_config = self.configLoader.bot_init_loader()
+
+            # 需要检查的关键配置项
+            required_configs = {
+                "server_address": self.configLoader.get("server_address", "str"),
+                "client_address": self.configLoader.get("client_address", "str"),
+                "bot_name": self.configLoader.get("bot_name", "str"),
+                "debug": self.configLoader.get("debug", "bool")
+            }
+
+            # 检查哪些关键配置项是空的
+            missing_configs = [key for key, value in required_configs.items() if value is None]
+            if missing_configs:
+                raise ValueError(f"参数不全，以下配置项未成功加载：{', '.join(missing_configs)}")
+
+            # 将配置值分配给实例变量
+            self.server_address = required_configs["server_address"]
+            self.client_address = required_configs["client_address"]
+            self.bot_name = required_configs["bot_name"]
+            self.debug = required_configs["debug"]
+
+            log.info(f"成功加载配置文件")
+            log.info(f"加载的bot初始化配置信息如下：\n{init_config}")
+
+            # 初始化api接口对象
+            self.api = Api(self.server_address)
 
         except Exception as e:
             raise e
@@ -42,15 +66,11 @@ class Bot:
         try:
             login_info = await self.api.botSelfInfo.get_login_info()
             log.info(f"获取到Bot的登录信息：{login_info}")
-            log.info(f"开始加载Bot配置文件，文件路径：{self.config_file}")
-            config = self.configLoader.bot_init_loader()
-            log.info(f"成功加载配置文件，如果需要查看详细信息，请开启debug模式")
-            if self.debug:
-                log.debug(f"配置文件中的详细信息：\n{config}")
             log.info("Bot初始化成功！")
             self.init_plugins()
         except Exception as e:
             log.error(f"初始化Bot时失败：{e}")
+            raise e
 
     def init_plugins(self):
         """
@@ -70,7 +90,7 @@ class Bot:
                 plugin_instance = PluginClass(self.server_address)
                 # 添加到插件列表
                 self.plugins_list.append(plugin_instance)
-                log.info(f"成功加载插件：{plugin_instance.name}，插件类型：{plugin_instance.type}")
+                log.info(f"成功加载插件：{plugin_instance.name}，插件类型：{plugin_instance.type}，插件作者{plugin_instance.author}")
             except Exception as e:
                 log.error(f"加载插件{name}失败：{e}")
 
@@ -83,7 +103,4 @@ class Bot:
 
 
 if __name__ == "__main__":
-    server_address = "120.26.217.8:5700"
-    client_address = "0.0.0.0:7000"
-    bot = Bot(server_address, client_address, True)
-    bot.run()
+    ...

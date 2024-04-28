@@ -13,19 +13,19 @@ class SayHello(Plugins):
     """
     def __init__(self, server_address):
         super().__init__(server_address)
-        self.name = "say_hello_private"
+        self.name = "SayHello"
         self.type = "Private"
+        self.author = "just monika"
 
     async def main(self, event: PrivateMessageEvent, debug, config):
-        enable = config.get("enable")
+        enable = eval(config.get("enable"))
         if not enable:
             return
 
         message = event.message
         if message == "Hello":
             user_id = event.user_id
-            nickname = event.nickname
-            reply_message = f"Hello！{nickname}！"
+            reply_message = config.get("reply")
             try:
                 await self.api.privateService.send_private_msg(user_id, reply_message)
             except Exception as e:
