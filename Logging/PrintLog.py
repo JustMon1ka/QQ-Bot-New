@@ -41,8 +41,9 @@ logger.addHandler(stream_handler)
 
 
 class Log:
-    def debug(self, message):
-        logger.debug(message)
+    def debug(self, message, debug):
+        if debug:
+            logger.debug(message)
 
     def info(self, message):
         logger.info(message)

@@ -1,5 +1,6 @@
 # Plugins/__init__.py
 import os
+
 from Interface.Api import Api
 
 # 获取当前目录的路径
@@ -10,9 +11,10 @@ class Plugins:
     """
     插件的父类，所有编写的插件都继承这个类
     """
-    def __init__(self, server_address):
+    def __init__(self, server_address: str, bot):
         self.server_address = server_address
         self.api = Api(server_address)
+        self.bot = bot
         self.name = "name"
         self.type = "type"
         self.author = "xxx"
