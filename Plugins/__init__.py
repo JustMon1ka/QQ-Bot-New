@@ -15,6 +15,7 @@ class Plugins:
         self.api = Api(server_address)
         self.name = "name"
         self.type = "type"
+        self.author = "xxx"
 
     def main(self, event, debug, config):
         raise NotImplementedError("方法还未实现")

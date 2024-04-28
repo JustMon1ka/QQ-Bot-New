@@ -6,6 +6,7 @@ class TestPlugins(Plugins):
         super().__init__(server_address)
         self.name = "TestPlugins"
         self.type = "Group"
+        self.author = "somebody"
 
     async def main(self, event, debug, config):
         return

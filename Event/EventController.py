@@ -34,7 +34,11 @@ class Event:
         def post_data():
             data = request.get_json()
             post_type = data.get("post_type")
-            self.plugins_config = ...
+
+            # 每次收到事件时都更新一次插件配置
+            self.config_loader.plugins_config_loader()
+            self.plugins_config = self.config_loader.get("Plugins", "dict")
+
             # 根据post_type处理不同类型的上报消息
             if post_type == "message":
                 message_type = data.get("message_type")
@@ -58,11 +62,12 @@ class Event:
         for plugins in self.plugins_list:
             plugins_type = plugins.type
             plugins_name = plugins.name
+            plugins_author = plugins.author
             if plugins_type == "Private":
                 try:
-                    # config = self.config.get(plugins_name)
-                    config = {"enable": True}
+                    config = self.plugins_config.get(plugins_name)
+                    # config = {"enable": True}
                     await plugins.main(event, self.debug, config)
                 except Exception as e:
-                    log.error(f"插件：{plugins_name}运行时出错：{e}")
+                    log.error(f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}")
 
