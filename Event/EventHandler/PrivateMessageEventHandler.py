@@ -11,5 +11,5 @@ class PrivateMessageEvent:
         self.message = data.get("message")
         ...
 
-    def post_event(self):
-        log.debug(f"收到来自好友 {self.nickname}({self.user_id}) 的私聊消息：{self.message}")
+    def post_event(self, debug):
+        log.debug(f"收到来自好友 {self.nickname}({self.user_id}) 的私聊消息：{self.message}", debug)

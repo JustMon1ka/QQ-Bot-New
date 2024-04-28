@@ -1,12 +1,14 @@
-from Plugins import plugins_path
+from importlib import import_module
+from pkgutil import iter_modules
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+
+from ConfigLoader.ConfigLoader import ConfigLoader
 from Event.EventController import Event
 from Interface.Api import Api
 from Logging.PrintLog import Log
-from ConfigLoader.ConfigLoader import ConfigLoader
-
-from importlib import import_module
-from pkgutil import iter_modules
-import logging
+from Plugins import plugins_path
 
 log = Log()
 
@@ -27,6 +29,9 @@ class Bot:
             # 初始化插件列表
             self.plugins_list = []
 
+            # 初始化数据库连接对象
+            self.database = None
+
             # 通过configLoader加载其他初始化参数
             log.info(f"开始加载Bot配置文件，文件路径：{self.config_file}")
             init_config = self.configLoader.bot_init_loader()
@@ -36,7 +41,11 @@ class Bot:
                 "server_address": self.configLoader.get("server_address", "str"),
                 "client_address": self.configLoader.get("client_address", "str"),
                 "bot_name": self.configLoader.get("bot_name", "str"),
-                "debug": self.configLoader.get("debug", "bool")
+                "debug": self.configLoader.get("debug", "bool"),
+                "database_username": self.configLoader.get("database_username", "str"),
+                "database_address": self.configLoader.get("database_address", "str"),
+                "database_passwd": self.configLoader.get("database_passwd", "str"),
+                "database_name": self.configLoader.get("database_name", "str"),
             }
 
             # 检查哪些关键配置项是空的
@@ -49,9 +58,15 @@ class Bot:
             self.client_address = required_configs["client_address"]
             self.bot_name = required_configs["bot_name"]
             self.debug = required_configs["debug"]
+            self.database_username = required_configs["database_username"]
+            self.database_address = required_configs["database_address"]
+            self.database_passwd = required_configs["database_passwd"]
+            self.database_name = required_configs["database_name"]
 
             log.info(f"成功加载配置文件")
-            log.info(f"加载的bot初始化配置信息如下：\n{init_config}")
+            log.info(f"加载的bot初始化配置信息如下：")
+            for item in init_config.items():
+                log.info(str(item))
 
             # 初始化api接口对象
             self.api = Api(self.server_address)
@@ -68,15 +83,32 @@ class Bot:
             log.info(f"获取到Bot的登录信息：{login_info}")
             log.info("Bot初始化成功！")
             self.init_plugins()
+            await self.init_database()
         except Exception as e:
             log.error(f"初始化Bot时失败：{e}")
             raise e
+
+    async def init_database(self):
+        """
+        创建与数据库之间的连接
+        :return:
+        """
+        log.info("开始创建与数据库之间的连接")
+        try:
+            self.database = create_async_engine(f'mysql+aiomysql://'
+                                   f'{self.database_username}:{self.database_passwd}@{self.database_address}/{self.database_name}')
+            log.info("成功连接到bot数据库")
+        except Exception as e:
+            log.error(f"连接到数据库时失败：{e}")
+            raise e
+
 
     def init_plugins(self):
         """
         初始化所有添加了的插件
         :return:
         """
+        log.info("开始加载插件")
         for _, name, ispkg in iter_modules([plugins_path]):
             if not ispkg:
                 continue  # 如果不是插件包就跳过
@@ -87,12 +119,13 @@ class Bot:
                 # 获取子包中的插件类，假设类名与模块名相同
                 PluginClass = getattr(plugin_module, name)
                 # 实例化插件
-                plugin_instance = PluginClass(self.server_address)
+                plugin_instance = PluginClass(self.server_address, self)
                 # 添加到插件列表
                 self.plugins_list.append(plugin_instance)
                 log.info(f"成功加载插件：{plugin_instance.name}，插件类型：{plugin_instance.type}，插件作者{plugin_instance.author}")
             except Exception as e:
                 log.error(f"加载插件{name}失败：{e}")
+                raise e
 
     def run(self):
         event = Event(self.plugins_list, self.configLoader, self.debug)

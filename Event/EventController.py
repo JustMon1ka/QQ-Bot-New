@@ -3,6 +3,7 @@ from flask import Flask, request
 import asyncio
 from threading import Thread
 
+from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
 from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
@@ -44,12 +45,15 @@ class Event:
                 message_type = data.get("message_type")
                 if message_type == "private":
                     event = PrivateMessageEvent(data)
-                    if self.debug:
-                        event.post_event()
+                    event.post_event(self.debug)
                     thread = Thread(target=self.handle_private_message, args=(event,))
                     thread.start()
                 elif message_type == "group":
-                    ...
+                    event = GroupMessageEvent(data)
+                    event.post_event(self.debug)
+                    thread = Thread(target=self.handle_group_message, args=(event,))
+                    thread.start()
+
             elif post_type == "notice":
                 ...
 
@@ -64,6 +68,22 @@ class Event:
             plugins_name = plugins.name
             plugins_author = plugins.author
             if plugins_type == "Private":
+                try:
+                    config = self.plugins_config.get(plugins_name)
+                    # config = {"enable": True}
+                    await plugins.main(event, self.debug, config)
+                except Exception as e:
+                    log.error(f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}")
+
+    def handle_group_message(self, event):
+        asyncio.run(self.run_group_plugins(event))
+
+    async def run_group_plugins(self, event):
+        for plugins in self.plugins_list:
+            plugins_type = plugins.type
+            plugins_name = plugins.name
+            plugins_author = plugins.author
+            if plugins_type == "Group":
                 try:
                     config = self.plugins_config.get(plugins_name)
                     # config = {"enable": True}
