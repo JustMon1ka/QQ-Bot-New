@@ -1,6 +1,8 @@
 import aiohttp
 import asyncio
 
+import requests
+
 
 class Api:
     def __init__(self, server_address):
@@ -15,14 +17,22 @@ class Api:
         def __init__(self, api_instance):
             self.api = api_instance  # 保存对Api类实例的引用
 
-        async def get_login_info(self):
+        async def get_login(self):
             """
-            获取bot本身的登录信息，用来检查bot对象是否初始化成功
-            :return: bot的登录信息
+            获取bot服务端是否在线
+            :return: bot服务端返回的信息
             """
             async with aiohttp.ClientSession() as session:
                 async with session.get(self.api.bot_api_address) as res:
                     return await res.text()
+
+        def get_login_info(self):
+            """
+            获取bot自身的登录信息
+            :return: bot的QQ号和昵称
+            """
+            res = requests.get(self.api.bot_api_address + "get_login_info")
+            return res.json()
 
     class PrivateService:
         def __init__(self, api_instance):

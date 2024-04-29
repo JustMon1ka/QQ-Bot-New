@@ -36,7 +36,7 @@ stream_handler.setFormatter(ColoredLevelFormatter(
 
 # 创建日志记录器，设置级别，并添加处理器
 logger = logging.getLogger("ColoredLogger")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(stream_handler)
 
 
