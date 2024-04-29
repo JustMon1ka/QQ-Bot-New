@@ -50,6 +50,10 @@ class AddStuToDB(Plugins):
             try:  # 使用try-except来捕获异常，方便日志输出
                 if len_of_command == 2:
                     group_id = event.group_id
+                    effected_group: str = config.get("effected_group").split(",")
+                    if str(group_id) not in effected_group:  # 在正常模式下，如果不是在指定的群内触发该命令，则不触发该插件
+                        log.debug(f"{self.name}：pass", debug)
+                        return
                     log.debug("以正常模式执行", debug)
                     await self.normal_mode(group_id)
                 elif len_of_command == 3:

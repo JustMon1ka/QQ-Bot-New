@@ -1,16 +1,22 @@
 from importlib import import_module
 from pkgutil import iter_modules
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine
+from gevent import spawn, joinall
+import logging
 
 from ConfigLoader.ConfigLoader import ConfigLoader
 from Event.EventController import Event
 from Interface.Api import Api
 from Logging.PrintLog import Log
 from Plugins import plugins_path
+from WebController.WebController import WebController
 
 log = Log()
+
+
+# 全局定义 run_service 函数
+def run_service(service, host, port, debug):
+    service.run(ip=host, port=port, debug=debug)
 
 
 class Bot:
@@ -40,6 +46,7 @@ class Bot:
             required_configs = {
                 "server_address": self.configLoader.get("server_address", "str"),
                 "client_address": self.configLoader.get("client_address", "str"),
+                "web_controller": self.configLoader.get("web_controller", "str"),
                 "bot_name": self.configLoader.get("bot_name", "str"),
                 "debug": self.configLoader.get("debug", "bool"),
                 "database_username": self.configLoader.get("database_username", "str"),
@@ -56,6 +63,7 @@ class Bot:
             # 将配置值分配给实例变量
             self.server_address = required_configs["server_address"]
             self.client_address = required_configs["client_address"]
+            self.web_controller = required_configs["web_controller"]
             self.bot_name = required_configs["bot_name"]
             self.debug = required_configs["debug"]
             self.database_username = required_configs["database_username"]
@@ -79,7 +87,7 @@ class Bot:
         异步地完成Bot对象的初始化
         """
         try:
-            login_info = await self.api.botSelfInfo.get_login_info()
+            login_info = await self.api.botSelfInfo.get_login()
             log.info(f"获取到Bot的登录信息：{login_info}")
             log.info("Bot初始化成功！")
             self.init_plugins()
@@ -96,12 +104,11 @@ class Bot:
         log.info("开始创建与数据库之间的连接")
         try:
             self.database = create_async_engine(f'mysql+aiomysql://'
-                                   f'{self.database_username}:{self.database_passwd}@{self.database_address}/{self.database_name}')
+                                                f'{self.database_username}:{self.database_passwd}@{self.database_address}/{self.database_name}')
             log.info("成功连接到bot数据库")
         except Exception as e:
             log.error(f"连接到数据库时失败：{e}")
             raise e
-
 
     def init_plugins(self):
         """
@@ -122,17 +129,28 @@ class Bot:
                 plugin_instance = PluginClass(self.server_address, self)
                 # 添加到插件列表
                 self.plugins_list.append(plugin_instance)
-                log.info(f"成功加载插件：{plugin_instance.name}，插件类型：{plugin_instance.type}，插件作者{plugin_instance.author}")
+                log.info(
+                    f"成功加载插件：{plugin_instance.name}，插件类型：{plugin_instance.type}，插件作者{plugin_instance.author}")
             except Exception as e:
                 log.error(f"加载插件{name}失败：{e}")
                 raise e
 
     def run(self):
-        event = Event(self.plugins_list, self.configLoader, self.debug)
+        event = Event(self.plugins_list, self.configLoader, False)
         ip_address, port = self.client_address.split(":")
         # 使用Flask实例的run方法启动Flask服务
-        log.info("启动Flask监听服务")
-        event.app.run(host=ip_address, port=int(port), debug=False)
+        log.info(f"尝试将监听服务启动在 {ip_address}:{port}")
+        event_server = spawn(event.run, ip_address, int(port))
+        log.info("监听服务启动成功！")
+
+        webController = WebController(self)
+        ip_address, port = self.web_controller.split(":")
+        # 使用Flask实例的run方法启动Flask服务
+        log.info(f"启动web controller服务 {ip_address}:{port}")
+        web_server = spawn(webController.run, ip_address, int(port))
+        log.info("web controller服务启动成功！")
+
+        joinall([event_server, web_server])
 
 
 if __name__ == "__main__":
