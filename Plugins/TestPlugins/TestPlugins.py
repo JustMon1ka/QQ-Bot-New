@@ -10,6 +10,10 @@ class TestPlugins(Plugins):
         self.name = "TestPlugins"  # 插件的名字（一定要和类的名字完全一致（主要是我能力有限，否则会报错））
         self.type = "Group"  # 插件的类型（这个插件是在哪种消息类型中触发的）
         self.author = "somebody"  # 插件开发作者（不用留真名，但是当插件报错的时候需要根据这个名字找到对应的人来修）
+        self.introduction = """
+                                这是一个插件的模板，开发一个新的插件至少应该包含以下部分
+                            """
+        self.init_status()
 
     async def main(self, event, debug, config):
         """
@@ -21,4 +25,11 @@ class TestPlugins(Plugins):
         :param config: 配置文件对象
         :return:
         """
+        enable = eval(config.get("enable"))
+        if not enable:
+            self.set_status("disable")
+            return
+
+        if self.status != "error":
+            self.set_status("running")
         return

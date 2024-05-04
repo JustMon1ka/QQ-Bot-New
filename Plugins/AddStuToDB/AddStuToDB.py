@@ -25,13 +25,23 @@ class AddStuToDB(Plugins):
         self.name = "AddStuToDB"
         self.type = "Group"
         self.author = "just monika"
+        self.introduction = """
+                                这是一个展示与数据库交互操作的示例插件，同时也进一步展示了插件从main入口开始调用不同的方法协同执行功能
+                                这个插件本身没有什么实际意义，但是可以作为后续插件开发的参考（如果需要使用数据库操作）
+                                插件功能：将指定群的群成员作为学生信息导入到数据库中
+                                插件触发指令：<bot_name> add_stu (debug)
+                            """
+        self.init_status()
 
     async def main(self, event: GroupMessageEvent, debug, config):
         # 首先判断该插件是否被启用，为否则直接退出
         enable = eval(config.get("enable"))
         if not enable:
+            self.set_status("disable")
             return
 
+        if self.status != "error":
+            self.set_status("running")
         # 获取消息，检查是否为指定的触发命令
         message: str = event.message
         command_list = message.split(" ")

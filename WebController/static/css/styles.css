@@ -1,3 +1,4 @@
+/* index.html中的css效果 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -55,4 +56,270 @@ body {
 .details-section {
     border-top: 2px solid #007BFF;
     padding-top: 10px;
+}
+
+.bot-info-container {
+    border: 2px solid #007BFF;
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+}
+
+.bot-info-container::before {
+    content: "运行基础信息";
+    color: #007BFF;
+    font-size: 16px;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: white;
+    padding: 0 5px;
+}
+
+.collapsible-button {
+    background-color: #e4e3fd;
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid #bbc9fb;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.collapsible-button:hover {
+    background-color: #BBDEFB;
+}
+
+.collapsible-content {
+    padding: 10px;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    border-top: 2px solid #BBDEFB;
+    transition: max-height 0.3s ease-out;
+}
+hr {
+    border-top: 1px solid #BBDEFB;
+}
+
+.plugin-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plugin-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px; /* 为每个选项卡之间添加一些间隙 */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.plugin-link {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.plugin-item:hover {
+    background-color: #e1e1e1; /* 悬停时改变背景色 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 添加一些阴影效果提高互动性 */
+}
+
+/* plugins.html中的css */
+.log-container {
+    margin: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.log-controls {
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.log-viewer {
+    height: 700px;
+    background-color: white;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    padding: 5px;
+    font-family: monospace;
+}
+
+.pause-icon {
+    display: inline-block;
+    height: 14px; /* 图标的高度 */
+    width: 14px; /* 容纳两个条的总宽度 */
+    position: relative;
+}
+
+.pause-icon::before, .pause-icon::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 4px; /* 每个条的宽度 */
+    background-color: black; /* 条的颜色 */
+    top: 0;
+}
+
+.pause-icon::before {
+    left: 1px; /* 第一个条的位置 */
+}
+
+.pause-icon::after {
+    right: 1px; /* 第二个条的位置 */
+}
+
+.play-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent; /* 创建三角形的上半部分 */
+    border-bottom: 7px solid transparent; /* 创建三角形的下半部分 */
+    border-left: 14px solid black; /* 创建三角形的正面 */
+}
+
+/* plugins.html使用的css */
+.search-bar input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.collapsible {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    outline: none;
+    padding: 0;
+    position: relative;
+}
+
+.collapsible:hover {
+    background-color: #ccc;
+}
+
+.plugin-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #2ad7dd;
+    border-radius: 8px;
+    margin: 10px 0;
+    overflow: hidden;  // 保持内容隐藏，直到被展开
+}
+
+.plugin-info {
+    padding: 10px 20px;
+    width: calc(100% - 80px);  // 留出状态标签的空间
+}
+
+.plugin-header {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.plugin-type {
+    font-size: 14px;
+}
+
+.plugin-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    color: #ffffff;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 10px;
+}
+
+.status-running {
+    background-color: #4CAF50;
+}
+
+.status-disable {
+    background-color: #676363;
+}
+
+.status-error {
+    background-color: #ff0000;
+}
+
+.plugin-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    background-color: #e0e0e0;
+    padding: 0 20px;
+}
+
+.plugin-details.open {
+    max-height: 1000px; /* 调整这个值以适应内容大小 */
+    padding: 10px 20px; /* 在展开时添加内边距 */
+}
+
+.plugin-introduction {
+    white-space: pre-wrap; /* 保留空白符序列，但是正常换行 */
+}
+
+.error-message {
+    color: red; /* 红色字体显示错误信息 */
+    font-weight: bold; /* 可选：使字体加粗 */
+}
+
+.button {
+    background-color: #4CAF50; /* 绿色背景 */
+    color: white; /* 白色文字 */
+    padding: 10px 20px; /* 内边距 */
+    border: none; /* 无边框 */
+    border-radius: 5px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 平滑过渡效果 */
+}
+
+.button:hover {
+    background-color: #45a049; /* 深绿色背景 */
+}
+
+.button:active {
+    box-shadow: 0 5px #666; /* 点击时的阴影效果 */
+    transform: translateY(4px); /* 点击时轻微下移 */
+}
+
+.button-disable {
+    background-color: #f44336; /* 红色背景 */
+}
+
+.button-disable:hover {
+    background-color: #d73833; /* 深红色背景 */
 }

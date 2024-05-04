@@ -10,7 +10,8 @@ class ConfigLoader:
         self.config_file = config_file
         self.config = configparser.ConfigParser()
         # 显式地使用 UTF-8 编码打开配置文件
-        self.all_config = {"Plugins": {}}
+        self.init_config = {}
+        self.plugins_config = {}
 
     def bot_init_loader(self):
         """
@@ -24,7 +25,7 @@ class ConfigLoader:
         if 'Init' in self.config:
             for key in self.config['Init']:
                 init_config[key] = self.config['Init'][key]
-                self.all_config[key] = self.config['Init'][key]
+                self.init_config[key] = self.config['Init'][key]
         else:
             raise ValueError("配置文件中必须有 [Init] 项。")
         return init_config
@@ -39,17 +40,30 @@ class ConfigLoader:
 
         for section in self.config.sections():
             if section != 'Init':
-                self.all_config["Plugins"][section] = dict(self.config.items(section))
-        return self.all_config["Plugins"]
+                self.plugins_config[section] = dict(self.config.items(section))
+        return self.plugins_config
 
-    def get(self, key, data_type):
+    def get_init_config(self, key, data_type):
         """
-        获取指定键对应的值，如果这个键，则返回None
+        获取bot初始化信息中指定键对应的值，如果这个键，则返回None
         :param key: 需要获取的配置键名。
         :param data_type: 返回值的类型，可选 'str', 'int', 'float', 'bool'。
         :return:
         """
-        value = self.all_config.get(key)
+        value = self.init_config.get(key)
+        return self.get_config(value, data_type)
+
+    def get_plugins_config(self, key, data_type):
+        """
+        获取插件配置信息中指定键对应的值，如果这个键，则返回None
+        :param key: 需要获取的配置键名。
+        :param data_type: 返回值的类型，可选 'str', 'int', 'float', 'bool'。
+        :return:
+        """
+        value = self.plugins_config.get(key)
+        return self.get_config(value, data_type)
+
+    def get_config(self, value, data_type):
         if value is None:
             return None
 

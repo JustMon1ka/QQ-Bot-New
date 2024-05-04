@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="profile-section">
+        <img src="{{ url_for('static', filename='images/bot-avatar.png') }}" alt="Bot头像" class="bot-avatar">
+        <div>
+            <p>QQ: {{ bot_info.qq }}</p>
+            <p>昵称: {{ bot_info.nickname }}</p>
+        </div>
+    </div>
+    <div class="bot-info-container">
+        <div class="details-section">
+            <h2>Bot Name : {{ bot_info.name }}</h2>
+            <hr>
+            <div class="collapsible">
+                <button class="collapsible-button" style="color: green;">正在正常运行的插件 {{ plugins_info.active_plugins_count }}个</button>
+                <div class="collapsible-content">
+                    <ul>
+                        {% for plugin in plugins_info.active_plugins %}
+                        <li class="plugin-item">
+                            <a class="plugin-link" onclick="navigateToPlugin('{{ plugin.name }}'); return false;">{{ plugin.info }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="collapsible">
+                <button class="collapsible-button" style="color: grey;">未启用的插件 {{ plugins_info.inactive_plugins_count }}个</button>
+                <div class="collapsible-content">
+                    <ul>
+                        {% for plugin in plugins_info.inactive_plugins %}
+                        <li class="plugin-item">
+                            <a class="plugin-link" onclick="navigateToPlugin('{{ plugin.name }}'); return false;">{{ plugin.info }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="collapsible">
+                <button class="collapsible-button" style="color: red;">运行异常的插件 {{ plugins_info.error_plugins_count }}个</button>
+                <div class="collapsible-content">
+                    <ul>
+                        {% for plugin in plugins_info.error_plugins %}
+                        <li class="plugin-item">
+                            <a class="plugin-link" onclick="navigateToPlugin('{{ plugin.name }}'); return false;">{{ plugin.info }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

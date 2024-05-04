@@ -16,12 +16,20 @@ class SayHello(Plugins):
         self.name = "SayHello"
         self.type = "Private"
         self.author = "just monika"
+        self.introduction = """
+                                插件描述：自动回复Hello，可以用来检测bot是否存活
+                                插件功能：当有人通过私聊向bot发送“Hello”时，bot会自动回复一个Hello消息
+                            """
+        self.init_status()
 
     async def main(self, event: PrivateMessageEvent, debug, config):
         enable = eval(config.get("enable"))
         if not enable:
+            self.set_status("disable")
             return
 
+        if self.status != "error":
+            self.set_status("running")
         message = event.message
         if message == "Hello":
             user_id = event.user_id
