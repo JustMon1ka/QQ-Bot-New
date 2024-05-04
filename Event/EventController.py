@@ -26,7 +26,6 @@ def create_event_app(event_controller):
 
         # 每次收到事件时都更新一次插件配置
         event_controller.config_loader.plugins_config_loader()
-        event_controller.plugins_config = event_controller.config_loader.get("Plugins", "dict")
 
         if post_type == "message":
             message_type = data.get("message_type")
@@ -57,7 +56,6 @@ class Event:
         try:
             self.debug = debug
             self.plugins_list = plugins_list
-            self.plugins_config = None
             self.config_loader = config_loader
         except Exception as e:
             log.error(f"初始化事件处理器时失败：{e}")
@@ -81,11 +79,13 @@ class Event:
             plugins_author = plugins.author
             if plugins_type == "Private":
                 try:
-                    config = self.plugins_config.get(plugins_name)
+                    config = self.config_loader.get_plugins_config(plugins_name, "dict")
                     # config = {"enable": True}
                     await plugins.main(event, self.debug, config)
                 except Exception as e:
-                    log.error(f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}")
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
+                    plugins.set_status("error", error_info)
+                    log.error(error_info)
 
     def handle_group_message(self, event):
         asyncio.run(self.run_group_plugins(event))
@@ -97,11 +97,13 @@ class Event:
             plugins_author = plugins.author
             if plugins_type == "Group":
                 try:
-                    config = self.plugins_config.get(plugins_name)
+                    config = self.config_loader.get_plugins_config(plugins_name, "dict")
                     # config = {"enable": True}
                     await plugins.main(event, self.debug, config)
                 except Exception as e:
-                    log.error(f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}")
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
+                    plugins.set_status("error", error_info)
+                    log.error(error_info)
 
 
 # 示例用法

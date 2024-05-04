@@ -1,8 +1,13 @@
+import configparser
+
 import requests
 from gevent.pywsgi import WSGIServer
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory, Response, jsonify, session
 import logging
 import os
+
+total_lines_read = 0
+last_cleared_line = 0
 
 
 def create_web_app(web_controller):
@@ -13,20 +18,57 @@ def create_web_app(web_controller):
     static_dir = os.path.join(basedir, 'static')
 
     app = Flask("Web Controller", template_folder=template_dir, static_folder=static_dir)
+    app.secret_key = 'just monika'
 
     @app.route('/')
     def index():
+        return render_template('index.html')
+
+    @app.route('/baseInfo.html')
+    def base_info():
         bot_info = WebController.get_bot_info(web_controller)
-        base_info = WebController.get_base_info(web_controller)
-        return render_template('index.html', bot_info=bot_info, base_info=base_info)
+        plugins_info = WebController.get_plugins_init_info(web_controller)
+
+        return render_template('baseInfo.html', bot_info=bot_info, plugins_info=plugins_info)
 
     @app.route('/log.html')
     def log():
+        global total_lines_read, last_cleared_line
+        total_lines_read = last_cleared_line
         return render_template('log.html')
 
     @app.route('/plugins.html')
     def plugins():
-        return render_template('plugins.html')
+        plugins_info = WebController.get_all_plugins_info(web_controller)  # 假设这是从数据库获取信息的函数
+        return render_template('plugins.html', plugins=plugins_info)
+
+    @app.route('/log.out')
+    def log_file():
+        global total_lines_read, last_cleared_line
+        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        log_file_path = os.path.join(parent_dir, 'log.out')
+
+        lines_to_send = []
+        with open(log_file_path, 'r') as file:
+            all_lines = file.readlines()
+            lines_to_send = all_lines[total_lines_read:]
+            total_lines_read = len(all_lines)  # 更新读取的总行数
+
+        return Response(''.join(lines_to_send), mimetype='text/plain')
+
+    @app.route('/clear-log', methods=["POST"])
+    def clear_log():
+        global total_lines_read, last_cleared_line
+        last_cleared_line = total_lines_read
+        return jsonify(success=True)
+
+    @app.route('/toggle-plugin-status/<plugin_name>/<new_status>', methods=['POST'])
+    def toggle_plugin_status(plugin_name, new_status):
+        result = WebController.update_plugin_status(web_controller, plugin_name, new_status)  # 调用更新状态的函数
+        if result:
+            return jsonify(success=True)
+        else:
+            return jsonify(success=False, message="无法更新插件状态")
 
     app.logger.setLevel(logging.ERROR)
     return app
@@ -52,25 +94,88 @@ class WebController:
         with open(save_path, 'wb') as f:
             f.write(response.content)
 
+        bot_name = self.bot.bot_name
         return {
             'avatar': 'bot-avatar.png',
             'qq': user_id,
-            'nickname': nickname
+            'nickname': nickname,
+            "name": bot_name
         }
 
-    def get_base_info(self):
-        bot_name = self.bot.bot_name
-        plugins_name_list = ""
+    def get_plugins_init_info(self):
+        active_plugins = []
+        inactive_plugins = []
+        error_plugins = []
         for plugins in self.bot.plugins_list:
-            plugins_name_list += f"&nbsp;&nbsp;&nbsp;&nbsp;插件名：{plugins.name}&nbsp;&nbsp;插件类型：{plugins.type}&nbsp;&nbsp;插件作者：{plugins.author}<br>"
+            plugins_status = plugins.status
+            # print(plugins_status)
+            plugins_name = plugins.name
+            plugins_type = plugins.type
+            plugins_author = plugins.author
+            plugins_info = {"name": plugins_name, "info": f"{plugins_name}——类型：{plugins_type}, 作者：{plugins_author}"}
+            if plugins_status == "running":
+                active_plugins.append(plugins_info)
+            elif plugins_status == "disable":
+                inactive_plugins.append(plugins_info)
+            elif plugins_status == "error":
+                error_plugins.append(plugins_info)
+
         return {
-            'content': f'以下是Bot的基本配置信息：<br>Bot名字：{bot_name}<br>加载的插件：<br>{plugins_name_list}'
+            "active_plugins_count": len(active_plugins),
+            "inactive_plugins_count": len(inactive_plugins),
+            "error_plugins_count": len(error_plugins),
+            "active_plugins": active_plugins,
+            "inactive_plugins": inactive_plugins,
+            "error_plugins": error_plugins,
         }
 
     def run(self, ip, port):
         app = create_web_app(self)
         server = WSGIServer((ip, port), app)
         server.serve_forever()
+
+    def get_all_plugins_info(self):
+        plugins_info = {}
+        for plugins in self.bot.plugins_list:
+            plugins_name = plugins.name
+            plugins_type = plugins.type
+            plugins_status = plugins.status
+            plugins_info[plugins_name] = {}
+            plugins_info[plugins_name]["type"] = plugins_type
+            plugins_info[plugins_name]["status"] = plugins_status
+            plugins_author = plugins.author
+            plugins_introduction = plugins.introduction
+            plugins_error_info = plugins.error_info
+            plugins_info[plugins_name]["other_info"] = {
+                "author": plugins_author,
+                "introduction": plugins_introduction,
+                "error_info": plugins_error_info
+            }
+        return plugins_info
+
+    def update_plugin_status(self, plugin_name, new_status):
+        config = configparser.ConfigParser()
+        config_path = self.bot.config_file
+        enable = "True" if new_status == "running" else "False"
+        # print(enable)
+        try:
+            # print("start read config")
+            config.read(config_path, encoding='utf-8')
+            # print(plugin_name in config)
+            if plugin_name in config:
+                config.set(plugin_name, 'enable', enable)
+                with open(config_path, 'w') as configfile:
+                    config.write(configfile)
+                for plugin in self.bot.plugins_list:
+                    if plugin.name == plugin_name:
+                        plugin.status = new_status
+
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(f"Error updating plugin status: {e}")
+            return False
 
 
 if __name__ == "__main__":

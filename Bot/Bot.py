@@ -25,6 +25,7 @@ class Bot:
         初始化bot对象
         :param config_file: 配置文件的路径（绝对/相对）
         """
+        log.start_logging()
         try:
             # 成员变量初始化
             self.config_file = config_file
@@ -44,15 +45,15 @@ class Bot:
 
             # 需要检查的关键配置项
             required_configs = {
-                "server_address": self.configLoader.get("server_address", "str"),
-                "client_address": self.configLoader.get("client_address", "str"),
-                "web_controller": self.configLoader.get("web_controller", "str"),
-                "bot_name": self.configLoader.get("bot_name", "str"),
-                "debug": self.configLoader.get("debug", "bool"),
-                "database_username": self.configLoader.get("database_username", "str"),
-                "database_address": self.configLoader.get("database_address", "str"),
-                "database_passwd": self.configLoader.get("database_passwd", "str"),
-                "database_name": self.configLoader.get("database_name", "str"),
+                "server_address": self.configLoader.get_init_config("server_address", "str"),
+                "client_address": self.configLoader.get_init_config("client_address", "str"),
+                "web_controller": self.configLoader.get_init_config("web_controller", "str"),
+                "bot_name": self.configLoader.get_init_config("bot_name", "str"),
+                "debug": self.configLoader.get_init_config("debug", "bool"),
+                "database_username": self.configLoader.get_init_config("database_username", "str"),
+                "database_address": self.configLoader.get_init_config("database_address", "str"),
+                "database_passwd": self.configLoader.get_init_config("database_passwd", "str"),
+                "database_name": self.configLoader.get_init_config("database_name", "str"),
             }
 
             # 检查哪些关键配置项是空的
@@ -116,6 +117,14 @@ class Bot:
         :return:
         """
         log.info("开始加载插件")
+        log.info("尝试从配置文件加载插件配置信息")
+        try:
+            self.configLoader.plugins_config_loader()
+        except Exception as e:
+            log.error(f"加载插件配置信息失败：{e}")
+            raise e
+        log.info("成功加载插件配置信息！")
+
         for _, name, ispkg in iter_modules([plugins_path]):
             if not ispkg:
                 continue  # 如果不是插件包就跳过
