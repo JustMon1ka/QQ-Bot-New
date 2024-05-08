@@ -132,7 +132,31 @@ hr {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 添加一些阴影效果提高互动性 */
 }
 
-/* plugins.html中的css */
+.error-indicator .error-circle {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-left: 10px; /* 保持与文字一定间距 */
+}
+
+.nav-item.highlight {
+    color: red; /* 错误时的文字颜色 */
+    animation: flashingBackground 1s infinite; /* 闪烁效果 */
+}
+
+@keyframes flashingBackground {
+    0% { background-color: initial; }
+    50% { background-color: yellow; }
+    100% { background-color: initial; }
+}
+
+/* log.html中的css */
 .log-container {
     margin: 10px;
     padding: 10px;
@@ -162,11 +186,28 @@ button:hover {
 
 .log-viewer {
     height: 700px;
-    background-color: white;
-    border: 1px solid #ccc;
-    overflow-y: auto;
+    background-color: #201f1f; /* 更改背景颜色 */
+    color: #ffffff; /* 设置字体颜色为浅色 */
+    border: 1px solid #0de8e8; /* 边框颜色调整为更深 */
+    overflow-y: auto; /* 保持自动滚动条 */
     padding: 5px;
-    font-family: monospace;
+    font-family: 'Courier New', monospace; /* 使用更适合代码显示的字体 */
+    position: relative; /* 为滚动按钮设置定位基点 */
+}
+
+.scroll-to-bottom {
+    display: none;
+    position: fixed; /* 或其他适当定位 */
+    bottom: 20px; /* 距离底部 */
+    right: 20px; /* 距离右侧 */
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #0b0b0b;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* 确保它位于顶层 */
+    opacity: 1; /* 确保完全不透明 */
+    visibility: visible; /* 确保是可见的 */
 }
 
 .pause-icon {

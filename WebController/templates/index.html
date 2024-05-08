@@ -9,9 +9,11 @@
 <body>
 
 <div id="navbar" class="sidebar">
-    <div class="nav-item" onclick="loadHtmlContent('baseInfo', './baseInfo.html')">基础信息</div>
-    <div class="nav-item" onclick="loadHtmlContent('logOutput', './log.html')">日志输出</div>
-    <div class="nav-item" onclick="loadHtmlContent('pluginsManagement', './plugins.html')">插件管理</div>
+    <div class="nav-item" id="nav-baseInfo" onclick="loadHtmlContent('baseInfo', './baseInfo.html')">基础信息</div>
+    <div class="nav-item" id="nav-logOutput" onclick="loadHtmlContent('logOutput', './log.html')">
+        日志输出 <span id="error-count" class="error-indicator"></span>
+    </div>
+    <div class="nav-item" id="nav-pluginsManagement" onclick="loadHtmlContent('pluginsManagement', './plugins.html')">插件管理</div>
 </div>
 
 <div id="main-content">
