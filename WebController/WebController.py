@@ -33,9 +33,13 @@ def create_web_app(web_controller):
 
     @app.route('/log.html')
     def log():
+        return render_template('log.html')
+
+    @app.route('/leave-log.html')
+    def leave_log():
         global total_lines_read, last_cleared_line
         total_lines_read = last_cleared_line
-        return render_template('log.html')
+        return jsonify(success=True)
 
     @app.route('/plugins.html')
     def plugins():
@@ -45,14 +49,22 @@ def create_web_app(web_controller):
     @app.route('/log.out')
     def log_file():
         global total_lines_read, last_cleared_line
+
         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         log_file_path = os.path.join(parent_dir, 'log.out')
 
         lines_to_send = []
-        with open(log_file_path, 'r') as file:
+        with open(log_file_path, 'r') as file:  # 以读模式打开文件
             all_lines = file.readlines()
-            lines_to_send = all_lines[total_lines_read:]
+            lines_to_send = all_lines[total_lines_read:]  # 提取新的日志行
             total_lines_read = len(all_lines)  # 更新读取的总行数
+
+        # 处理错误标记并准备写回文件
+        new_lines = [line.replace('[ERROR]', '[error]') if '[ERROR]' in line else line for line in all_lines]
+
+        # 将更新后的内容写回文件
+        with open(log_file_path, 'w') as file:
+            file.writelines(new_lines)
 
         return Response(''.join(lines_to_send), mimetype='text/plain')
 
@@ -129,9 +141,17 @@ class WebController:
             "error_plugins": error_plugins,
         }
 
+    # 创建一个不记录任何内容的日志器
+    class SilentLogger(object):
+        def write(self, *args, **kwargs):
+            pass
+
+        def flush(self, *args, **kwargs):
+            pass
+
     def run(self, ip, port):
         app = create_web_app(self)
-        server = WSGIServer((ip, port), app)
+        server = WSGIServer((ip, port), app, log=self.SilentLogger(), error_log=self.SilentLogger())
         server.serve_forever()
 
     def get_all_plugins_info(self):

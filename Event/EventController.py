@@ -12,6 +12,7 @@ from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
 from ConfigLoader.ConfigLoader import ConfigLoader
+
 log = Log()
 
 
@@ -52,7 +53,7 @@ class Event:
     flask_log = logging.getLogger('werkzeug')
     flask_log.setLevel(logging.ERROR)
 
-    def __init__(self, plugins_list: list[Plugins], config_loader: ConfigLoader, debug:bool):
+    def __init__(self, plugins_list: list[Plugins], config_loader: ConfigLoader, debug: bool):
         try:
             self.debug = debug
             self.plugins_list = plugins_list
@@ -63,10 +64,18 @@ class Event:
         else:
             log.info("初始化事件处理器成功！")
 
+    # 创建一个不记录任何内容的日志器
+    class SilentLogger(object):
+        def write(self, *args, **kwargs):
+            pass
+
+        def flush(self, *args, **kwargs):
+            pass
+
     def run(self, ip, port):
         # 启动新进程运行 Flask 应用
         app = create_event_app(self)
-        server = WSGIServer((ip, port), app)
+        server = WSGIServer((ip, port), app, log=self.SilentLogger(), error_log=self.SilentLogger())
         server.serve_forever()
 
     def handle_private_message(self, event):
@@ -112,4 +121,3 @@ if __name__ == "__main__":
     config_loader = None  # 假设的配置加载器
     event = Event(plugins_list, config_loader, debug=True)
     event.run('127.0.0.1', 5000, False)
-

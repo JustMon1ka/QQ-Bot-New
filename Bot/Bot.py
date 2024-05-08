@@ -145,7 +145,7 @@ class Bot:
                 raise e
 
     def run(self):
-        event = Event(self.plugins_list, self.configLoader, False)
+        event = Event(self.plugins_list, self.configLoader, self.debug)
         ip_address, port = self.client_address.split(":")
         # 使用Flask实例的run方法启动Flask服务
         log.info(f"尝试将监听服务启动在 {ip_address}:{port}")
@@ -158,6 +158,7 @@ class Bot:
         log.info(f"启动web controller服务 {ip_address}:{port}")
         web_server = spawn(webController.run, ip_address, int(port))
         log.info("web controller服务启动成功！")
+        # log.error("TEST ERROR")
 
         joinall([event_server, web_server])
 

@@ -1,7 +1,8 @@
-let isLoggingActive = true;
-let isCleared = false; // 标记是否点击过清除按钮
-let lastSize = 0;
-let logUpdateTimer = null;
+let logCache = ''; // 存储所有日志
+let errorCount = 0; // 错误日志计数
+let isDisplayActive = true; // 控制是否将日志显示到输出栏
+let nowSection = ''; // 记录当成处在的选项页的ID
+
 
 async function loadHtmlContent(sectionId, url, callback=null) {
     // 从服务器获取HTML内容
@@ -20,6 +21,10 @@ async function loadHtmlContent(sectionId, url, callback=null) {
 
     // 更新导航栏的活动状态
     updateActiveNav(sectionId);
+    if (nowSection === 'logOutput' && nowSection !== sectionId){
+        await fetch("./leave-log.html")
+    }
+    nowSection = sectionId
 
     // 如果是加载日志输出，初始化日志查看器
     if (sectionId === 'logOutput') {
@@ -63,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    loadLogContent();  // 启动日志加载功能
 });
 
 function setupCollapsible() {
@@ -99,71 +105,143 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 以下是用于log.html的js
 function initializeLogViewer() {
-    if (!isCleared) {
-        loadLogContent();
-    }
-
     const logOutputDiv = document.getElementById('log-output');
-    if (logOutputDiv) {
-        loadLogContent();
-    }
-
     const clearLogButton = document.getElementById('clear-log');
+    const toggleLogButton = document.getElementById('toggle-log');
+
+    // 监听清除日志按钮事件
     if (clearLogButton) {
         clearLogButton.addEventListener('click', function() {
             fetch('/clear-log', { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        document.getElementById('log-output').innerHTML = '';
-                        lastSize = 0;  // 确保清除后重置已读取的日志大小
+                        logOutputDiv.innerHTML = ''; // 清空日志显示
+                        logCache = ''; // 也清空日志缓存
+                        errorCount = 0; // 重置错误计数
                     }
-                })
+                });
         });
     }
 
-    const toggleLogButton = document.getElementById('toggle-log');
+    // 控制日志的持续加载和暂停
     if (toggleLogButton) {
         toggleLogButton.addEventListener('click', function() {
-            Element
-            let iconSpan = null;
-            if(isLoggingActive){
-                iconSpan = this.querySelector('span.pause-icon');
-            }
-            else {
-                iconSpan = this.querySelector('span.play-icon');
-            }
-            isLoggingActive = !isLoggingActive;
+            isDisplayActive = !isDisplayActive; // 切换显示状态
+            const iconSpan = this.querySelector(isDisplayActive ? 'span.play-icon' : 'span.pause-icon');
             iconSpan.classList.toggle('play-icon');
             iconSpan.classList.toggle('pause-icon');
-            if (isLoggingActive) {
-                loadLogContent();
+
+            // 如果重新激活显示并有缓存数据，立即显示
+            if (isDisplayActive && logCache) {
+                const logOutputDiv = document.getElementById('log-output');
+                logOutputDiv.innerHTML += logCache.replace(/\n/g, '<br>');
+                logCache = ''; // 清空缓存
             }
         });
+    }
+
+    const logViewer = document.querySelector('.log-viewer');
+    const scrollToBottomBtn = document.querySelector('.scroll-to-bottom');
+
+    logViewer.addEventListener('scroll', function() {
+        const isAtBottom = logViewer.scrollHeight - logViewer.clientHeight <= logViewer.scrollTop + 1;
+        // console.log(isAtBottom)
+        scrollToBottomBtn.style.display = isAtBottom ? 'none' : 'block';
+        // console.log(scrollToBottomBtn.style.display)
+    });
+
+    scrollToBottomBtn.addEventListener('click', function() {
+        logViewer.scrollTop = logViewer.scrollHeight;
+        scrollToBottomBtn.style.display = 'none';
+    });
+
+    // 初始调用更新滚动视图
+    updateLogViewer(logViewer, scrollToBottomBtn);
+}
+
+function updateLogViewer(logViewer, scrollToBottomBtn) {
+    // 检查是否处于底部，如果不是，则显示按钮
+    if (logViewer.scrollTop + logViewer.clientHeight < logViewer.scrollHeight) {
+        scrollToBottomBtn.style.display = 'block';
+    } else {
+        scrollToBottomBtn.style.display = 'none';
     }
 }
 
 async function loadLogContent() {
-    if (!isLoggingActive) {
-        clearTimeout(logUpdateTimer);
-        return;
+    while (true) { // 创建一个无限循环，始终运行直至页面关闭
+        const response = await fetch('/log.out');
+        const newText = await response.text();
+        logCache += newText; // 追加新日志到缓存
+        const scrollToBottomBtn = document.querySelector('.scroll-to-bottom');
+        if (scrollToBottomBtn){
+            console.log(scrollToBottomBtn.style.display)
+        }
+        // console.log(logCache)
+
+        // 检查新日志中是否含有错误
+        const newErrors = (newText.match(/\[ERROR\]/g) || []).length;
+        errorCount += newErrors;
+
+        if (newErrors > 0) {
+            updateLogAlert(errorCount); // 更新错误提示
+        }
+
+        if (nowSection === "logOutput") { // 只有当前选项页是“日志输出”时，才考虑将日志写入
+            if (isDisplayActive) { // 当显示激活时，更新日志输出栏
+                const logOutputDiv = document.getElementById('log-output');
+                logOutputDiv.innerHTML += formatLog(logCache.replace(/\n/g, '<br>')); // 添加新内容
+                logCache = ''; // 清空缓存
+                clearLogAlert()
+                if (scrollToBottomBtn){
+                    console.log(scrollToBottomBtn.style.display)
+                }
+            }
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 每1秒执行一次
     }
-
-    const response = await fetch('/log.out');
-    const text = await response.text();
-    const logOutputDiv = document.getElementById('log-output');
-    logOutputDiv.innerHTML += formatLog(text.replace(/\n/g, '<br>')); // 添加新内容
-
-    clearTimeout(logUpdateTimer); // 清除之前的定时器
-    logUpdateTimer = setTimeout(loadLogContent, 5000); // 设置新的定时器
 }
+
+function updateLogAlert(count) {
+    const logTab = document.getElementById('nav-logOutput');
+    const errorIndicator = document.getElementById('error-count');
+
+    if (count > 0) {
+        logTab.classList.add('highlight'); // 添加高亮类
+        errorIndicator.innerHTML = `<span class="error-circle">${count}</span>`; // 显示错误计数
+    } else {
+        clearLogAlert(); // 如果没有错误，清除高亮
+    }
+}
+
+function clearLogAlert() {
+    const logTab = document.getElementById('nav-logOutput');
+    const errorIndicator = document.getElementById('error-count');
+    logTab.classList.remove('highlight'); // 移除高亮类
+    errorIndicator.innerHTML = ''; // 清空错误计数显示
+    errorCount = 0;
+}
+
+// document.querySelectorAll('.nav-item').forEach(item => {
+//     item.addEventListener('click', function() {
+//         const sectionId = this.getAttribute('data-section');
+//         if (sectionId === 'logOutput') {
+//             document.getElementById('log-output').innerHTML = formatLog(logCache.replace(/\n/g, '<br>'));
+//             errorCount = 0; // 重置错误计数
+//             clearLogAlert(); // 清除错误提示
+//         }
+//     });
+// });
 
 function formatLog(text) {
     return text
         .replace(/\[ERROR\](.*?)<br>/g, '<span style="color: red;">[ERROR]$1</span><br>')
+        .replace(/\[error\](.*?)<br>/g, '<span style="color: #8d8d8d;">[ERROR]$1</span><br>')
         .replace(/\[WARNING\](.*?)<br>/g, '<span style="color: orange;">[WARNING]$1</span><br>')
         .replace(/\[INFO\](.*?)<br>/g, '<span style="color: green;">[INFO]$1</span><br>')
-        .replace(/\[DEBUG\](.*?)<br>/g, '<span style="color: blue;">[DEBUG]$1</span><br>');
+        .replace(/\[DEBUG\](.*?)<br>/g, '<span style="color: #5959ff;">[DEBUG]$1</span><br>');
 }
 
 // plugins.html中使用的js

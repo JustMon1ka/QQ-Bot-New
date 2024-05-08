@@ -14,7 +14,7 @@ class ErrorTest(Plugins):
     def __init__(self, server_address, bot):
         super().__init__(server_address, bot)
         self.name = "ErrorTest"
-        self.type = "Group"
+        self.type = "Private"
         self.author = "just monika"
         self.introduction = """
                                 这是一个测试插件，没有实际意义
@@ -22,7 +22,7 @@ class ErrorTest(Plugins):
                             """
         self.init_status()
 
-    def main(self, event: PrivateMessageEvent, debug, config):
+    async def main(self, event: PrivateMessageEvent, debug, config):
         enable = eval(config.get("enable"))
         if not enable:
             self.set_status("disable")
@@ -34,4 +34,6 @@ class ErrorTest(Plugins):
         if message == "error":
             self.set_status("error")
             log.debug("成功将该插件状态变为error", debug)
-            self.api.privateService.send_private_msg("成功将该插件状态变为error")
+            log.error(f"这个错误是由测试插件：{self.name}主动产生的，Nothing goes wrong！")
+            user_id = event.user_id
+            await self.api.privateService.send_private_msg(user_id, "成功将该插件状态变为error")
