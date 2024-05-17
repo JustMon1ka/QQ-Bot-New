@@ -3,7 +3,6 @@ let errorCount = 0; // 错误日志计数
 let isDisplayActive = true; // 控制是否将日志显示到输出栏
 let nowSection = ''; // 记录当成处在的选项页的ID
 
-
 async function loadHtmlContent(sectionId, url, callback=null) {
     // 从服务器获取HTML内容
     const response = await fetch(url);
@@ -175,10 +174,6 @@ async function loadLogContent() {
         const newText = await response.text();
         logCache += newText; // 追加新日志到缓存
         const scrollToBottomBtn = document.querySelector('.scroll-to-bottom');
-        if (scrollToBottomBtn){
-            console.log(scrollToBottomBtn.style.display)
-        }
-        // console.log(logCache)
 
         // 检查新日志中是否含有错误
         const newErrors = (newText.match(/\[ERROR\]/g) || []).length;
@@ -194,9 +189,6 @@ async function loadLogContent() {
                 logOutputDiv.innerHTML += formatLog(logCache.replace(/\n/g, '<br>')); // 添加新内容
                 logCache = ''; // 清空缓存
                 clearLogAlert()
-                if (scrollToBottomBtn){
-                    console.log(scrollToBottomBtn.style.display)
-                }
             }
         }
 
@@ -280,7 +272,6 @@ function searchPlugins() {
 }
 
 function togglePluginStatus(pluginName, currentStatus) {
-    console.log(currentStatus);  // Log the current status
     const newStatus = currentStatus === 'running' ? 'disable' : 'running';
     const statusElementId = `status-${pluginName.toLowerCase()}`;
     fetch(`/toggle-plugin-status/${pluginName}/${newStatus}`, {
@@ -311,4 +302,133 @@ function togglePluginStatus(pluginName, currentStatus) {
         }).catch(error => {
         console.error('Error updating plugin status:', error);
     });
+}
+
+function removeRow(button) {
+    const row = button.closest('tr');
+    row.remove();
+}
+
+function addRow(button) {
+    const table = button.previousElementSibling;
+    const tbody = table.querySelector('.table-body');
+    const newRow = tbody.insertRow();
+    const newCell = newRow.insertCell(0);
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.classList.add('textbox');
+    newCell.appendChild(input);
+
+    const removeButtonCell = newRow.insertCell(1);
+    const removeButton = document.createElement('button');
+    removeButton.textContent = '删除';
+    removeButton.classList.add('remove-button');
+    removeButton.setAttribute('onclick', 'removeRow(this)');
+    removeButtonCell.appendChild(removeButton);
+}
+
+function toggleEditConfig(container, button) {
+    const isEditing = button.textContent === '保存配置';
+    const inputs = container.querySelectorAll('input, .add-button, .remove-button');
+
+    inputs.forEach(input => {
+        if (isEditing) {
+            input.setAttribute('disabled', true);
+
+            // 如果是文本框，保存其值并替换为文本
+            if (input.tagName === 'INPUT' && input.type === 'text') {
+                const td = input.closest('td');
+                if (td && !td.querySelector('span')) {
+                    const span = document.createElement('span');
+                    span.textContent = input.value;
+                    td.appendChild(span);
+                    input.remove();
+                }
+            }
+        } else {
+            input.removeAttribute('disabled');
+
+            // 如果是 span，将其替换回文本框
+            const span = input.closest('td') ? input.closest('td').querySelector('span') : null;
+            if (span) {
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.value = span.textContent;
+                newInput.classList.add('textbox');
+                newInput.removeAttribute('disabled');
+                span.parentNode.appendChild(newInput);
+                span.remove();
+            }
+        }
+    });
+
+    if (isEditing) {
+        const configData = collectConfigData(container);
+        saveConfigData(configData);
+        loadHtmlContent("pluginsManagement", "./plugins.html")
+    }
+
+    button.textContent = isEditing ? '修改配置' : '保存配置';
+    button.style.backgroundColor = isEditing ? '#007bff' : '#ff0000'; // 切换按钮颜色
+    button.style.color = isEditing ? 'white' : 'white'; // 确保文本颜色正确
+}
+
+function collectConfigData(container) {
+    const configData = {};
+    const items = container.querySelectorAll('.config-item');
+
+    items.forEach(item => {
+        const label = item.querySelector('label');
+        if (label) {
+            const key = label.textContent.trim();
+            const input = item.querySelector('input');
+            if (input) {
+                if (input.type === 'checkbox') {
+                    configData[key] = input.checked;
+                } else {
+                    configData[key] = input.value;
+                }
+            }
+        }
+
+        const table = item.querySelector('table');
+        if (table) {
+            const key = table.querySelector('th').textContent.trim();
+            const values = [];
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const cell = row.querySelector('td:first-child');
+                if (cell) {
+                    values.push(cell.textContent.trim());
+                }
+            });
+            configData[key] = values;
+        }
+    });
+
+    configData["plugin_name"] = container.closest('.plugin-item').id;
+    return configData;
+}
+
+function saveConfigData(configData) {
+    fetch('/save_config', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(configData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('配置保存成功');
+            } else {
+                alert('配置保存失败: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('配置保存失败: ' + error.message);
+        });
 }

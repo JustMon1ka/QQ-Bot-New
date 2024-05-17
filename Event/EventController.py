@@ -25,9 +25,6 @@ def create_event_app(event_controller):
         data = request.get_json()
         post_type = data.get("post_type")
 
-        # 每次收到事件时都更新一次插件配置
-        event_controller.config_loader.plugins_config_loader()
-
         if post_type == "message":
             message_type = data.get("message_type")
             if message_type == "private":
@@ -66,16 +63,26 @@ class Event:
 
     # 创建一个不记录任何内容的日志器
     class SilentLogger(object):
-        def write(self, *args, **kwargs):
-            pass
+        def __init__(self):
+            self.allowed_loggers = ['ConsoleLogger', 'FileLogger']
+            self.console_logger = logging.getLogger('ConsoleLogger')
+            self.file_logger = logging.getLogger('FileLogger')
 
-        def flush(self, *args, **kwargs):
+        def write(self, message):
+            # 过滤并只记录来自自定义日志记录器的消息
+            if any(logger_name in message for logger_name in self.allowed_loggers):
+                if message.strip():  # 过滤空消息
+                    self.console_logger.info(message.strip())
+                    self.file_logger.info(message.strip())
+
+        def flush(self):
             pass
 
     def run(self, ip, port):
         # 启动新进程运行 Flask 应用
         app = create_event_app(self)
         server = WSGIServer((ip, port), app, log=self.SilentLogger(), error_log=self.SilentLogger())
+        # server = WSGIServer((ip, port), app)
         server.serve_forever()
 
     def handle_private_message(self, event):
@@ -88,9 +95,8 @@ class Event:
             plugins_author = plugins.author
             if plugins_type == "Private":
                 try:
-                    config = self.config_loader.get_plugins_config(plugins_name, "dict")
-                    # config = {"enable": True}
-                    await plugins.main(event, self.debug, config)
+                    plugins.load_config()
+                    await plugins.main(event, self.debug)
                 except Exception as e:
                     error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
                     plugins.set_status("error", error_info)
@@ -106,9 +112,8 @@ class Event:
             plugins_author = plugins.author
             if plugins_type == "Group":
                 try:
-                    config = self.config_loader.get_plugins_config(plugins_name, "dict")
-                    # config = {"enable": True}
-                    await plugins.main(event, self.debug, config)
+                    plugins.load_config()
+                    await plugins.main(event, self.debug)
                 except Exception as e:
                     error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
                     plugins.set_status("error", error_info)

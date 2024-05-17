@@ -1,5 +1,7 @@
 # Plugins/__init__.py
+import configparser
 import os
+import inspect
 
 from Interface.Api import Api
 
@@ -21,8 +23,11 @@ class Plugins:
         self.introduction = "xxx"
         self.status = None  # running/disable/error
         self.error_info = ""
+        self.config = None
+        caller_file = inspect.getfile(self.__class__)
+        self.config_path = os.path.join(os.path.dirname(os.path.abspath(caller_file)), 'config.ini')
 
-    def main(self, event, debug, config):
+    async def main(self, event, debug):
         raise NotImplementedError("方法还未实现")
 
     def set_status(self, status: str, error_info: str = ""):
@@ -42,6 +47,42 @@ class Plugins:
         :return: True or False
         """
         # 使用安全的方式来解析字符串为布尔值
-        enable_config = self.bot.configLoader.get_plugins_config(self.name, "dict").get("enable")
-        enable_bool = enable_config.strip().lower() == 'true'
-        self.status = "running" if enable_bool else "disable"
+        self.load_config()
+        enable = self.config.get("enable")
+        self.status = "running" if enable else "disable"
+
+    def load_config(self):
+        """
+        用于从插件的配置文件中加载插件的配置参数
+        :return: 不返回值，加载完成的配置直接赋值给self.config
+        """
+        def convert_value(value):
+            """
+            自动的尝试将配置文件中的信息转化为合适的数据类型
+            :param value:
+            :return:
+            """
+            # 尝试将值转换为布尔值
+            if value.lower() in ('true', 'false'):
+                return value.lower() == 'true'
+            # 尝试将值转换为逗号分隔的列表
+            if ',' in value:
+                items = value.split(',')
+                # 尝试将每个列表项转换为整数
+                try:
+                    return [int(item) for item in items]
+                except ValueError:
+                    return items
+            # 否则将值作为字符串返回
+            return value
+
+        config_path = self.config_path
+        config = configparser.ConfigParser()
+        config.read(config_path)
+
+        config_dict = {}
+        for section in config.sections():
+            for key, value in config.items(section):
+                config_dict[key] = convert_value(value)
+
+        self.config = config_dict

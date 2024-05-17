@@ -14,8 +14,8 @@ class WebControllerTestPlugins(Plugins):
                             """
         self.init_status()
 
-    async def main(self, event, debug, config):
-        enable = eval(config.get("enable"))
+    async def main(self, event, debug):
+        enable = self.config.get("enable")
         if not enable:
             self.set_status("disable")
             return

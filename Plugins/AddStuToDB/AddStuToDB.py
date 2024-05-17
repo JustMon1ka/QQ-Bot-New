@@ -33,9 +33,9 @@ class AddStuToDB(Plugins):
                             """
         self.init_status()
 
-    async def main(self, event: GroupMessageEvent, debug, config):
+    async def main(self, event: GroupMessageEvent, debug):
         # 首先判断该插件是否被启用，为否则直接退出
-        enable = eval(config.get("enable"))
+        enable = self.config.get("enable")
         if not enable:
             self.set_status("disable")
             return
@@ -51,7 +51,7 @@ class AddStuToDB(Plugins):
         if len_of_command < 2:
             return
 
-        command = config.get("command")
+        command = self.config.get("command")
         if command_list[1] != command:
             return
         else:  # 正式进入插件运行部分
@@ -60,7 +60,7 @@ class AddStuToDB(Plugins):
             try:  # 使用try-except来捕获异常，方便日志输出
                 if len_of_command == 2:
                     group_id = event.group_id
-                    effected_group: str = config.get("effected_group").split(",")
+                    effected_group: str = self.config.get("effected_group").split(",")
                     if str(group_id) not in effected_group:  # 在正常模式下，如果不是在指定的群内触发该命令，则不触发该插件
                         log.debug(f"{self.name}：pass", debug)
                         return
@@ -69,7 +69,7 @@ class AddStuToDB(Plugins):
                 elif len_of_command == 3:
                     if command_list[2] == "debug":
                         log.debug("以debug模式执行", debug)
-                        group_id = config.get("debug_group")
+                        group_id = self.config.get("debug_group")
                         await self.debug_mode(group_id)
             except Exception as e:
                 self.api.groupService.send_group_msg(from_group_id, message="命令执行失败！请查看输出日志")
