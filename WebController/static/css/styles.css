@@ -338,29 +338,151 @@ button:hover {
     font-weight: bold; /* 可选：使字体加粗 */
 }
 
-.button {
-    background-color: #4CAF50; /* 绿色背景 */
-    color: white; /* 白色文字 */
-    padding: 10px 20px; /* 内边距 */
-    border: none; /* 无边框 */
-    border-radius: 5px; /* 圆角边框 */
-    cursor: pointer; /* 鼠标悬停时显示指针 */
-    transition: background-color 0.3s, box-shadow 0.3s; /* 平滑过渡效果 */
+/* plugins.html中专门用于展示和修改配置文件部分的css */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
 }
 
-.button:hover {
-    background-color: #45a049; /* 深绿色背景 */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.button:active {
-    box-shadow: 0 5px #666; /* 点击时的阴影效果 */
-    transform: translateY(4px); /* 点击时轻微下移 */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
 }
 
-.button-disable {
-    background-color: #f44336; /* 红色背景 */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
 }
 
-.button-disable:hover {
-    background-color: #d73833; /* 深红色背景 */
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.textbox {
+    width: 90%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.add-button, .remove-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.add-button:hover, .remove-button:hover {
+    background-color: #218838;
+}
+
+.remove-button {
+    background-color: #dc3545;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
+}
+
+/* 添加边框 */
+.plugin-config-container {
+    border: 1px solid #31c4af;
+    padding: 10px;
+    margin-top: 10px;
+    position: relative; /* 相对定位 */
+}
+
+/* 分割线 */
+hr {
+    border: 0;
+    border-top: 1px solid #31c4af;
+    margin: 10px 0;
+}
+
+/* 表格样式 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.table th, .table td {
+    border: 1px solid #31c4af;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #31c4af;
+    cursor: pointer;
+}
+
+/* 按钮样式 */
+.edit-config-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute; /* 绝对定位 */
+    top: 10px;
+    right: 10px;
+}
+
+.edit-config-button:hover {
+    background-color: #0056b3;
+}
+
+/* 禁用状态样式 */
+input:disabled, .add-button:disabled, .remove-button:disabled {
+    background-color: #e0e0e0;
+    color: #595858;
+    cursor: not-allowed;
 }

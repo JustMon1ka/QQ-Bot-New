@@ -15,7 +15,7 @@ class TestPlugins(Plugins):
                             """
         self.init_status()
 
-    async def main(self, event, debug, config):
+    async def main(self, event, debug):
         """
         函数的入口，每个插件都必须有一个主入口 \n
         受到框架限制，所有插件的main函数的参数必须是这几个，不能多也不能少 \n
@@ -25,7 +25,7 @@ class TestPlugins(Plugins):
         :param config: 配置文件对象
         :return:
         """
-        enable = eval(config.get("enable"))
+        enable = self.config.get("enable")
         if not enable:
             self.set_status("disable")
             return

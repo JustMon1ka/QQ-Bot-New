@@ -27,11 +27,50 @@
                 <div class="error-message">报错信息：{{ plugin.other_info.error_info }}</div>
                 {% endif %}
 
-                <button class="button" id="button-{{ name }}" data-status="{{ plugin.status }}" onclick="togglePluginStatus('{{ name }}', this.getAttribute('data-status'))">切换状态</button>
+                <div class="plugin-config-container">
+                    <button class="edit-config-button" onclick="toggleEditConfig(this.closest('.plugin-config-container'), this)">修改配置</button>
+                    <br><br><br>
+                    <div id="plugin-config-{{ name }}">
+                        <hr>
+                        {% for key, value in plugin.config.items() %}
+                        <div class="config-item">
+                            {% if value is boolean %}
+                            <label for="config-{{ name }}-{{ key }}">{{ key }}</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="config-{{ name }}-{{ key }}-checkbox" {% if value %}checked{% endif %} disabled>
+                                <span class="slider" ></span>
+                            </label>
+                            {% elif value is string %}
+                            <label for="config-{{ name }}-{{ key }}">{{ key }}</label>
+                            <input type="text" class="textbox" id="config-{{ name }}-{{ key }}-textbox" value="{{ value }}" disabled>
+                            {% elif value is sequence %}
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>{{ key }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-body">
+                                {% for item in value %}
+                                <tr>
+                                    <td>{{ item }}</td>
+                                    <td><button class="remove-button" onclick="removeRow(this)" disabled>删除</button></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <button class="add-button" onclick="addRow(this)" disabled>添加</button>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
+    <script src="../static/js/pluginsManager.js"></script>
 </body>
 </html>

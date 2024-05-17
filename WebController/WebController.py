@@ -2,9 +2,11 @@ import configparser
 
 import requests
 from gevent.pywsgi import WSGIServer
-from flask import Flask, render_template, send_from_directory, Response, jsonify, session
+from flask import Flask, render_template, send_from_directory, Response, jsonify, session, request
 import logging
 import os
+
+from Plugins import Plugins
 
 total_lines_read = 0
 last_cleared_line = 0
@@ -74,13 +76,14 @@ def create_web_app(web_controller):
         last_cleared_line = total_lines_read
         return jsonify(success=True)
 
-    @app.route('/toggle-plugin-status/<plugin_name>/<new_status>', methods=['POST'])
-    def toggle_plugin_status(plugin_name, new_status):
-        result = WebController.update_plugin_status(web_controller, plugin_name, new_status)  # 调用更新状态的函数
-        if result:
-            return jsonify(success=True)
-        else:
-            return jsonify(success=False, message="无法更新插件状态")
+    @app.route('/save_config', methods=['POST'])
+    def save_config():
+        config_data = request.json
+        print(config_data)
+
+        result = WebController.save_config(web_controller, config_data)
+
+        return jsonify(result)
 
     app.logger.setLevel(logging.ERROR)
     return app
@@ -151,7 +154,8 @@ class WebController:
 
     def run(self, ip, port):
         app = create_web_app(self)
-        server = WSGIServer((ip, port), app, log=self.SilentLogger(), error_log=self.SilentLogger())
+        server = WSGIServer((ip, port), app, log=self.SilentLogger())
+        # server = WSGIServer((ip, port), app)
         server.serve_forever()
 
     def get_all_plugins_info(self):
@@ -171,6 +175,7 @@ class WebController:
                 "introduction": plugins_introduction,
                 "error_info": plugins_error_info
             }
+            plugins_info[plugins_name]["config"] = plugins.config
         return plugins_info
 
     def update_plugin_status(self, plugin_name, new_status):
@@ -196,6 +201,46 @@ class WebController:
         except Exception as e:
             print(f"Error updating plugin status: {e}")
             return False
+
+    def save_config(self, config_data):
+        plugin_name = config_data.get("plugin_name")
+        if not plugin_name:
+            return {'success': False, "message": "缺少插件名称"}
+
+        try:
+            for plugin in self.bot.plugins_list:
+                if plugin_name == plugin.name:
+                    config = configparser.ConfigParser()
+                    config.read(plugin.config_path)
+
+                    # 确保有一个合适的节名
+                    if not config.has_section(plugin_name):
+                        config.add_section(plugin_name)
+
+                    # 更新配置文件中的值
+                    for key, value in config_data.items():
+                        if key == "plugin_name":
+                            continue
+                        if isinstance(value, list):
+                            config.set(plugin_name, key, ','.join(map(str, value)))
+                        else:
+                            config.set(plugin_name, key, str(value))
+
+                    # 保存配置文件
+                    with open(plugin.config_path, 'w') as configfile:
+                        config.write(configfile)
+
+                    plugin.load_config()
+                    status = "running" if plugin.config.get("enable") else "disable"
+                    plugin.set_status(status=status)
+
+                    return {'success': True}
+                else:
+                    continue
+        except Exception as e:
+            return {'success': False, "message": f"后端执行操作时出错：{e}"}
+
+        return {'success': False, "message": f"没有找到{plugin_name}插件的本地配置文件！"}
 
 
 if __name__ == "__main__":

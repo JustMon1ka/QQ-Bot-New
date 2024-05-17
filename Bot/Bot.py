@@ -8,7 +8,7 @@ from ConfigLoader.ConfigLoader import ConfigLoader
 from Event.EventController import Event
 from Interface.Api import Api
 from Logging.PrintLog import Log
-from Plugins import plugins_path
+from Plugins import plugins_path, Plugins
 from WebController.WebController import WebController
 
 log = Log()
@@ -28,13 +28,13 @@ class Bot:
         log.start_logging()
         try:
             # 成员变量初始化
-            self.config_file = config_file
+            self.config_file: str = config_file
 
             # 初始化配置加载器
-            self.configLoader = ConfigLoader(config_file)
+            self.configLoader: ConfigLoader = ConfigLoader(config_file)
 
             # 初始化插件列表
-            self.plugins_list = []
+            self.plugins_list: list[Plugins] = []
 
             # 初始化数据库连接对象
             self.database = None
@@ -117,13 +117,6 @@ class Bot:
         :return:
         """
         log.info("开始加载插件")
-        log.info("尝试从配置文件加载插件配置信息")
-        try:
-            self.configLoader.plugins_config_loader()
-        except Exception as e:
-            log.error(f"加载插件配置信息失败：{e}")
-            raise e
-        log.info("成功加载插件配置信息！")
 
         for _, name, ispkg in iter_modules([plugins_path]):
             if not ispkg:
@@ -135,7 +128,8 @@ class Bot:
                 # 获取子包中的插件类，假设类名与模块名相同
                 PluginClass = getattr(plugin_module, name)
                 # 实例化插件
-                plugin_instance = PluginClass(self.server_address, self)
+                plugin_instance: Plugins = PluginClass(self.server_address, self)
+                plugin_instance.load_config()
                 # 添加到插件列表
                 self.plugins_list.append(plugin_instance)
                 log.info(

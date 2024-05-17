@@ -22,8 +22,8 @@ class SayHello(Plugins):
                             """
         self.init_status()
 
-    async def main(self, event: PrivateMessageEvent, debug, config):
-        enable = eval(config.get("enable"))
+    async def main(self, event: PrivateMessageEvent, debug):
+        enable = self.config.get("enable")
         if not enable:
             self.set_status("disable")
             return
@@ -33,7 +33,7 @@ class SayHello(Plugins):
         message = event.message
         if message == "Hello":
             user_id = event.user_id
-            reply_message = config.get("reply")
+            reply_message = self.config.get("reply")
             try:
                 await self.api.privateService.send_private_msg(user_id, reply_message)
             except Exception as e:
