@@ -11,15 +11,15 @@ class GroupMessageEvent:
     """
     def __init__(self, data):
         sender = data.get("sender")
-        self.user_id = sender.get("user_id")
-        self.nickname = sender.get("nickname")
-        self.card = sender.get("card")
-        self.role = sender.get("role")
+        self.user_id: int = sender.get("user_id")
+        self.nickname: str = sender.get("nickname")
+        self.card: str = sender.get("card")
+        self.role: str = sender.get("role")
 
-        self.message = data.get("message")
-        self.raw_message = data.get("raw_message")
-        self.message_id = data.get("message_id")
-        self.group_id = data.get("group_id")
+        self.message: str = data.get("message")
+        self.raw_message: str = data.get("raw_message")
+        self.message_id: int = data.get("message_id")
+        self.group_id: int = data.get("group_id")
         ...
 
     def post_event(self, debug):

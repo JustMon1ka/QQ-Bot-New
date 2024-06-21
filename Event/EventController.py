@@ -1,10 +1,9 @@
 import logging
 from multiprocessing import Process
-
+import traceback
 from flask import Flask, request
 import asyncio
 from threading import Thread
-
 from gevent.pywsgi import WSGIServer
 
 from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
@@ -98,7 +97,8 @@ class Event:
                     plugins.load_config()
                     await plugins.main(event, self.debug)
                 except Exception as e:
-                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
+                    traceback_info = traceback.format_exc()
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}\n详细信息：\n{traceback_info}"
                     plugins.set_status("error", error_info)
                     log.error(error_info)
 
@@ -115,7 +115,8 @@ class Event:
                     plugins.load_config()
                     await plugins.main(event, self.debug)
                 except Exception as e:
-                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}"
+                    traceback_info = traceback.format_exc()
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}\n详细信息：\n{traceback_info}"
                     plugins.set_status("error", error_info)
                     log.error(error_info)
 
