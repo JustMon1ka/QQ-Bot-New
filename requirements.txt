@@ -4,3 +4,4 @@ Flask==2.3.2
 gevent==24.2.1
 Requests==2.31.0
 SQLAlchemy==2.0.29
+aiomysql==0.2.0
