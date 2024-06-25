@@ -227,7 +227,7 @@ class WebController:
                             config.set(plugin_name, key, str(value))
 
                     # 保存配置文件
-                    with open(plugin.config_path, 'w') as configfile:
+                    with open(plugin.config_path, 'w', encoding="gbk") as configfile:
                         config.write(configfile)
 
                     plugin.load_config()
