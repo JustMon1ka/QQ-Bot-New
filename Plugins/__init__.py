@@ -78,7 +78,7 @@ class Plugins:
 
         config_path = self.config_path
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(config_path, encoding='gbk')
 
         config_dict = {}
         for section in config.sections():
