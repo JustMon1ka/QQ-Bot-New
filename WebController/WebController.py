@@ -211,7 +211,7 @@ class WebController:
             for plugin in self.bot.plugins_list:
                 if plugin_name == plugin.name:
                     config = configparser.ConfigParser()
-                    config.read(plugin.config_path)
+                    config.read(plugin.config_path, encoding='gbk')
 
                     # 确保有一个合适的节名
                     if not config.has_section(plugin_name):
@@ -227,7 +227,7 @@ class WebController:
                             config.set(plugin_name, key, str(value))
 
                     # 保存配置文件
-                    with open(plugin.config_path, 'w') as configfile:
+                    with open(plugin.config_path, 'w', encoding="gbk") as configfile:
                         config.write(configfile)
 
                     plugin.load_config()

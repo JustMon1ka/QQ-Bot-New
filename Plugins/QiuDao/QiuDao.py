@@ -1,9 +1,9 @@
-from sqlalchemy import Column, Integer, String, select
+from sqlalchemy import Column, Integer, select, BigInteger
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-from CQMessage.CQType import At
+from CQMessage.CQType import At, Face
 from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
@@ -11,14 +11,14 @@ from Plugins import Plugins
 log = Log()
 
 
-class SelectLineCount(Plugins):
+class QiuDao(Plugins):
     def __init__(self, server_address, bot):
         super().__init__(server_address, bot)
-        self.name = "SelectLineCount"  # 插件的名字（一定要和类的名字完全一致（主要是我能力有限，否则会报错））
+        self.name = "QiuDao"  # 插件的名字（一定要和类的名字完全一致（主要是我能力有限，否则会报错））
         self.type = "Group"  # 插件的类型（这个插件是在哪种消息类型中触发的）
         self.author = "just monika"  # 插件开发作者（不用留真名，但是当插件报错的时候需要根据这个名字找到对应的人来修）
         self.introduction = """
-                                根据学号从数据库中获取自己本学期一共在高程作业网提交了多少行代码
+                                根据高程期末考试成绩发送对应的表情
                             """
         self.init_status()
         self.all_line_count = None
@@ -36,7 +36,7 @@ class SelectLineCount(Plugins):
             while True:
                 try:
                     self.all_line_count = await self.select_all_info()
-                    log.debug("初始化line_count信息成功", debug)
+                    log.debug("初始化scores信息成功", debug)
                     break
                 except Exception as e:
                     log.debug(e, debug=debug)
@@ -76,9 +76,7 @@ class SelectLineCount(Plugins):
 
                 log.debug(f"查询到的信息是：{select_result}", debug)
                 if select_result is not None:
-                    count = select_result.get("count")
-                    rank = select_result.get("rank")
-                    total = select_result.get("total")
+                    score = select_result.get("score")
                     query_user_id = select_result.get("user_id")
                     if int(query_user_id) != user_id:
                         await self.api.groupService.send_group_msg(group_id=group_id,
@@ -87,12 +85,24 @@ class SelectLineCount(Plugins):
                         return
                     else:
                         await self.api.groupService.send_group_msg(group_id=group_id,
-                                                                   message=f"{At(qq=user_id)} "
-                                                                           f"本学期你一共提交了 {count} 行代码，"
-                                                                           f"代码量超过了同期课程的{(rank / total) * 100:.0f}%的学生！")
+                                                                   message=f"{At(qq=user_id)} {self.trans_score(score)}")
                 else:
                     await self.api.groupService.send_group_msg(group_id=group_id,
                                                                message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
+
+    def trans_score(self, score):
+        if score >= 90:
+            return Face(id=63)  # 这个是花的id
+        elif 80 <= score < 90:
+            return Face(id=56)  # 这个是刀的id
+        elif 70 <= score < 80:
+            return f"{Face(id=56)}{Face(id=56)}"
+        elif 60 <= score < 78:
+            return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}"
+        elif 0 <= score < 60:
+            return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}{Face(id=56)}"
+        else:
+            return Face(id=59)  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
 
     def query_by_stu_id(self, stu_id):
         data = self.all_line_count.get("data")
@@ -100,19 +110,7 @@ class SelectLineCount(Plugins):
             return None
         else:
             result = data.get(stu_id)
-            result["total"] = self.all_line_count.get("total")
             return result
-
-    Base = declarative_base()
-
-    class LineCount(Base):
-        __tablename__ = 'line_count'
-
-        rank = Column(Integer, primary_key=True, autoincrement=True)
-        class_id = Column(String(13), nullable=False)
-        stu_id = Column(String(7), unique=True, nullable=False)
-        count = Column(Integer)
-        user_id = Column(Integer, unique=True)
 
     async def select_all_info(self):
         async_session = sessionmaker(
@@ -123,17 +121,21 @@ class SelectLineCount(Plugins):
 
         async with async_session() as session:
             # 查询所有记录
-            stmt = select(self.LineCount)
+            stmt = select(self.Scores)
             result = await session.execute(stmt)
 
             # 将结果转换为字典
-            line_counts = result.scalars().all()
-            line_count_dict = {lc.stu_id: {'rank': lc.rank, 'count': lc.count, 'user_id': lc.user_id} for lc in
-                               line_counts}
-
-            # 查询最后一行数据的index值
-            last_row = await session.execute(select(self.LineCount).order_by(self.LineCount.rank.desc()).limit(1))
-            last_index = last_row.scalars().first().rank if last_row else None
+            scores = result.scalars().all()
+            scores_dict = {lc.stu_id: {'score': lc.score, 'user_id': lc.user_id} for lc in scores}
 
             # 返回包含所有信息的字典以及最后一行数据的index值
-            return {'data': line_count_dict, 'total': last_index}
+            return {'data': scores_dict}
+
+    Base = declarative_base()
+
+    class Scores(Base):
+        __tablename__ = 'score'
+        stu_id = Column(Integer, primary_key=True)
+        class_id = Column(Integer)
+        user_id = Column(BigInteger, unique=True)
+        score = Column(Integer)
