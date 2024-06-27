@@ -97,7 +97,7 @@ class QiuDao(Plugins):
             return Face(id=56)  # 这个是刀的id
         elif 70 <= score < 80:
             return f"{Face(id=56)}{Face(id=56)}"
-        elif 60 <= score < 78:
+        elif 60 <= score < 70:
             return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}"
         elif 0 <= score < 60:
             return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}{Face(id=56)}"
