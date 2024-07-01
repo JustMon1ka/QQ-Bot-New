@@ -91,18 +91,18 @@ class QiuDao(Plugins):
                                                                message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
 
     def trans_score(self, score):
-        if score >= 90:
+        if score == 0:
             return Face(id=63)  # 这个是花的id
-        elif 80 <= score < 90:
-            return Face(id=56)  # 这个是刀的id
-        elif 70 <= score < 80:
-            return f"{Face(id=56)}{Face(id=56)}"
-        elif 60 <= score < 70:
-            return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}"
-        elif 0 <= score < 60:
-            return f"{Face(id=56)}{Face(id=56)}{Face(id=56)}{Face(id=56)}"
+        elif score == 1:
+            return Face(id=112)  # 这个是刀的id
+        elif score == 2:
+            return f"{Face(id=112)}{Face(id=112)}"
+        elif score == 3:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}"
+        elif score == 4:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}"
         else:
-            return Face(id=59)  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
+            return f"你的分数是-114514，超越了全同济-100%的同学！你无敌啦孩子！"  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
 
     def query_by_stu_id(self, stu_id):
         data = self.all_line_count.get("data")
