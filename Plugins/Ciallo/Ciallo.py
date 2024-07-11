@@ -44,5 +44,5 @@ class Ciallo(Plugins):
                 return
             else:
                 audio_url = self.config.get("audio_url")
-                self.api.groupService.send_group_msg(group_id=group_id, message=f"message=[CQ:record,file={audio_url}]")
+                await self.api.groupService.send_group_msg(group_id=group_id, message=f"message=[CQ:record,file={audio_url}]")
         return
