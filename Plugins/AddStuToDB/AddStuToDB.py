@@ -34,6 +34,10 @@ class AddStuToDB(Plugins):
         self.init_status()
 
     async def main(self, event: GroupMessageEvent, debug):
+        # 对于涉及与数据库交互的插件，如果数据库功能没开启，则强制禁用该插件
+        if not self.bot.database_enable:
+            self.set_status("disable")
+            return
         # 首先判断该插件是否被启用，为否则直接退出
         enable = self.config.get("enable")
         if not enable:
