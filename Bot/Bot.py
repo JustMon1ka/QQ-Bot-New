@@ -50,6 +50,7 @@ class Bot:
                 "web_controller": self.configLoader.get_init_config("web_controller", "str"),
                 "bot_name": self.configLoader.get_init_config("bot_name", "str"),
                 "debug": self.configLoader.get_init_config("debug", "bool"),
+                "database_enable": self.configLoader.get_init_config("database_enable", "bool"),
                 "database_username": self.configLoader.get_init_config("database_username", "str"),
                 "database_address": self.configLoader.get_init_config("database_address", "str"),
                 "database_passwd": self.configLoader.get_init_config("database_passwd", "str"),
@@ -67,6 +68,7 @@ class Bot:
             self.web_controller = required_configs["web_controller"]
             self.bot_name = required_configs["bot_name"]
             self.debug = required_configs["debug"]
+            self.database_enable = required_configs["database_enable"]
             self.database_username = required_configs["database_username"]
             self.database_address = required_configs["database_address"]
             self.database_passwd = required_configs["database_passwd"]
@@ -102,6 +104,10 @@ class Bot:
         创建与数据库之间的连接
         :return:
         """
+        if not self.database_enable:
+            log.info("初始化配置{database_enable}项为：False，将不尝试连接数据库")
+            self.database = None
+            return
         log.info("开始创建与数据库之间的连接")
         try:
             self.database = create_async_engine(f'mysql+aiomysql://'
