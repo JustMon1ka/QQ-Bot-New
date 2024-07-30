@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot管理界面</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+
+<div id="navbar" class="sidebar">
+    <div class="nav-item" id="nav-baseInfo" onclick="loadHtmlContent('baseInfo', './baseInfo.html')">基础信息</div>
+    <div class="nav-item" id="nav-logOutput" onclick="loadHtmlContent('logOutput', './log.html')">
+        日志输出 <span id="error-count" class="error-indicator"></span>
+    </div>
+    <div class="nav-item" id="nav-pluginsManagement" onclick="loadHtmlContent('pluginsManagement', './plugins.html')">插件管理</div>
+</div>
+
+<div id="main-content">
+    <div id="baseInfo" class="content-section hidden"></div>
+    <!-- 这些div将会通过JavaScript加载内容 -->
+    <div id="logOutput" class="content-section hidden"></div>
+    <div id="pluginsManagement" class="content-section hidden"></div>
+</div>
+
+<script src="../static/js/script.js"></script>
+</body>
+</html>
