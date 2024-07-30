@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="search-bar">
+        <input type="text" id="plugin-search" placeholder="搜索插件..." onkeyup="searchPlugins()">
+    </div>
+    <div id="plugins-container">
+        {% for name, plugin in plugins.items() %}
+        <div class="plugin-item" id="{{ name }}">
+            <button onclick="togglePluginDetails('{{ name }}')" class="collapsible">
+                <div class="plugin-info">
+                    <div class="plugin-header">{{ name }}</div>
+                    <div class="plugin-type">Type: {{ plugin.type }}</div>
+                </div>
+                <div id="status-{{ name | lower }}" class="plugin-status {{ 'status-' + plugin.status | lower }}">{{ plugin.status | capitalize }}</div>
+            </button>
+            <div class="plugin-details">
+                <div>插件作者：{{ plugin.other_info.author }}</div>
+                <div class="plugin-introduction">插件简介：{{ plugin.other_info.introduction }}</div>
+
+                <!-- 条件显示错误信息 -->
+                {% if plugin.status == 'error' %}
+                <div class="error-message">报错信息：{{ plugin.other_info.error_info }}</div>
+                {% endif %}
+
+                <div class="plugin-config-container">
+                    <button class="edit-config-button" onclick="toggleEditConfig(this.closest('.plugin-config-container'), this)">修改配置</button>
+                    <br><br><br>
+                    <div id="plugin-config-{{ name }}">
+                        <hr>
+                        {% for key, value in plugin.config.items() %}
+                        <div class="config-item">
+                            {% if value is boolean %}
+                            <label for="config-{{ name }}-{{ key }}">{{ key }}</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="config-{{ name }}-{{ key }}-checkbox" {% if value %}checked{% endif %} disabled>
+                                <span class="slider" ></span>
+                            </label>
+                            {% elif value is string %}
+                            <label for="config-{{ name }}-{{ key }}">{{ key }}</label>
+                            <input type="text" class="textbox" id="config-{{ name }}-{{ key }}-textbox" value="{{ value }}" disabled>
+                            {% elif value is sequence %}
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>{{ key }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-body">
+                                {% for item in value %}
+                                <tr>
+                                    <td>{{ item }}</td>
+                                    <td><button class="remove-button" onclick="removeRow(this)" disabled>删除</button></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <button class="add-button" onclick="addRow(this)" disabled>添加</button>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="../static/js/pluginsManager.js"></script>
+</body>
+</html>
