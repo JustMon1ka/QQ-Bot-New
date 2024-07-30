@@ -24,6 +24,9 @@ class SelectLineCount(Plugins):
         self.all_line_count = None
 
     async def main(self, event: GroupMessageEvent, debug):
+        if not self.bot.database_enable:
+            self.set_status("disable")
+            return
         enable = self.config.get("enable")
         if not enable:
             self.set_status("disable")
