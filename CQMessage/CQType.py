@@ -40,14 +40,14 @@ class Image(CQMessage):
 
 
 class Record(CQMessage):
-    def __init__(self, file, magic=0, url=None, cache=1, proxy=1, timeout=None):
+    def __init__(self, file, magic=None, url=None, cache=None, proxy=None, timeout=None):
         """
         CQ:record 语音
         :param file: 语音文件名
-        :param magic: 发送时可选，默认 0，设置为 1 表示变声
+        :param magic: 发送时可选，设置为 1 表示变声
         :param url: 语音 URL，只有收到时才有该参数，发送时该参数无效
-        :param cache:  只在通过网络 URL 发送时有效，表示是否使用已缓存的文件，默认 1
-        :param proxy: 只在通过网络 URL 发送时有效，表示是否通过代理下载文件（需通过环境变量或配置文件配置代理），默认 1
+        :param cache:  只在通过网络 URL 发送时有效，表示是否使用已缓存的文件
+        :param proxy: 只在通过网络 URL 发送时有效，表示是否通过代理下载文件（需通过环境变量或配置文件配置代理）
         :param timeout: 只在通过网络 URL 发送时有效，单位秒，表示下载网络文件的超时时间，默认不超时
 
         发送时，file 参数除了支持使用收到的视频文件名直接发送外，还支持其它形式，参考 Image类。
