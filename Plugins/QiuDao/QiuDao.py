@@ -94,7 +94,8 @@ class QiuDao(Plugins):
                     await self.api.groupService.send_group_msg(group_id=group_id,
                                                                message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
 
-    def trans_score(self, score):
+    @classmethod
+    def trans_score(cls, score):
         if score == 0:
             return Face(id=63)  # 这个是花的id
         elif score == 1:
