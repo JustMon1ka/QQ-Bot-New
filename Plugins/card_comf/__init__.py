@@ -1,1 +1,0 @@
-from .card_comf import card_comf
