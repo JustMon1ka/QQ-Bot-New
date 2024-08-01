@@ -67,3 +67,4 @@ class Api:
             async with aiohttp.ClientSession() as session:
                 async with session.post(self.api.bot_api_address + "send_group_msg", params=params) as res:
                     return await res.json()
+                
