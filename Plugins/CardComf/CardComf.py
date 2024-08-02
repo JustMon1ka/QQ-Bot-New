@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+import re
 import string
 from tkinter import TRUE
 from token import STRING
@@ -61,8 +62,8 @@ class CardComf(Plugins):
                     log.debug(e, debug=debug)
                     continue
                 
-        message: str = event.message
-        command_list = message.split(" ")
+        message1: str = event.message
+        command_list = message1.split(" ")
         len_of_command = len(command_list)
         if command_list[0] != self.bot.bot_name:
             return
@@ -75,7 +76,7 @@ class CardComf(Plugins):
         else:  # 正式进入插件运行部分
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
-            
+            major_lists:list=self.config.get("major_lists")
             
             if group_id not in effected_group:
                 try:
@@ -88,8 +89,6 @@ class CardComf(Plugins):
             else:
                      group_memberlist=(await self.api.GroupService.get_group_member_list(self,group_id=group_id)).get("data")         
                      ingored_ids:list=self.config.get("ignored_ids")
-                     
-                     
                      
                      user_ids=[]
                      legality={}
@@ -105,22 +104,26 @@ class CardComf(Plugins):
                              stu_id = int(card_cuts[0])
                              select_result = None
                              try:
-                                    select_result = self.query_bystu_id(stu_id)
+                                  data = self.all_line_count.get("data")                  
+                                  select_result = data.get(stu_id)
                              except Exception as e:
                                  raise e
-                             if not select_result:
+                             if select_result:
                                  query_name = select_result.get("name")
                                  query_major =  select_result.get("major_short")
                                  query_group =  select_result.get("ingroup")
                                  full_major=""
+                                 stu_major = re.sub(r'\d', '', card_cuts[1])
                                  
                                  if not query_group:
                                      full_major+=query_major                                 
                                  else:
-                                     query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
+                                     full_major+=query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
                                      
                                  if card_cuts[2]!= query_name:
                                      legality[f'{members['user_id']}']=-1
+                                 elif stu_major not in major_lists:
+                                     legality[f'{members['user_id']}']=-4
                                  elif card_cuts[1]!= full_major:
                                      legality[f'{members['user_id']}']=-2
                              else:
@@ -180,7 +183,8 @@ class CardComf(Plugins):
                 stu_id = int(card_cuts[0])
                 select_result = None
                 try:
-                      select_result = self.query_bystu_id(stu_id)
+                                  data = self.all_line_count.get("data")                  
+                                  select_result = data.get(stu_id)
                 except Exception as e:
                                  raise e
                 query_major =  select_result.get("major_short")
@@ -189,23 +193,19 @@ class CardComf(Plugins):
                 if not query_group:
                        full_major+=query_major                                 
                 else:
-                       query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
+                       full_major+=query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
                 message += f"，名片:{members['card']},专业名称({card_cuts[1]})与名单册的信息({full_major})不符,提醒次数为{user_counts_map[members['user_id']]}"
          elif legality[f'{members['user_id']}']==-3:
                 message += f"，名片:{members['card']}],学号格式不正确,提醒次数为{user_counts_map[members['user_id']]}"
+         elif legality[f'{members['user_id']}']==-4:   
+                message += f"，名片:{members['card']}],专业名称非法,提醒次数为{user_counts_map[members['user_id']]}"
          if self.kick:
                 if user_counts_map[members['user_id']]==int(self.threshold):
                     message += ",移出群聊"
          message +="\n"
          return message
     
-    def query_bystu_id(self, stu_id):
-        data = self.all_line_count.get("data")
-        if stu_id not in data:
-            return None
-        else:
-            result = data.get(stu_id)
-            return result
+   
 
     async def select_all_infom(self):
         async_sessions = sessionmaker(
