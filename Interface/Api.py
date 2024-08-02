@@ -70,9 +70,8 @@ class Api:
             async with aiohttp.ClientSession() as session:
                 async with session.post(self.api.bot_api_address + "send_group_msg", params=params) as res:
                     return await res.json()
-                
 
-        async def mute_group_member(self, group_id, user_id, duration):
+        async def set_group_ban(self, group_id, user_id, duration):
             params = {
                 "group_id": group_id,
                 "user_id": user_id,
@@ -80,13 +79,13 @@ class Api:
             }
             async with aiohttp.ClientSession() as session:
                 async with session.post(self.api.bot_api_address + "set_group_ban", params=params) as res:
+                    return await res.json()
 
-        async def set_group_kick(self,group_id,user_id):
+        async def set_group_kick(self, group_id, user_id):
             params = {
                 "group_id": group_id,
                 "user_id": user_id,
             }
             async with aiohttp.ClientSession() as session:
-                async with session.post(self.api.bot_api_address + "set_group_kick",params=params) as res:
-
+                async with session.post(self.api.bot_api_address + "set_group_kick", params=params) as res:
                     return await res.json()
