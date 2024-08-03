@@ -38,7 +38,7 @@ class RecallPrevent(Plugins):
         operator_id = event.operator_id
         effected_group_id: list = self.config.get("effected_group")
         message_id = event.message_id
-        response = await self.api.OtherAPI.get_msg(self, message_id=event.message_id)
+        response = await self.api.MessageService.get_msg(self, message_id=event.message_id)
         latest_message = response['data']['message']
         if group_id not in effected_group_id:
             return
