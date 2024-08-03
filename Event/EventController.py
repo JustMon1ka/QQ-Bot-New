@@ -8,6 +8,7 @@ from gevent.pywsgi import WSGIServer
 
 from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
 from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
+from Event.EventHandler.NoticeEventHandler import GroupRecallEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
 from ConfigLoader.ConfigLoader import ConfigLoader
@@ -37,7 +38,14 @@ def create_event_app(event_controller):
                 thread = Thread(target=event_controller.handle_group_message, args=(event,))
                 thread.start()
         elif post_type == "notice":
-            ...
+            notice_type = data.get("notice_type")
+            if notice_type == "group_recall":
+                event = GroupRecallEvent(data)
+                event.post_event(event_controller.debug)
+                thread = Thread(target=event_controller.handle_group_recall, args=(event,))
+                thread.start()
+            else:
+                ...
 
         return 'OK', 200
 
@@ -119,7 +127,24 @@ class Event:
                     error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}\n详细信息：\n{traceback_info}"
                     plugins.set_status("error", error_info)
                     log.error(error_info)
+    
+    def handle_group_recall(self, event):
+        asyncio.run(self.run_group_recall(event))
 
+    async def run_group_recall(self, event):
+        for plugins in self.plugins_list:
+            plugins_type = plugins.type
+            plugins_name = plugins.name
+            plugins_author = plugins.author
+            if plugins_type == "GroupRecall":
+                try:
+                    plugins.load_config()
+                    await plugins.main(event, self.debug)
+                except Exception as e:
+                    traceback_info = traceback.format_exc()
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}\n详细信息：\n{traceback_info}"
+                    plugins.set_status("error", error_info)
+                    log.error(error_info)
 
 # 示例用法
 if __name__ == "__main__":
