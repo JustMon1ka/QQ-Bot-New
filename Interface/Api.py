@@ -94,7 +94,7 @@ class Api:
                 async with session.post(self.api.bot_api_address + "delete_msg",params=params) as res:
                     return await res.json()
 
-    class OtherAPI:
+    class MessageService:
         def __init__(self, api_instance):
             self.api = api_instance  # 保存对Api类实例的引用
 
