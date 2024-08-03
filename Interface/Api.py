@@ -85,3 +85,23 @@ class Api:
             async with aiohttp.ClientSession() as session:
                 async with session.post(self.api.bot_api_address + "set_group_kick", params=params) as res:
                     return await res.json()
+                
+        async def delete_msg(self, message_id):
+            params = {
+                "message_id": message_id,
+            }
+            async with aiohttp.ClientSession() as session:
+                async with session.post(self.api.bot_api_address + "delete_msg",params=params) as res:
+                    return await res.json()
+
+    class OtherAPI:
+        def __init__(self, api_instance):
+            self.api = api_instance  # 保存对Api类实例的引用
+
+        async def get_msg(self, message_id):
+            params = {
+                "message_id": message_id,
+            }
+            async with aiohttp.ClientSession() as session:
+                async with session.post(self.api.bot_api_address + "get_msg", params=params) as res:
+                    return await res.json()
