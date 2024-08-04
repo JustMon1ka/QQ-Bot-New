@@ -23,6 +23,7 @@ class GroupApprove(Plugins):
         self.init_status()
         self.real_answer = ""
         self.all_inform = None
+        self.spacer = ""
 
     async def main(self, event: GroupRequestEvent, debug):
         enable = self.config.get("enable")
@@ -48,6 +49,10 @@ class GroupApprove(Plugins):
         if group_id not in effected_group:
             return
         else:
+
+            self.spacer = self.config.get("spacer")
+            if not self.spacer:
+                self.spacer = " "
             sub_type = event.sub_type
             if sub_type != "add":
                 return
@@ -60,8 +65,7 @@ class GroupApprove(Plugins):
             if not self.request_conform(debug):
                 if reject_flag:
                     reasons = self.config.get("reason")
-                    spacer = self.config.get("spacer")
-                    reason = reasons[0]+spacer+reasons[1]
+                    reason = reasons[0] + self.spacer + reasons[1]
                     try:
                         await self.api.GroupService.set_group_add_request(self, flag=flag, approve="false",
                                                                           reason=reason)
@@ -71,8 +75,7 @@ class GroupApprove(Plugins):
                         log.debug(f"插件：{self.name}运行正确，成功将{group_id}中的正确入群申请{flag}拒绝，"
                                   f"拒绝理由为{reason}", debug)
             else:
-                spacer = self.config.get("spacer")
-                answer_cuts = self.real_answer.split(spacer)
+                answer_cuts = self.real_answer.split(self.spacer)
                 stu_id = int(answer_cuts[0])
                 if self.stu_id_conform(stu_id):
                     try:
@@ -86,8 +89,7 @@ class GroupApprove(Plugins):
 
 
     def request_conform(self, debug):
-        spacer = self.config.get("spacer")
-        answer_cuts = self.real_answer.split(spacer)
+        answer_cuts = self.real_answer.split(self.spacer)
         parts = self.config.get("parts")
         if len(answer_cuts) != int(parts):
             return False
