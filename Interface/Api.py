@@ -94,11 +94,12 @@ class Api:
                 async with session.post(self.api.bot_api_address + "delete_msg", params=params) as res:
                     return await res.json()
 
-        async def set_group_add_request(self, flag):
+        async def set_group_add_request(self, flag, approve="true", reason=""):
             params = {
                 "flag": flag,
                 "sub_type": "add",
-                "approve": "true"
+                "approve": approve,
+                "reason": reason
             }
             async with aiohttp.ClientSession() as session:
                 async with session.post(self.api.bot_api_address + "set_group_add_request", params=params) as res:
