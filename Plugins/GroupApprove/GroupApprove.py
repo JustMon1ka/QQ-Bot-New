@@ -27,6 +27,10 @@ class GroupApprove(Plugins):
 
     async def main(self, event: GroupRequestEvent, debug):
         enable = self.config.get("enable")
+
+        if not self.bot.database_enable:
+            self.set_status("disable")
+            return
         if not enable:
             self.set_status("disable")
             return
