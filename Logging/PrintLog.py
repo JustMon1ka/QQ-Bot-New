@@ -55,7 +55,7 @@ log_file_path = os.path.join(log_directory, 'log.out')
 def setup_file_logger():
     file_logger = logging.getLogger('FileLogger')
     file_logger.setLevel(logging.DEBUG)
-    file_handler = RotatingFileHandler(log_file_path, maxBytes=1024 * 1024 * 5, backupCount=5)
+    file_handler = RotatingFileHandler(log_file_path, maxBytes=1024 * 1024 * 5, backupCount=5, encoding='utf-8')
     file_formatter = logging.Formatter('%(asctime)s - [%(levelname)s] - %(message)s', datefmt='%Y.%m.%d-%H:%M:%S')
     file_handler.setFormatter(file_formatter)
     file_logger.addHandler(file_handler)
