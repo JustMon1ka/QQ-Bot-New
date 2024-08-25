@@ -56,7 +56,7 @@ def create_web_app(web_controller):
         log_file_path = os.path.join(parent_dir, 'log.out')
 
         lines_to_send = []
-        with open(log_file_path, 'r') as file:  # 以读模式打开文件
+        with open(log_file_path, 'r', encoding="utf-8") as file:  # 以读模式打开文件
             all_lines = file.readlines()
             lines_to_send = all_lines[total_lines_read:]  # 提取新的日志行
             total_lines_read = len(all_lines)  # 更新读取的总行数
@@ -65,7 +65,7 @@ def create_web_app(web_controller):
         new_lines = [line.replace('[ERROR]', '[error]') if '[ERROR]' in line else line for line in all_lines]
 
         # 将更新后的内容写回文件
-        with open(log_file_path, 'w') as file:
+        with open(log_file_path, 'w', encoding="utf-8") as file:
             file.writelines(new_lines)
 
         return Response(''.join(lines_to_send), mimetype='text/plain')

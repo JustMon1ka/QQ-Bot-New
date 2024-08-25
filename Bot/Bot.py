@@ -2,7 +2,6 @@ from importlib import import_module
 from pkgutil import iter_modules
 from sqlalchemy.ext.asyncio import create_async_engine
 from gevent import spawn, joinall
-import logging
 
 from ConfigLoader.ConfigLoader import ConfigLoader
 from Event.EventController import Event
@@ -10,6 +9,13 @@ from Interface.Api import Api
 from Logging.PrintLog import Log
 from Plugins import plugins_path, Plugins
 from WebController.WebController import WebController
+
+import logging
+
+# 设置 SQLAlchemy 相关的所有日志为 CRITICAL
+logging.getLogger('sqlalchemy').setLevel(logging.CRITICAL)
+logging.getLogger('sqlalchemy.engine').setLevel(logging.CRITICAL)
+logging.getLogger('sqlalchemy.orm').setLevel(logging.CRITICAL)
 
 log = Log()
 
@@ -90,7 +96,7 @@ class Bot:
         异步地完成Bot对象的初始化
         """
         try:
-            login_info = await self.api.botSelfInfo.get_login()
+            login_info = self.api.botSelfInfo.get_login()
             log.info(f"获取到Bot的登录信息：{login_info}")
             log.info("Bot初始化成功！")
             self.init_plugins()

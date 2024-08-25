@@ -22,7 +22,6 @@ class TestPlugins(Plugins):
         注意！所有的插件都需要写成异步的方法，防止某个插件出问题卡死时导致整个程序阻塞
         :param event: 消息事件体
         :param debug: 是否输出debug信息
-        :param config: 配置文件对象
         :return:
         """
         enable = self.config.get("enable")
