@@ -60,13 +60,13 @@ class SelectLineCount(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             if group_id not in effected_group:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
 
             user_id = event.user_id
             sender_card = event.card.split("-")
             if len(sender_card) != 3:
-                await self.api.groupService.send_group_msg(group_id=group_id,
+                self.api.groupService.send_group_msg(group_id=group_id,
                                                            message=f"{At(qq=user_id)} 群名片格式不正确，请改正后再进行查询")
                 return
             else:
@@ -84,17 +84,17 @@ class SelectLineCount(Plugins):
                     total = select_result.get("total")
                     query_user_id = select_result.get("user_id")
                     if int(query_user_id) != user_id:
-                        await self.api.groupService.send_group_msg(group_id=group_id,
+                        self.api.groupService.send_group_msg(group_id=group_id,
                                                                    message=f"{At(qq=user_id)} "
                                                                            f"该学号所有者的QQ号{query_user_id}，与你的QQ号{user_id}不匹配，不予查询！")
                         return
                     else:
-                        await self.api.groupService.send_group_msg(group_id=group_id,
+                        self.api.groupService.send_group_msg(group_id=group_id,
                                                                    message=f"{At(qq=user_id)} "
                                                                            f"本学期你一共提交了 {count} 行代码，"
                                                                            f"代码量超过了同期课程的{(rank / total) * 100:.0f}%的学生！")
                 else:
-                    await self.api.groupService.send_group_msg(group_id=group_id,
+                    self.api.groupService.send_group_msg(group_id=group_id,
                                                                message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
 
     def query_by_stu_id(self, stu_id):

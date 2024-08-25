@@ -63,21 +63,21 @@ class Repeater(Plugins):
                         return
             if recall:
                 try:
-                    await self.api.groupService.delete_msg(message_id=event.message_id)
+                    self.api.groupService.delete_msg(message_id=event.message_id)
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
                 else:
                     log.debug(f"插件：{self.name}运行正确，成功在{group_id}中撤回了一条消息：{event.message}", debug)
             if ban:
                 try:
-                    await self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id,
+                    self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id,
                                                           duration=duration)
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
                 else:
                     log.debug(f"插件：{self.name}运行正确，成功将用户{event.user_id}禁言{ban_time}", debug)
             try:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=reply_message)
+                self.api.groupService.send_group_msg(group_id=group_id, message=reply_message)
             except Exception as e:
                 log.error(f"插件：{self.name}运行时出错：{e}")
             else:
