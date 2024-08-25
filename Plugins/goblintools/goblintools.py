@@ -88,7 +88,7 @@ class goblintools(Plugins):
         :return: None
         """
         try:
-            await self.api.groupService.send_group_msg(group_id=group_id, message=message)
+            self.api.groupService.send_group_msg(group_id=group_id, message=message)
         except Exception as e:
             log.error(f"插件：{self.name}运行时出错：{e}")
         else:

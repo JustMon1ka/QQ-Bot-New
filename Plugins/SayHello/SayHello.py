@@ -35,7 +35,7 @@ class SayHello(Plugins):
             user_id = event.user_id
             reply_message = self.config.get("reply")
             try:
-                await self.api.privateService.send_private_msg(user_id, reply_message)
+                self.api.privateService.send_private_msg(user_id, reply_message)
             except Exception as e:
                 log.error(f"插件：{self.name}运行时出错：{e}")
             else:

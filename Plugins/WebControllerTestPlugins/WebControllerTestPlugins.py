@@ -27,4 +27,4 @@ class WebControllerTestPlugins(Plugins):
             for _ in range(15):
                 log.debug("Debug Test", True)
             user_id = event.user_id
-            await self.api.privateService.send_private_msg(user_id, "成功生成了一些随机日志")
+            self.api.privateService.send_private_msg(user_id, "成功生成了一些随机日志")

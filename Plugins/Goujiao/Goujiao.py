@@ -66,8 +66,8 @@ class Goujiao(Plugins):
                 at_id = at_match.group(1)  # 提取到的QQ号
                 bot_id = self.config.get("bot_id")
                 if at_id == bot_id: #试图禁言机器人触发反甲彩蛋
-                    await self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=duration)
-                    await self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n 还想搞我?没门")
+                    self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=duration)
+                    self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n 还想搞我?没门")
                     return
             else:
                 return  # 如果没有@某人，则返回
@@ -79,9 +79,9 @@ class Goujiao(Plugins):
         joined_string = " ".join(all_reply_message)  #分隔字符按需修改
 
         if group_id not in effected_group:
-            await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+            self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
             return
         else:
-            await self.api.groupService.set_group_ban(group_id=group_id, user_id=at_id, duration=60)
-            await self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=at_id)}"+"\n"+joined_string)
+            self.api.groupService.set_group_ban(group_id=group_id, user_id=at_id, duration=60)
+            self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=at_id)}"+"\n"+joined_string)
         return

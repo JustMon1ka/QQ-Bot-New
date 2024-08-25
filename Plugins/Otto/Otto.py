@@ -51,10 +51,10 @@ class Otto(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             if group_id not in effected_group:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
             elif len_of_command < 3:
-                await self.api.groupService.send_group_msg(group_id=group_id, message="Otto插件用法：<bot> otto "
+                self.api.groupService.send_group_msg(group_id=group_id, message="Otto插件用法：<bot> otto "
                                                                                       "<text>。缺少参数<text>")
                 return
             else:
@@ -62,7 +62,7 @@ class Otto(Plugins):
                 audio_id = await self.get_audio_id(text)
                 audio_url = f"https://ottohzys.wzq02.top//get/{audio_id}.ogg"
                 print(Record(file=audio_url))
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
 
         return
 
