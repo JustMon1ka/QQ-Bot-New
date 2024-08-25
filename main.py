@@ -1,8 +1,4 @@
 import asyncio
-import logging
-from multiprocessing import set_start_method
-
-
 from Bot.Bot import Bot
 
 
@@ -14,5 +10,6 @@ async def main():
     )
     await bot.initialize()
     bot.run()
+
 
 asyncio.run(main())

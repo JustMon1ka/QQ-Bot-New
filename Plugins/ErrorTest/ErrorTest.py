@@ -36,4 +36,4 @@ class ErrorTest(Plugins):
             log.debug("成功将该插件状态变为error", debug)
             log.error(f"这个错误是由测试插件：{self.name}主动产生的，Nothing goes wrong！")
             user_id = event.user_id
-            await self.api.privateService.send_private_msg(user_id, "成功将该插件状态变为error")
+            self.api.privateService.send_private_msg(user_id, "成功将该插件状态变为error")

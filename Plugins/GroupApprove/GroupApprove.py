@@ -71,7 +71,7 @@ class GroupApprove(Plugins):
                     reasons = self.config.get("reason")
                     reason = reasons[0] + self.spacer + reasons[1]
                     try:
-                        await self.api.GroupService.set_group_add_request(self, flag=flag, approve="false",
+                        self.api.GroupService.set_group_add_request(self, flag=flag, approve="false",
                                                                           reason=reason)
                     except Exception as e:
                         log.error(f"插件：{self.name}运行时出错：{e}")
@@ -83,7 +83,7 @@ class GroupApprove(Plugins):
                 stu_id = int(answer_cuts[0])
                 if self.stu_id_conform(stu_id):
                     try:
-                        await self.api.GroupService.set_group_add_request(self, flag=flag)
+                        self.api.GroupService.set_group_add_request(self, flag=flag)
                     except Exception as e:
                         log.error(f"插件：{self.name}运行时出错：{e}")
                     else:

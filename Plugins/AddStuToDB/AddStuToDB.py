@@ -93,7 +93,7 @@ class AddStuToDB(Plugins):
         :return:
         """
         # 通过api获取该群的群成员名单，并且进行处理后封装为类
-        res = await self.api.groupService.get_group_member_list(group_id)
+        res = self.api.groupService.get_group_member_list(group_id)
         student_info_list = self.handle_response(res)
 
         # 使用异步方法将获取到的名单全部添加到bot数据库的student_info表中

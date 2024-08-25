@@ -41,9 +41,9 @@ class Ciallo(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             if group_id not in effected_group:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
             else:
                 audio_url = self.config.get("audio_url")
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
         return

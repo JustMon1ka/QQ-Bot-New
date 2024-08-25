@@ -38,7 +38,7 @@ class RecallPrevent(Plugins):
             return
         user_id = event.user_id
         operator_id = event.operator_id
-        response = await self.api.MessageService.get_msg(self, message_id=event.message_id)
+        response = self.api.MessageService.get_msg(self, message_id=event.message_id)
         card_cuts = response['data']['sender']['card'].split("-")
         recalled_message = response['data']['message']
         for_everyone = bool(self.config.get("for_everyone"))
@@ -53,14 +53,14 @@ class RecallPrevent(Plugins):
         if user_id == operator_id:  # 正式进入插件运行部分
             reply_message = f"{At(qq=user_id)} 撤回的消息是：{recalled_message}"
             try:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=reply_message)
+                self.api.groupService.send_group_msg(group_id=group_id, message=reply_message)
             except Exception as e:
                 log.error(f"插件：{self.name}运行时出错：{e}")
             else:
                 log.debug(f"插件：{self.name}运行正确，成功向{group_id}发送了一条消息：{reply_message}", debug)
             if ban:
                 try:
-                    await self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id,
+                    self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id,
                                                               duration=duration)
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
