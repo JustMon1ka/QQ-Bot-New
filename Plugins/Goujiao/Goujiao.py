@@ -1,6 +1,7 @@
 import random
 import re
 import requests
+from CQMessage import CQHelper
 from CQMessage.CQType import At 
 from Plugins import Plugins
 
@@ -18,7 +19,8 @@ class Goujiao(Plugins):
                                 对狗叫的人禁言
                                 配置文件：
                                     enable = True 默认打开
-                                    use_bot_name 考虑到实际已移除
+                                    use_bot_name 考虑到实际使用已移除
+                                    url = 模型api,可以不改
                                     effected_group = 生效的群号
                                     command = 命令,不启用botname调用时发送 "@群成员 命令"触发狗叫制裁
                                     goujiao_warning =  触发后bot说的话
@@ -27,6 +29,7 @@ class Goujiao(Plugins):
                                     duration = 禁言时间,单位为秒
                                     use_rand_time = 禁言时间是否小范围随机
                                     auto_detect =  是否自动检测狗叫(要使用校园网
+                                    auto_ban = 是否自动检测后禁言
                             """
         self.init_status()
 
@@ -56,6 +59,7 @@ class Goujiao(Plugins):
         command = self.config.get("command")
         
         auto_detect = self.config.get("auto_detect") 
+        auto_ban = self.config.get("auto_ban")
         duration = int(self.config.get("duration"))
         bot_id = str(self.config.get("bot_id"))
         op_id = str(self.config.get("op_id"))
@@ -67,43 +71,42 @@ class Goujiao(Plugins):
         warning_prob = self.config.get("warning_prob")
 
         if auto_detect:
-            url = "http://10.80.43.210:5555"
+            url = self.config.get("url")
             request_data = {
             "message": message
             }
             res = requests.post(url, json=request_data)
             prob = res.json().get('Prob')
             result = res.json().get('Result')
-            print("prob:"+str(prob)+"  result:"+str(result)) 
+
+            if result == 1:
+                print("prob:"+str(prob)+"  result:"+str(result)) 
             #开启自动检测，只有检测到的时候会触发
-            if prob >= float(warning_prob) and result == 1 :  
-                        
+            if prob >= float(warning_prob) and result == 1 :      
                 if group_id not in effected_group:
                     self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                     return
                 else:
                     #自己勾脚怎么能算勾脚呢( 
                     self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n"+joined_string)
-                    if sender_id != op_id:
-                        self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=5) #自动不太准，先写一个时间
+                    if sender_id != op_id and auto_ban:
+                        self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=10) #自动不太准，先写一个短时间
                     return
-
            
         #没有指令或小于2直接return
         if len_of_command < 2 or command_list[1] != command:
             return
-        #分是否启用bot_name两种情况
-        
-        at_pattern = re.compile(r'\[CQ:at,qq=(\d+)\]')  # 使用正则表达式提取被@的QQ号
-        at_match = at_pattern.search(message)
-        if at_match:
-            at_id = at_match.group(1)  # 提取到的QQ号
-            if at_id == bot_id or at_id == op_id: #试图禁言机器人触发反甲彩蛋
-                self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=duration)
-                self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n 还想搞我?没门")
-                return
-        else:
-            return  # 如果没有@某人，则返回
+        # 遍历提取at的 qq 号
+        cq_objects = CQHelper.CQHelper.loads_cq(message)
+        for obj in cq_objects:
+            if isinstance(obj, At):
+                break  #只提第一个出现的QQ号
+        at_id = obj.qq       
+        if at_id == bot_id or at_id == op_id: #试图禁言机器人触发反甲彩蛋
+            self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=duration)
+            self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n 还想搞我?没门")
+            return
+                    
         if group_id not in effected_group:
             self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
             return
