@@ -85,7 +85,7 @@ class Goujiao(Plugins):
                     #自己勾脚怎么能算勾脚呢( 
                     self.api.groupService.send_group_msg(group_id=group_id, message=f"{At(qq=sender_id)}"+"\n"+joined_string)
                     if sender_id != op_id:
-                        self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=5)
+                        self.api.groupService.set_group_ban(group_id=group_id, user_id=sender_id, duration=5) #自动不太准，先写一个时间
                     return
 
            
