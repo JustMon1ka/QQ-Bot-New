@@ -93,10 +93,10 @@ class Anitabi(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             if group_id not in effected_group:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
             elif len_of_command < 3:
-                await self.api.groupService.send_group_msg(group_id=group_id, message="Anitabi插件用法：<bot> anitabi "
+                self.api.groupService.send_group_msg(group_id=group_id, message="Anitabi插件用法：<bot> anitabi "
                                                                                       "<text>。缺少参数<text>")
                 return
             else:
@@ -120,13 +120,13 @@ class Anitabi(Plugins):
                             for i in range(num):
                                 if i < len(name):
                                     new_image = image[i].replace('plan=h160', 'plan=h360')  
-                                    await self.api.groupService.send_group_msg(group_id=group_id, message=name[i])
-                                    await self.api.groupService.send_group_msg(group_id=group_id, message=f"{Image(file=new_image)}")
+                                    self.api.groupService.send_group_msg(group_id=group_id, message=name[i])
+                                    self.api.groupService.send_group_msg(group_id=group_id, message=f"{Image(file=new_image)}")
                                 else:
-                                    await self.api.groupService.send_group_msg(group_id=group_id, message="数量过多")
+                                    self.api.groupService.send_group_msg(group_id=group_id, message="数量过多")
                                     break
                             break
                 if number==0:
-                    await self.api.groupService.send_group_msg(group_id=group_id, message="未搜索到该动漫")
+                    self.api.groupService.send_group_msg(group_id=group_id, message="未搜索到该动漫")
 
         return

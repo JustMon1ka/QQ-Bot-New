@@ -42,10 +42,8 @@ class Guigbz(Plugins):
         
         gui=0
         Gui=["👻","高柏舟","gbz"]
-        len_of_Gui = len(Gui)
-        num = 0
-        while num< len_of_Gui:
-            if Gui[num] in message:
+        for item in Gui:
+            if item in message:
                 gui=1
                 break
             num += 1
@@ -53,14 +51,14 @@ class Guigbz(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             if group_id not in effected_group:
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
             else:
                 text = "给高柏舟跪啦"
                 audio_id = await self.get_audio_id(text)
                 audio_url = f"https://ottohzys.wzq02.top//get/{audio_id}.ogg"
                 print(Record(file=audio_url))
-                await self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
+                self.api.groupService.send_group_msg(group_id=group_id, message=f"{Record(file=audio_url)}")
 
         return
 
