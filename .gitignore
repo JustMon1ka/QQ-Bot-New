@@ -1,4 +1,3 @@
 # Ignore log files
 
 log.out
-__pycache__/

@@ -1,0 +1,38 @@
+2024.08.31-13:21:45 - [INFO] - 开始加载Bot配置文件，文件路径：BotConfig.ini
+2024.08.31-13:21:45 - [INFO] - 成功加载配置文件
+2024.08.31-13:21:45 - [INFO] - 加载的bot初始化配置信息如下：
+2024.08.31-13:21:45 - [INFO] - ('server_address', '127.0.0.1:5700')
+2024.08.31-13:21:45 - [INFO] - ('client_address', '127.0.0.1:5701')
+2024.08.31-13:21:45 - [INFO] - ('web_controller', '127.0.0.1:7001')
+2024.08.31-13:21:45 - [INFO] - ('bot_name', 'momo')
+2024.08.31-13:21:45 - [INFO] - ('debug', 'True')
+2024.08.31-13:21:45 - [INFO] - ('database_enable', 'False')
+2024.08.31-13:21:45 - [INFO] - ('database_username', 'admin')
+2024.08.31-13:21:45 - [INFO] - ('database_address', 'bot.database.address:3306')
+2024.08.31-13:21:45 - [INFO] - ('database_passwd', '<passwd>')
+2024.08.31-13:21:45 - [INFO] - ('database_name', 'bot')
+2024.08.31-13:21:45 - [INFO] - 获取到Bot的登录信息：LLOneBot server已启动
+2024.08.31-13:21:45 - [INFO] - Bot初始化成功！
+2024.08.31-13:21:45 - [INFO] - 开始加载插件
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：AddStuToDB，插件类型：Group，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Anitabi，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Ciallo，插件类型：Group，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：ErrorTest，插件类型：Private，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Gui602，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Guigbz，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Image，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Otto，插件类型：Group，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：QiuDao，插件类型：Group，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：SayHello，插件类型：Private，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：SelectLineCount，插件类型：Group，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：TestPlugins，插件类型：Private，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Voicemaker，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：Wallpaper，插件类型：Group，插件作者Yuyu
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：WebControllerTestPlugins，插件类型：Private，插件作者just monika
+2024.08.31-13:21:45 - [INFO] - 成功加载插件：goblintools，插件类型：Group，插件作者kiriko
+2024.08.31-13:21:45 - [INFO] - 初始化配置{database_enable}项为：False，将不尝试连接数据库
+2024.08.31-13:21:45 - [INFO] - 初始化事件处理器成功！
+2024.08.31-13:21:45 - [INFO] - 尝试将监听服务启动在 127.0.0.1:5701
+2024.08.31-13:21:45 - [INFO] - 监听服务启动成功！
+2024.08.31-13:21:45 - [INFO] - 启动web controller服务 127.0.0.1:7001
+2024.08.31-13:21:45 - [INFO] - web controller服务启动成功！
