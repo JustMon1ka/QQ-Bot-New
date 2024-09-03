@@ -29,7 +29,7 @@ class CardComf(Plugins):
                                 插件功能：检查群名片
                             """
         self.init_status()
-        self.all_line_count = None
+        self.all_stu_info = None
         self.at: bool = self.config.get('at')
         self.threshold = self.config.get('threshold')
         self.kick: bool = self.config.get('kick')
@@ -47,16 +47,22 @@ class CardComf(Plugins):
 
         if self.status != "error":
             self.set_status("running")
+        check_with_stu_list = self.config.get("check_with_stu_list")
+        check_assistants = self.config.get("check_assistants")
 
-        if self.all_line_count is None:
-            while True:
-                try:
-                    self.all_line_count = await self.select_all_infom()
-                    log.debug("初始化名片信息成功", debug)
-                    break
-                except Exception as e:
-                    log.debug(e, debug=debug)
-                    continue
+        if check_with_stu_list:
+            if self.all_stu_info is None:
+                while True:
+                    try:
+                        self.all_stu_info = await self.select_all_infom()
+                        log.debug("初始化学生名单信息成功", debug)
+                        break
+                    except Exception as e:
+                        log.debug(e, debug=debug)
+                        continue
+
+        if check_assistants:
+            assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
 
         message1: str = event.message
         command_list = message1.split(" ")
@@ -85,54 +91,74 @@ class CardComf(Plugins):
                               debug)
                 return
             else:
-                group_memberlist = (self.api.GroupService.get_group_member_list(self, group_id=group_id)).get(
+                group_member_list = (self.api.GroupService.get_group_member_list(self, group_id=group_id)).get(
                     "data")
                 ingored_ids: list = self.config.get("ignored_ids")
 
                 user_ids = []
                 legality = {}
 
-                for members in group_memberlist:
-                    mem_id = members['user_id']
-                    legality[f'{mem_id}'] = 1
+                for members in group_member_list:
+                    user_id = members['user_id']
+                    legality[f'{user_id}'] = 1
                     if members['user_id'] in ingored_ids:
                         continue
                     card_cuts = members['card'].split("-")
                     if len(card_cuts) != 3:
-                        legality[f'{mem_id}'] = 0
+                        if card_cuts[0] == "bot":
+                            continue
+                        legality[f'{user_id}'] = 0  # 代表群名片没有分三项
                     else:
-                        stu_id = int(card_cuts[0])
-                        select_result = None
                         try:
-                            data = self.all_line_count.get("data")
-                            select_result = data.get(stu_id)
-                        except Exception as e:
-                            raise e
-                        if select_result:
-                            query_name = select_result.get("name")
-                            query_major = select_result.get("major_short")
-                            query_group = select_result.get("ingroup")
-                            full_major = ""
-                            stu_major = re.sub(r'\d', '', card_cuts[1])
+                            stu_id = int(card_cuts[0])
+                        except:  # 学号不是纯数字
+                            legality[f'{user_id}'] = -6
+                            continue
+                        stu_major = card_cuts[1]
+                        stu_name = card_cuts[2]
+                        if stu_major == "助教" or stu_major == "围观":
+                            if check_assistants:
+                                if self.is_assistant(user_id, assistants_list):
+                                    pass
+                                else:
+                                    legality[f'{user_id}'] = -5  # 代表冒充助教或者没有进助教群的助教
+                            continue
 
-                            if not query_group:
-                                full_major += query_major
-                            else:
-                                full_major += query_major + (
-                                    f"0{query_group}" if query_group < 10 else str(query_group))
+                        if check_with_stu_list:  # 启用核对学生名单的情况
+                            select_result = None
+                            try:
+                                data = self.all_stu_info.get("data")
+                                select_result = data.get(stu_id)
+                            except Exception as e:
+                                raise e
+                            if select_result:
+                                query_name = select_result.get("name")
+                                query_major = select_result.get("major_short")  # 指专业简写
+                                query_group = select_result.get("ingroup")  # 指的是信xx中的xx
+                                full_major = ""
+                                stu_major = re.sub(r'\d', '', card_cuts[1])
 
-                            if card_cuts[2] != query_name:
-                                legality[f'{mem_id}'] = -1
-                            elif stu_major not in major_lists:
-                                legality[f'{mem_id}'] = -4
-                            elif card_cuts[1] != full_major:
-                                legality[f'{mem_id}'] = -2
+                                if not query_group:
+                                    full_major += query_major
+                                else:
+                                    full_major += query_major + (
+                                        f"0{query_group}" if query_group < 10 else str(query_group))  # 这一步是确定学生的专业名称
+
+                                if stu_name != query_name:  # 代表学生名字和学号不对应
+                                    legality[f'{user_id}'] = -1
+                                elif stu_major not in major_lists:  # 代表专业名称不在规定的名称列表内
+                                    legality[f'{user_id}'] = -4
+                                elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                    legality[f'{user_id}'] = -2
+                            else:  # 代表学生名单中没有这个学号的信息
+                                legality[f'{user_id}'] = -3
                         else:
-                            legality[f'{mem_id}'] = -3
+                            if stu_major not in major_lists:
+                                legality[f'{user_id}'] = -4
 
-                for members in group_memberlist:
-                    mem_id = members['user_id']
-                    if legality[f'{mem_id}'] != 1:
+                for members in group_member_list:
+                    user_id = members['user_id']
+                    if legality[f'{user_id}'] != 1:
                         user_ids.append(members['user_id'])
 
                 while True:
@@ -143,16 +169,16 @@ class CardComf(Plugins):
                         log.debug(e, debug=debug)
 
                 message: str = ""
-                for members in group_memberlist:
-                    mem_id = members['user_id']
-                    if legality[f'{mem_id}'] != 1:
+                for members in group_member_list:
+                    user_id = members['user_id']
+                    if legality[f'{user_id}'] != 1:
                         message += self.message_generate(legality=legality, members=members,
                                                          user_counts_map=user_counts_map)
 
                 kicks = 0
                 try:
                     self.api.groupService.send_group_msg(group_id=group_id, message=message)
-                    for members in group_memberlist:
+                    for members in group_member_list:
                         if kicks:
                             if user_counts_map[members['user_id']] == int(self.threshold):
                                 self.api.groupService.set_group_kick(group_id=group_id,
@@ -184,7 +210,7 @@ class CardComf(Plugins):
             stu_id = int(card_cuts[0])
             select_result = None
             try:
-                data = self.all_line_count.get("data")
+                data = self.all_stu_info.get("data")
                 select_result = data.get(stu_id)
             except Exception as e:
                 raise e
@@ -197,14 +223,35 @@ class CardComf(Plugins):
                 full_major += query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
             message += f"，名片:{members['card']},专业名称({card_cuts[1]})与名单册的信息({full_major})不符,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -3:
-            message += f"，名片:{members['card']}],学号格式不正确,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']}],该学号未在学生名单中,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -4:
             message += f"，名片:{members['card']}],专业名称非法,提醒次数为{user_counts_map[members['user_id']]}"
+        elif legality[f'{mem_id}'] == -5:
+            message += f"，名片:{members['card']}]，未在助教群中找到对应的QQ号,提醒次数为{user_counts_map[members['user_id']]}"
+        elif legality[f'{mem_id}'] == -6:
+            message += f"，名片:{members['card']}]，学号格式错误,提醒次数为{user_counts_map[members['user_id']]}"
         if self.kick:
             if user_counts_map[members['user_id']] == int(self.threshold):
                 message += ",移出群聊"
         message += "\n"
         return message
+
+    @classmethod
+    async def is_assistant(cls, user_id, assistant_list):
+        return user_id in assistant_list
+
+    def get_assistant_raw_list(self):
+        group_id = self.config.get("assistants_group")
+        return self.api.groupService.get_group_member_list(group_id=group_id).get("data")
+
+    @classmethod
+    def handle_raw_list(cls, raw_list):
+        assistants_user_id_list = []
+        for info in raw_list:
+            user_id = info.get("user_id")
+            assistants_user_id_list.append(user_id)
+
+        return assistants_user_id_list
 
     async def select_all_infom(self):
         async_sessions = sessionmaker(
@@ -214,7 +261,7 @@ class CardComf(Plugins):
         )
 
         async with async_sessions() as sessions:
-            raw_table = select(self.stu_imformation)
+            raw_table = select(self.stu_information)
             results = await sessions.execute(raw_table)
 
             indexs = results.scalars().all()
@@ -294,8 +341,8 @@ class CardComf(Plugins):
 
     Basement = declarative_base()
 
-    class stu_imformation(Basement):
-        __tablename__ = 'stu_imformation'
+    class stu_information(Basement):
+        __tablename__ = 'stu_information'
         stu_id = Column(Integer, primary_key=True)
         name = Column(String)
         major_short = Column(String)
