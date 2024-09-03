@@ -61,9 +61,6 @@ class CardComf(Plugins):
                         log.debug(e, debug=debug)
                         continue
 
-        if check_assistants:
-            assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
-
         message1: str = event.message
         command_list = message1.split(" ")
         len_of_command = len(command_list)
@@ -79,6 +76,9 @@ class CardComf(Plugins):
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
             major_lists: list = self.config.get("major_lists")
+
+            if check_assistants:
+                assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
 
             if group_id not in effected_group:
                 try:
