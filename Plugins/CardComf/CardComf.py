@@ -223,13 +223,13 @@ class CardComf(Plugins):
                 full_major += query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
             message += f"，名片:{members['card']},专业名称({card_cuts[1]})与名单册的信息({full_major})不符,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -3:
-            message += f"，名片:{members['card']}],该学号未在学生名单中,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']},该学号未在学生名单中,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -4:
-            message += f"，名片:{members['card']}],专业名称非法,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']},专业名称不正确,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -5:
-            message += f"，名片:{members['card']}]，未在助教群中找到对应的QQ号,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']}，未在助教群中找到对应的QQ号,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -6:
-            message += f"，名片:{members['card']}]，学号格式错误,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']}，学号格式错误,提醒次数为{user_counts_map[members['user_id']]}"
         if self.kick:
             if user_counts_map[members['user_id']] == int(self.threshold):
                 message += ",移出群聊"
