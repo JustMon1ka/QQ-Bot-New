@@ -34,7 +34,7 @@ class CardComf(Plugins):
         self.threshold = self.config.get('threshold')
         self.kick: bool = self.config.get('kick')
 
-    async def main(self, event, debug):
+    async def main(self, event: GroupMessageEvent, debug):
 
         enable = self.config.get("enable")
 
@@ -49,6 +49,9 @@ class CardComf(Plugins):
             self.set_status("running")
         check_with_stu_list = self.config.get("check_with_stu_list")
         check_assistants = self.config.get("check_assistants")
+        self.at: bool = self.config.get('at')
+        self.threshold = self.config.get('threshold')
+        self.kick: bool = self.config.get('kick')
 
         if check_with_stu_list:
             if self.all_stu_info is None:
@@ -75,10 +78,6 @@ class CardComf(Plugins):
         else:  # 正式进入插件运行部分
             group_id = event.group_id
             effected_group: list = self.config.get("effected_group")
-            major_lists: list = self.config.get("major_lists")
-
-            if check_assistants:
-                assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
 
             if group_id not in effected_group:
                 try:
@@ -91,6 +90,27 @@ class CardComf(Plugins):
                               debug)
                 return
             else:
+                major_lists: list = self.config.get("major_lists")
+                assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
+                operator_list = event.card.split("-")
+                if len(operator_list) == 3:
+                    operator_role = operator_list[1]
+                    if operator_role != "助教" and operator_role != "围观":
+                        self.api.groupService.send_group_msg(group_id=group_id, message="你无权使用此功能")
+                        return
+                    else:
+                        if self.is_assistant(event.user_id, assistants_list):
+                            pass
+                        else:
+                            self.api.groupService.send_group_msg(group_id=group_id, message="big胆，敢冒充助教")
+                            return
+                else:
+                    if event.user_id == "278787983":  # 这个是渣哥的QQ号
+                        pass
+                    else:
+                        self.api.groupService.send_group_msg(group_id=group_id, message="连自己名片都改不对还想检查别人名片？")
+                        return
+
                 group_member_list = (self.api.GroupService.get_group_member_list(self, group_id=group_id)).get(
                     "data")
                 ingored_ids: list = self.config.get("ignored_ids")
@@ -115,6 +135,7 @@ class CardComf(Plugins):
                             legality[f'{user_id}'] = -6
                             continue
                         stu_major = card_cuts[1]
+                        stu_major = re.sub(r'\d', '', stu_major)
                         stu_name = card_cuts[2]
                         if stu_major == "助教" or stu_major == "围观":
                             if check_assistants:
@@ -136,7 +157,6 @@ class CardComf(Plugins):
                                 query_major = select_result.get("major_short")  # 指专业简写
                                 query_group = select_result.get("ingroup")  # 指的是信xx中的xx
                                 full_major = ""
-                                stu_major = re.sub(r'\d', '', card_cuts[1])
 
                                 if not query_group:
                                     full_major += query_major
@@ -237,7 +257,7 @@ class CardComf(Plugins):
         return message
 
     @classmethod
-    async def is_assistant(cls, user_id, assistant_list):
+    def is_assistant(cls, user_id, assistant_list):
         return user_id in assistant_list
 
     def get_assistant_raw_list(self):
