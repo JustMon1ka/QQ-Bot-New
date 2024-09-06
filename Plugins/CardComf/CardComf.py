@@ -154,22 +154,22 @@ class CardComf(Plugins):
                                 raise e
                             if select_result:
                                 query_name = select_result.get("name")
-                                query_major = select_result.get("major_short")  # 指专业简写
-                                query_group = select_result.get("ingroup")  # 指的是信xx中的xx
-                                full_major = ""
+                                # query_major = select_result.get("major_short")  # 指专业简写
+                                # query_group = select_result.get("ingroup")  # 指的是信xx中的xx
+                                # full_major = ""
 
-                                if not query_group:
-                                    full_major += query_major
-                                else:
-                                    full_major += query_major + (
-                                        f"0{query_group}" if query_group < 10 else str(query_group))  # 这一步是确定学生的专业名称
+                                # if not query_group:
+                                #     full_major += query_major
+                                # else:
+                                #     full_major += query_major + (
+                                #         f"0{query_group}" if query_group < 10 else str(query_group))  # 这一步是确定学生的专业名称
 
                                 if stu_name != query_name:  # 代表学生名字和学号不对应
                                     legality[f'{user_id}'] = -1
                                 elif stu_major not in major_lists:  # 代表专业名称不在规定的名称列表内
                                     legality[f'{user_id}'] = -4
-                                elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
-                                    legality[f'{user_id}'] = -2
+                                # elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                #     legality[f'{user_id}'] = -2
                             else:  # 代表学生名单中没有这个学号的信息
                                 legality[f'{user_id}'] = -3
                         else:
@@ -285,8 +285,9 @@ class CardComf(Plugins):
             results = await sessions.execute(raw_table)
 
             indexs = results.scalars().all()
-            indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major_short, 'ingroup': lc.ingroup} for lc in
-                           indexs}
+            # indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major_short, 'ingroup': lc.ingroup} for lc in
+            #                indexs}
+            indexs_dict = {lc.stu_id: {'name': lc.name} for lc in indexs}
 
             return {'data': indexs_dict}
 
@@ -365,8 +366,8 @@ class CardComf(Plugins):
         __tablename__ = 'stu_information'
         stu_id = Column(Integer, primary_key=True)
         name = Column(String)
-        major_short = Column(String)
-        ingroup = Column(Integer)
+        # major_short = Column(String)
+        # ingroup = Column(Integer)
 
     class warn_counts(Basement):
         __tablename__ = 'warn_counts'
