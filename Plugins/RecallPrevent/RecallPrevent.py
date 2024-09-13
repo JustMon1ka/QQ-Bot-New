@@ -45,11 +45,14 @@ class RecallPrevent(Plugins):
         ban = bool(self.config.get("ban"))
         ban_time = self.config.get("ban_time")
         ban_time_cuts = ban_time.split(":")
+        ignored_ids: list = self.config.get("ignored_ids")
         duration = int(ban_time_cuts[0]) * 3600 + int(ban_time_cuts[1]) * 60 + int(ban_time_cuts[0])
         if len(card_cuts) == 3:
             if card_cuts[1] == "助教":
                 if not for_everyone:
                     return
+        if event.user_id in ignored_ids:
+            return
         if user_id == operator_id:  # 正式进入插件运行部分
             reply_message = f"{At(qq=user_id)} 撤回的消息是：{recalled_message}"
             try:
