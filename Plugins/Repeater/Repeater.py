@@ -47,9 +47,11 @@ class Repeater(Plugins):
             self.counts = 1
         else:
             self.counts += 1
-             
+
+        log.debug(f"{self.message_latest}", debug)
         #到达阈值时正式进行插件的运行
         if self.counts >= threshold:
+            ignored_ids: list = self.config.get("ignored_ids")
             reply_message = self.config.get("normal_message")
             card_cuts = event.card.split("-")
             ban_time = self.config.get("ban_time")
@@ -61,6 +63,8 @@ class Repeater(Plugins):
                         reply_message = self.config.get("special_message")
                     else:
                         return
+            if event.user_id in ignored_ids:
+                return
             if recall:
                 try:
                     self.api.groupService.delete_msg(message_id=event.message_id)
