@@ -48,7 +48,6 @@ class Repeater(Plugins):
         else:
             self.counts += 1
 
-        log.debug(f"{self.message_latest}", debug)
         #到达阈值时正式进行插件的运行
         if self.counts >= threshold:
             ignored_ids: list = self.config.get("ignored_ids")
