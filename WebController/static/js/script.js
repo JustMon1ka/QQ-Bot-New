@@ -25,6 +25,14 @@ async function loadHtmlContent(sectionId, url, callback=null) {
     }
     nowSection = sectionId
 
+    //边栏的加载长度
+    const navbar = document.getElementById('navbar');
+    if (sectionId === 'pluginsManagement') {
+        navbar.style.height = 'auto'; 
+    } else {
+        navbar.style.height = ''; //恢复默认高度
+    }
+    
     // 如果是加载日志输出，初始化日志查看器
     if (sectionId === 'logOutput') {
         initializeLogViewer();
