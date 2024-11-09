@@ -7,8 +7,8 @@ body {
 }
 
 #navbar {
-    background-color: #007BFF;
-    width: 200px;
+    background-color: #0d7ccb;
+    width: 110px;
     height: 100vh;
     padding: 20px;
 }
@@ -26,12 +26,12 @@ body {
 
 #main-content {
     flex-grow: 1;
-    background-color: #f0f0f0;
+    background-color: #3ca1d7;
     padding: 20px;
 }
 
 .content-section {
-    background-color: #ffffff;
+    background-color: #6fc0ec;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
@@ -54,12 +54,12 @@ body {
 }
 
 .details-section {
-    border-top: 2px solid #007BFF;
+    border-top: 2px solid #0986c0;
     padding-top: 10px;
 }
 
 .bot-info-container {
-    border: 2px solid #007BFF;
+    border: 2px solid #0e9adb;
     padding: 20px;
     margin: 20px;
     position: relative;
@@ -67,12 +67,12 @@ body {
 
 .bot-info-container::before {
     content: "运行基础信息";
-    color: #007BFF;
+    color: #0e9adb;
     font-size: 16px;
     position: absolute;
     top: -10px;
     left: 20px;
-    background: white;
+    background: rgb(230, 247, 255);
     padding: 0 5px;
 }
 
@@ -97,7 +97,7 @@ body {
     padding: 10px;
     max-height: 0;
     overflow: hidden;
-    background-color: #f1f1f1;
+    background-color: #6fc0ec;
     border-top: 2px solid #BBDEFB;
     transition: max-height 0.3s ease-out;
 }
@@ -113,7 +113,7 @@ hr {
 
 .plugin-item {
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    border: 1px solid #84cbef;
     border-radius: 5px;
     margin-bottom: 10px; /* 为每个选项卡之间添加一些间隙 */
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -123,12 +123,13 @@ hr {
     display: block;
     padding: 10px 15px;
     text-decoration: none;
-    color: #333;
+    color: white;
     font-size: 16px;
 }
 
 .plugin-item:hover {
-    background-color: #e1e1e1; /* 悬停时改变背景色 */
+    background-color: #ace2fd; /* 悬停时改变背景色 */
+    color: black;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 添加一些阴影效果提高互动性 */
 }
 
@@ -174,7 +175,7 @@ button {
     margin-right: 10px;
     font-size: 16px;
     color: white;
-    background-color: #007BFF;
+    background-color: #0e9adb;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -264,13 +265,13 @@ button:hover {
 }
 
 .collapsible:hover {
-    background-color: #ccc;
+    background-color: #69dcff;
 }
 
 .plugin-item {
     display: flex;
     flex-direction: column;
-    background-color: #2ad7dd;
+    background-color: #0e8db4;
     border-radius: 8px;
     margin: 10px 0;
     overflow: hidden;  // 保持内容隐藏，直到被展开
@@ -305,7 +306,7 @@ button:hover {
 }
 
 .status-running {
-    background-color: #4CAF50;
+    background-color: #3ae440;
 }
 
 .status-disable {
@@ -320,7 +321,7 @@ button:hover {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-out;
-    background-color: #e0e0e0;
+    background-color: #b4e1ff;
     padding: 0 20px;
 }
 
@@ -409,7 +410,7 @@ input:checked + .slider:before {
 }
 
 .add-button, .remove-button {
-    background-color: #28a745;
+    background-color: #19b01e;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -419,20 +420,20 @@ input:checked + .slider:before {
 }
 
 .add-button:hover, .remove-button:hover {
-    background-color: #218838;
+    background-color: #45ec4a;
 }
 
 .remove-button {
-    background-color: #dc3545;
+    background-color: #c82333;
 }
 
 .remove-button:hover {
-    background-color: #c82333;
+    background-color: #f15959;
 }
 
 /* 添加边框 */
 .plugin-config-container {
-    border: 1px solid #31c4af;
+    border: 1px solid #3198c4;
     padding: 10px;
     margin-top: 10px;
     position: relative; /* 相对定位 */
@@ -441,7 +442,7 @@ input:checked + .slider:before {
 /* 分割线 */
 hr {
     border: 0;
-    border-top: 1px solid #31c4af;
+    border-top: 1px solid #06a223;
     margin: 10px 0;
 }
 
@@ -459,13 +460,13 @@ hr {
 }
 
 .table th {
-    background-color: #31c4af;
+    background-color: #36c9e0;
     cursor: pointer;
 }
 
 /* 按钮样式 */
 .edit-config-button {
-    background-color: #007bff;
+    background-color: #bc3131;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -477,7 +478,7 @@ hr {
 }
 
 .edit-config-button:hover {
-    background-color: #0056b3;
+    background-color: #f15959;
 }
 
 /* 禁用状态样式 */
