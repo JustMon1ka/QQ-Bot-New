@@ -90,9 +90,11 @@ class CardComf(Plugins):
                               debug)
                 return
             else:
+                school_lists: list = self.config.get("school_lists")
                 major_lists: list = self.config.get("major_lists")
                 assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
                 operator_list = event.card.split("-")
+                check_23: bool = self.config.get("check_23")
                 if len(operator_list) == 3:
                     operator_role = operator_list[1]
                     if operator_role != "助教" and operator_role != "围观":
@@ -134,6 +136,9 @@ class CardComf(Plugins):
                         except:  # 学号不是纯数字
                             legality[f'{user_id}'] = -6
                             continue
+                        if stu_id // 1000000 != 2:  # 学号不是七位
+                            legality[f'{user_id}'] = -6
+                            continue
                         stu_major = card_cuts[1]
                         stu_major = re.sub(r'\d', '', stu_major)
                         stu_name = card_cuts[2]
@@ -163,18 +168,40 @@ class CardComf(Plugins):
                                 else:
                                     full_major += query_major + (
                                         f"0{query_group}" if query_group < 10 else str(query_group))  # 这一步是确定学生的专业名称
-
+                                school_lists: list = self.config.get("school_lists")
+                                stu_id = card_cuts[0]
                                 if stu_name != query_name:  # 代表学生名字和学号不对应
                                     legality[f'{user_id}'] = -1
-                                elif stu_major not in major_lists:  # 代表专业名称不在规定的名称列表内
-                                    legality[f'{user_id}'] = -4
-                                elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
-                                    legality[f'{user_id}'] = -2
+                                elif stu_id.startswith("24"):
+                                    if stu_major not in school_lists:
+                                        legality[f'{user_id}'] = -4
+                                    elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                        legality[f'{user_id}'] = -2
+                                else:  # 将降转和应届学生区分
+                                    if self.is_assistant(user_id, assistants_list):  # 在助教群但没有更改为助教或围观
+                                        legality[f'{user_id}'] = -7
+                                    elif stu_major not in school_lists:
+                                        if check_23:  # 启用核对23届信息的情况
+                                            legality[f'{user_id}'] = -4
+                                        else:
+                                            legality[f'{user_id}'] = 1
+                                    elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                        legality[f'{user_id}'] = -2
                             else:  # 代表学生名单中没有这个学号的信息
                                 legality[f'{user_id}'] = -3
                         else:
-                            if stu_major not in major_lists:
-                                legality[f'{user_id}'] = -4
+                            stu_id = card_cuts[0]
+                            if stu_id.startswith("24"):
+                                if stu_major not in school_lists:
+                                    legality[f'{user_id}'] = -4
+                            else:  # 将降转和应届学生区分
+                                if self.is_assistant(user_id, assistants_list):  # 在助教群但没有更改为助教或围观
+                                    legality[f'{user_id}'] = -7
+                                elif stu_major not in major_lists:
+                                    if check_23:  # 启用核对23届信息的情况
+                                        legality[f'{user_id}'] = -4
+                                    else:
+                                        legality[f'{user_id}'] = 1
 
                 for members in group_member_list:
                     user_id = members['user_id']
@@ -188,18 +215,30 @@ class CardComf(Plugins):
                     except Exception as e:
                         log.debug(e, debug=debug)
 
+                # 获取消息并分组发送
                 message: str = ""
+                grouped_messages = []  # 用来存储分组的消息
                 for members in group_member_list:
                     user_id = members['user_id']
                     if legality[f'{user_id}'] != 1:
                         message += self.message_generate(legality=legality, members=members,
                                                          user_counts_map=user_counts_map)
+                        if message != "":
+                            grouped_messages.append(message)
+                            message = ""
 
                 kicks = 0
+
+                grouped_messages.insert(0, "请以下同学尽快修改群名片:")
                 try:
-                    self.api.groupService.send_group_msg(group_id=group_id, message=message)
+                    # 每20条为一组发送（包括不足20条的最后一组）
+                    for i in range(0, len(grouped_messages), 20):
+                        batch_message = "".join(grouped_messages[i:i + 20])
+                        if batch_message:  # 确保有消息才发送
+                            self.api.groupService.send_group_msg(group_id=group_id, message=batch_message)
+
                     for members in group_member_list:
-                        if kicks:
+                        if self.kick:
                             if user_counts_map[members['user_id']] == int(self.threshold):
                                 self.api.groupService.set_group_kick(group_id=group_id,
                                                                            user_id=members['user_id'])
@@ -208,7 +247,7 @@ class CardComf(Plugins):
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
                 else:
-                    log.debug(f"插件：{self.name}运行正确，成功向{group_id}发送了一条消息：{message}", debug)
+                    log.debug(f"插件：{self.name}运行正确，成功向{group_id}发送了一条消息：{grouped_messages}", debug)
                     if kicks > 0:
                         log.debug(f"插件：{self.name}运行正确，成功将{group_id}的违规次数到达阈值的成员移出群聊", debug)
 
@@ -245,7 +284,7 @@ class CardComf(Plugins):
         elif legality[f'{mem_id}'] == -3:
             message += f"，名片:{members['card']},该学号未在学生名单中,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -4:
-            message += f"，名片:{members['card']},专业名称不正确,提醒次数为{user_counts_map[members['user_id']]}"
+            message += f"，名片:{members['card']},托管学院或专业名称不正确,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -5:
             message += f"，名片:{members['card']}，未在助教群中找到对应的QQ号,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -6:
