@@ -96,8 +96,8 @@ class Bot:
         异步地完成Bot对象的初始化
         """
         try:
-            login_info = self.api.botSelfInfo.get_login()
-            log.info(f"获取到Bot的登录信息：{login_info}")
+            # login_info = self.api.botSelfInfo.get_login()
+            # log.info(f"获取到Bot的登录信息：{login_info}")
             log.info("Bot初始化成功！")
             self.init_plugins()
             await self.init_database()

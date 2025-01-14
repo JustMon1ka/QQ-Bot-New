@@ -111,7 +111,7 @@ class CardComf(Plugins):
                         self.api.groupService.send_group_msg(group_id=group_id, message="连自己名片都改不对还想检查别人名片？")
                         return
 
-                group_member_list = (self.api.GroupService.get_group_member_list(self, group_id=group_id)).get(
+                group_member_list = (self.api.GroupService.get_group_member_list(self, group_id=397706206)).get(
                     "data")
                 ingored_ids: list = self.config.get("ignored_ids")
 
@@ -139,7 +139,9 @@ class CardComf(Plugins):
                         stu_name = card_cuts[2]
                         if stu_major == "助教" or stu_major == "围观":
                             if check_assistants:
+                                print(f"{stu_name}：", end="")
                                 if self.is_assistant(user_id, assistants_list):
+                                    print("通过")
                                     pass
                                 else:
                                     legality[f'{user_id}'] = -5  # 代表冒充助教或者没有进助教群的助教

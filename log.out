@@ -1,0 +1,41 @@
+2024.11.10-14:59:45 - [INFO] - 开始加载Bot配置文件，文件路径：BotConfig.ini
+2024.11.10-14:59:45 - [INFO] - 成功加载配置文件
+2024.11.10-14:59:45 - [INFO] - 加载的bot初始化配置信息如下：
+2024.11.10-14:59:45 - [INFO] - ('server_address', '10.80.43.210:5700')
+2024.11.10-14:59:45 - [INFO] - ('client_address', '0.0.0.0:7002')
+2024.11.10-14:59:45 - [INFO] - ('web_controller', '127.0.0.1:7001')
+2024.11.10-14:59:45 - [INFO] - ('bot_name', 'gbz')
+2024.11.10-14:59:45 - [INFO] - ('debug', 'True')
+2024.11.10-14:59:45 - [INFO] - ('database_enable', 'False')
+2024.11.10-14:59:45 - [INFO] - ('database_username', 'bot_test')
+2024.11.10-14:59:45 - [INFO] - ('database_address', 'bot.database.address:3306')
+2024.11.10-14:59:45 - [INFO] - ('database_passwd', 'mysql_bot_test')
+2024.11.10-14:59:45 - [INFO] - ('database_name', 'test_bot')
+2024.11.10-14:59:45 - [INFO] - Bot初始化成功！
+2024.11.10-14:59:45 - [INFO] - 开始加载插件
+2024.11.10-14:59:45 - [INFO] - 成功加载插件：AddStuToDB，插件类型：Group，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Anitabi，插件类型：Group，插件作者Yuyu
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：CardComf，插件类型：Group，插件作者kiriko
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Ciallo，插件类型：Group，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：ErrorTest，插件类型：Private，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Goujiao，插件类型：Group，插件作者budenghao
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：GroupApprove，插件类型：GroupRequest，插件作者kiriko
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Guigbz，插件类型：Group，插件作者Yuyu
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Otto，插件类型：Group，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：QiuDao，插件类型：Group，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：RecallPrevent，插件类型：GroupRecall，插件作者kiriko
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Repeater，插件类型：Group，插件作者kiriko
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：SayHello，插件类型：Private，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：SelectLineCount，插件类型：Group，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：TestPlugins，插件类型：Group，插件作者somebody
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：TestTimer，插件类型：Group，插件作者somebody
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Voicemaker，插件类型：Group，插件作者Yuyu
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：Wallpaper，插件类型：Group，插件作者Yuyu
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：WebControllerTestPlugins，插件类型：Private，插件作者just monika
+2024.11.10-14:59:46 - [INFO] - 成功加载插件：goblintools，插件类型：Group，插件作者kiriko
+2024.11.10-14:59:46 - [INFO] - 初始化配置{database_enable}项为：False，将不尝试连接数据库
+2024.11.10-14:59:46 - [INFO] - 初始化事件处理器成功！
+2024.11.10-14:59:46 - [INFO] - 尝试将监听服务启动在 0.0.0.0:7002
+2024.11.10-14:59:46 - [INFO] - 监听服务启动成功！
+2024.11.10-14:59:46 - [INFO] - 启动web controller服务 127.0.0.1:7001
+2024.11.10-14:59:46 - [INFO] - web controller服务启动成功！

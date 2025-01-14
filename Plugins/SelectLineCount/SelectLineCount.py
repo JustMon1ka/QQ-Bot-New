@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, select
+from sqlalchemy import Column, Integer, String, select, BigInteger
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -70,7 +70,7 @@ class SelectLineCount(Plugins):
                                                            message=f"{At(qq=user_id)} 群名片格式不正确，请改正后再进行查询")
                 return
             else:
-                stu_id = int(sender_card[0])
+                stu_id = sender_card[0]
                 select_result = None
                 try:
                     select_result = self.query_by_stu_id(stu_id)
@@ -115,7 +115,7 @@ class SelectLineCount(Plugins):
         class_id = Column(String(13), nullable=False)
         stu_id = Column(String(7), unique=True, nullable=False)
         count = Column(Integer)
-        user_id = Column(Integer, unique=True)
+        user_id = Column(BigInteger, unique=True)
 
     async def select_all_info(self):
         async_session = sessionmaker(
