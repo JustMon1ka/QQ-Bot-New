@@ -15,7 +15,7 @@ class GroupMessageEvent:
         self.nickname: str = sender.get("nickname")
         self.card: str = sender.get("card")
         self.role: str = sender.get("role")
-
+        self.post_type: str = data.get("post_type")
         self.message: str = data.get("message")
         self.raw_message: str = data.get("raw_message")
         self.message_id: int = data.get("message_id")
