@@ -128,7 +128,7 @@ class Event:
             plugins_type = plugins.type
             plugins_name = plugins.name
             plugins_author = plugins.author
-            if plugins_type == "Group":
+            if plugins_type == "Group" or plugins_type == "GroupRecall":
                 try:
                     plugins.load_config()
                     await plugins.main(event, self.debug)
