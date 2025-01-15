@@ -4,6 +4,7 @@ from Plugins import Plugins
 from CQMessage.CQType import At
 from Interface.Api import Api
 import redis
+import random
 import json
 
 log = Log()
@@ -89,9 +90,13 @@ class RecallPrevent(Plugins):
         for_everyone = bool(self.config.get("for_everyone"))
         ban = bool(self.config.get("ban"))
         ban_time = self.config.get("ban_time")
-        ban_time_cuts = ban_time.split(":")
+        ban_time_cuts = ban_time.split("-")
+        min_ban_time = ban_time_cuts[0].split(":")
+        max_ban_time = ban_time_cuts[1].split(":")
         ignored_ids: list = self.config.get("ignored_ids")
-        duration = int(ban_time_cuts[0]) * 3600 + int(ban_time_cuts[1]) * 60 + int(ban_time_cuts[0])
+        duration = random.randint(int(min_ban_time[0]) * 3600 + int(min_ban_time[1]) * 60 +
+                                  int(min_ban_time[2]), int(max_ban_time[0]) * 3600 + int(max_ban_time[1]) * 60 +
+                                  int(max_ban_time[2]))
 
         if len(card_cuts) == 3:
             if card_cuts[1] == "助教":
@@ -114,7 +119,7 @@ class RecallPrevent(Plugins):
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
                 else:
-                    log.debug(f"插件：{self.name}运行正确，成功将用户{event.user_id}禁言{ban_time}", debug)
+                    log.debug(f"插件：{self.name}运行正确，成功将用户{event.user_id}禁言{duration}秒", debug)
         return
 
     def get_message(self, message_id):
