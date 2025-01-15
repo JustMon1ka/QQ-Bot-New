@@ -1,6 +1,7 @@
 from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
+import random
 log = Log()
 
 
@@ -54,8 +55,13 @@ class Repeater(Plugins):
             reply_message = self.config.get("normal_message")
             card_cuts = event.card.split("-")
             ban_time = self.config.get("ban_time")
-            ban_time_cuts = ban_time.split(":")
-            duration = int(ban_time_cuts[0])*3600 + int(ban_time_cuts[1])*60 + int(ban_time_cuts[0])
+            ban_time_cuts = ban_time.split("-")
+            min_ban_time = ban_time_cuts[0].split(":")
+            max_ban_time = ban_time_cuts[1].split(":")
+            ignored_ids: list = self.config.get("ignored_ids")
+            duration = random.randint(int(min_ban_time[0]) * 3600 + int(min_ban_time[1]) * 60 +
+                                      int(min_ban_time[2]), int(max_ban_time[0]) * 3600 + int(max_ban_time[1]) * 60 +
+                                      int(max_ban_time[2]))
             if len(card_cuts) == 3:
                 if card_cuts[1] == "助教":
                     if for_everyone:
@@ -73,12 +79,11 @@ class Repeater(Plugins):
                     log.debug(f"插件：{self.name}运行正确，成功在{group_id}中撤回了一条消息：{event.message}", debug)
             if ban:
                 try:
-                    self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id,
-                                                          duration=duration)
+                    self.api.groupService.set_group_ban(group_id=group_id, user_id=event.user_id, duration=duration)
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
                 else:
-                    log.debug(f"插件：{self.name}运行正确，成功将用户{event.user_id}禁言{ban_time}", debug)
+                    log.debug(f"插件：{self.name}运行正确，成功将用户{event.user_id}禁言{duration}秒", debug)
             try:
                 self.api.groupService.send_group_msg(group_id=group_id, message=reply_message)
             except Exception as e:
