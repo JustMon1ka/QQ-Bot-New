@@ -136,7 +136,7 @@ class CardComf(Plugins):
                         except:  # 学号不是纯数字
                             legality[f'{user_id}'] = -6
                             continue
-                        if stu_id // 1000000 != 2:  # 学号不是七位
+                        if stu_id // 1000000 == 0:  # 学号不是七位
                             legality[f'{user_id}'] = -6
                             continue
                         stu_major = card_cuts[1]
