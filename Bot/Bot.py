@@ -168,6 +168,16 @@ class Bot:
 
         joinall([event_server, web_server])
 
+    def runWebCtrler(self):
+        webController = WebController(self)
+        ip_address, port = self.web_controller.split(":")
+        # 使用Flask实例的run方法启动Flask服务
+        log.info(f"启动web controller服务 {ip_address}:{port}")
+        web_server = spawn(webController.run, ip_address, int(port))
+        log.info("web controller服务启动成功！")
+
+        joinall([web_server])
+
 
 if __name__ == "__main__":
     ...
