@@ -1,4 +1,6 @@
 # Ignore log files
 
 log.out
+BotConfig.ini
 __pycache__/
+.idea
