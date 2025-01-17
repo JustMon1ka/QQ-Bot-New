@@ -1,52 +1,64 @@
 /* index.html中的css效果 */
 body {
+    background-color: #101010;
     font-family: Arial, sans-serif;
+    color: #ffffff;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
 #navbar {
-    background-color: #0d7ccb;
-    width: 110px;
-    height: 100vh;
-    padding: 20px;
+    position: fixed;
+    background-color: #181818;
+    width: 160px;
+    height: 100%;
+    padding-top: 30px;
 }
 
 .nav-item {
     color: #ffffff;
-    padding: 10px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
-.nav-item.active {
-    background-color: #0056b3;
+.nav-item:hover {
+    background-color: #282828;
+    transition: background-color 0.2s ease;
+}
+
+.nav-item.active, .nav-item.active:hover{
+    background-color: #007bff;
+    transition: background-color 0.2s ease;
 }
 
 #main-content {
+    margin-left: 160px;
     flex-grow: 1;
-    background-color: #3ca1d7;
     padding: 20px;
 }
 
 .content-section {
-    background-color: #6fc0ec;
+    background-color: #181818;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .profile-section {
+    margin-top: 30px;
     display: flex;
     align-items: center;
 }
 
 .bot-avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
+    width: 80px;
+    height: 80px;
+    margin-left: 40px;
+    margin-right: 30px;
 }
 
 .hidden {
@@ -54,55 +66,48 @@ body {
 }
 
 .details-section {
-    border-top: 2px solid #0986c0;
     padding-top: 10px;
 }
 
 .bot-info-container {
-    border: 2px solid #0e9adb;
     padding: 20px;
+    padding-top: 50px;
+    padding-bottom: 0px;
     margin: 20px;
     position: relative;
 }
 
 .bot-info-container::before {
-    content: "运行基础信息";
-    color: #0e9adb;
-    font-size: 16px;
+    content: '运行基础信息';
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
     position: absolute;
-    top: -10px;
+    top: 10px;
     left: 20px;
-    background: rgb(230, 247, 255);
-    padding: 0 5px;
+    padding-top: 10px;
 }
 
 .collapsible-button {
-    background-color: #e4e3fd;
-    color: black;
+    background-color: #282828;
     cursor: pointer;
-    padding: 10px;
     width: 100%;
-    border: 2px solid #bbc9fb;
+    padding: 15px 30px;
     text-align: left;
     outline: none;
     font-size: 16px;
-    transition: background-color 0.2s ease;
 }
 
 .collapsible-button:hover {
-    background-color: #BBDEFB;
+    background-color: #303030;
+    transition: background-color 0.2s ease;
 }
 
 .collapsible-content {
     padding: 10px;
     max-height: 0;
     overflow: hidden;
-    background-color: #6fc0ec;
-    border-top: 2px solid #BBDEFB;
     transition: max-height 0.3s ease-out;
-}
-hr {
-    border-top: 1px solid #BBDEFB;
 }
 
 .plugin-list {
@@ -113,7 +118,6 @@ hr {
 
 .plugin-item {
     background-color: #f0f0f0;
-    border: 1px solid #84cbef;
     border-radius: 5px;
     margin-bottom: 10px; /* 为每个选项卡之间添加一些间隙 */
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -128,9 +132,9 @@ hr {
 }
 
 .plugin-item:hover {
-    background-color: #ace2fd; /* 悬停时改变背景色 */
+    background-color: #303030; /* 悬停时改变背景色 */
     color: black;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 添加一些阴影效果提高互动性 */
+    transition: background-color 0.2s ease;
 }
 
 .error-indicator .error-circle {
@@ -161,37 +165,43 @@ hr {
 .log-container {
     margin: 10px;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #303030;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .log-controls {
-    margin-bottom: 10px;
+    margin: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 button {
-    padding: 5px 10px;
-    margin-right: 10px;
-    font-size: 16px;
     color: white;
-    background-color: #0e9adb;
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #2990ff;
+    transition: background-color 0.2s ease
+}
+
+.clear-button, .toggle-button {
+    height: 48px;
+    padding: 0 20px;
+    margin-right: 10px;
+    font-size: 16px;
 }
 
 .log-viewer {
     height: 700px;
-    background-color: #201f1f; /* 更改背景颜色 */
+    background-color: #181818; /* 更改背景颜色 */
     color: #ffffff; /* 设置字体颜色为浅色 */
-    border: 1px solid #0de8e8; /* 边框颜色调整为更深 */
     overflow-y: auto; /* 保持自动滚动条 */
-    padding: 5px;
+    margin: 10px;
+    padding: 10px 20px;
     font-family: 'Courier New', monospace; /* 使用更适合代码显示的字体 */
     position: relative; /* 为滚动按钮设置定位基点 */
 }
@@ -223,7 +233,7 @@ button:hover {
     position: absolute;
     height: 100%;
     width: 4px; /* 每个条的宽度 */
-    background-color: black; /* 条的颜色 */
+    background-color: white; /* 条的颜色 */
     top: 0;
 }
 
@@ -241,17 +251,25 @@ button:hover {
     height: 0;
     border-top: 7px solid transparent; /* 创建三角形的上半部分 */
     border-bottom: 7px solid transparent; /* 创建三角形的下半部分 */
-    border-left: 14px solid black; /* 创建三角形的正面 */
+    border-left: 14px solid white; /* 创建三角形的正面 */
 }
 
 /* plugins.html使用的css */
 .search-bar input[type="text"] {
-    width: 90%;
+    width: 100%;
+    height: 64px;
     padding: 10px;
-    margin: 10px;
+    margin: 20px 0px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
+    background-color: #303030;
+    color: white;
+    border: 0px solid;
+    border-radius: 8px;
+}
+
+.search-bar input:hover {
+    background-color: #383838;
+    transition: background-color 0.2s ease;
 }
 
 .collapsible {
@@ -260,26 +278,28 @@ button:hover {
     border: none;
     text-align: left;
     outline: none;
-    padding: 0;
     position: relative;
+    margin: 10px 0;
 }
 
-.collapsible:hover {
-    background-color: #69dcff;
+.plugin-item:hover {
+    color: white;
+    background-color: #303030;
+    transition: background-color 0.2s ease;
 }
 
 .plugin-item {
     display: flex;
     flex-direction: column;
-    background-color: #0e8db4;
+    background-color: #282828;
     border-radius: 8px;
-    margin: 10px 0;
-    overflow: hidden;  // 保持内容隐藏，直到被展开
+    margin: 20px 0;
+    overflow: hidden;  /* 保持内容隐藏，直到被展开 */
 }
 
 .plugin-info {
-    padding: 10px 20px;
-    width: calc(100% - 80px);  // 留出状态标签的空间
+    padding-left: 20px;
+    width: calc(100% - 80px);  /* 留出状态标签的空间 */
 }
 
 .plugin-header {
@@ -306,22 +326,23 @@ button:hover {
 }
 
 .status-running {
-    background-color: #3ae440;
+    border: 2px solid lime;
 }
 
 .status-disable {
-    background-color: #676363;
+    border: 2px solid skyblue;
 }
 
 .status-error {
-    background-color: #ff0000;
+    border: 2px solid red;
 }
 
 .plugin-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out;
-    background-color: #b4e1ff;
+    transition: max-height 0.3s ease-out;
+    color: white;
+    background-color: #181818;
     padding: 0 20px;
 }
 
@@ -360,7 +381,7 @@ button:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #303030;
     transition: .4s;
     border-radius: 34px;
 }
@@ -378,7 +399,7 @@ button:hover {
 }
 
 input:checked + .slider {
-    background-color: #2196f3;
+    background-color: #007bff;
 }
 
 input:checked + .slider:before {
@@ -386,104 +407,100 @@ input:checked + .slider:before {
 }
 
 .textbox {
-    width: 90%;
+    border: none;
     padding: 10px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
     border-radius: 4px;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
-
-.table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.table th {
-    background-color: #f2f2f2;
-}
-
 .add-button, .remove-button {
-    background-color: #19b01e;
     color: white;
-    border: none;
-    padding: 5px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     border-radius: 5px;
-    margin-right: 5px;
 }
 
-.add-button:hover, .remove-button:hover {
-    background-color: #45ec4a;
+.add-button {
+    margin-left: 10px;
+    background-color: green;
+}
+
+.add-button:hover {
+    background-color: #00a000;
+    transition: background-color 0.2s ease;
 }
 
 .remove-button {
-    background-color: #c82333;
+    position: relative;
+    background-color: #990000;
 }
 
 .remove-button:hover {
-    background-color: #f15959;
+    background-color: #cc0000;
+    transition: background-color 0.2s ease;
 }
 
-/* 添加边框 */
 .plugin-config-container {
-    border: 1px solid #3198c4;
-    padding: 10px;
+    padding: 10px, 0;
     margin-top: 10px;
     position: relative; /* 相对定位 */
+}
+
+.config-item {
+    padding: 0px 10px;
+    margin: 40px 40px;
+    border-left: 2px solid #007bff;
 }
 
 /* 分割线 */
 hr {
     border: 0;
-    border-top: 1px solid #06a223;
-    margin: 10px 0;
+    border-top: 2px solid #007bff;
+    margin: 20px 0;
 }
 
 /* 表格样式 */
 .table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     margin-bottom: 10px;
 }
 
 .table th, .table td {
-    border: 1px solid #31c4af;
+    border-bottom: 1px solid #303030;
     padding: 8px;
-    text-align: left;
 }
 
 .table th {
-    background-color: #36c9e0;
-    cursor: pointer;
+    text-align: left;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.table td {
+    border-top: 1px solid #303030;
 }
 
 /* 按钮样式 */
 .edit-config-button {
-    background-color: #bc3131;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
     position: absolute; /* 绝对定位 */
     top: 10px;
-    right: 10px;
 }
 
 .edit-config-button:hover {
-    background-color: #f15959;
+    background-color: #2990ff;
+    transition: background-color 0.2s ease;
 }
 
 /* 禁用状态样式 */
-input:disabled, .add-button:disabled, .remove-button:disabled {
-    background-color: #e0e0e0;
-    color: #595858;
+input:disabled, .add-button:disabled, .remove-button:disabled, .slider:disabled {
+    background-color: #383838;
+    color: #606060;
     cursor: not-allowed;
 }
