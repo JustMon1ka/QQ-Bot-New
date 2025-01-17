@@ -223,21 +223,28 @@ class CardComf(Plugins):
                     except Exception as e:
                         log.debug(e, debug=debug)
 
-                # 获取消息并分组发送
+                # 获取消息并在排序后分组发送
                 message: str = ""
-                grouped_messages = []  # 用来存储分组的消息
+                grouped_raw_messages = {}  # 用来存储分组的消息
                 for members in group_member_list:
                     user_id = members['user_id']
                     if legality[f'{user_id}'] != 1:
-                        message += self.message_generate(legality=legality, members=members,
-                                                         user_counts_map=user_counts_map)
+                        message, counts = self.message_generate(legality=legality, members=members,
+                                                                user_counts_map=user_counts_map)
                         if message != "":
-                            grouped_messages.append(message)
+                            grouped_raw_messages[message] = counts
                             message = ""
+
+                grouped_raw_messages["请以下同学尽快修改群名片:"] = 99999
+                sorted_messages = dict(sorted(
+                    grouped_raw_messages.items(),
+                    key=lambda item: item[1],  # 按照警告次数排序
+                    reverse=True  # 降序
+                ))
+                grouped_messages = list(sorted_messages.keys())
 
                 kicks = 0
 
-                grouped_messages.insert(0, "请以下同学尽快修改群名片:")
                 try:
                     # 每20条为一组发送（包括不足20条的最后一组）
                     for i in range(0, len(grouped_messages), 20):
@@ -301,7 +308,7 @@ class CardComf(Plugins):
             if user_counts_map[members['user_id']] == int(self.threshold):
                 message += ",移出群聊"
         message += "\n"
-        return message
+        return message, user_counts_map[members['user_id']]
 
     @classmethod
     def is_assistant(cls, user_id, assistant_list):
