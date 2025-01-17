@@ -9,7 +9,7 @@ async def main():
         config_file=config_file,
     )
     await bot.initialize()
-    bot.run()
+    bot.runWebCtrler()
 
 
 asyncio.run(main())
