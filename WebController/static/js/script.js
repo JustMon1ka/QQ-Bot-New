@@ -387,19 +387,6 @@ function collectConfigData(container) {
     const items = container.querySelectorAll('.config-item');
 
     items.forEach(item => {
-        const label = item.querySelector('label');
-        if (label) {
-            const key = label.textContent.trim();
-            const input = item.querySelector('input');
-            if (input) {
-                if (input.type === 'checkbox') {
-                    configData[key] = input.checked;
-                } else {
-                    configData[key] = input.value;
-                }
-            }
-        }
-
         const table = item.querySelector('table');
         if (table) {
             const key = table.querySelector('th').textContent.trim();
@@ -413,6 +400,20 @@ function collectConfigData(container) {
             });
             configData[key] = values;
         }
+
+        const label = item.querySelector('label');
+        if (label) {
+            const key = label.textContent.trim();
+            const input = item.querySelector('input');
+            if (input) {
+                if (input.type === 'checkbox') {
+                    configData[key] = input.checked;
+                } else {
+                    configData[key] = input.value;
+                }
+            }
+        }
+
     });
 
     configData["plugin_name"] = container.closest('.plugin-item').id;
