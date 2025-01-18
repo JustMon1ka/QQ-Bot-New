@@ -173,8 +173,7 @@ class CardComf(Plugins):
                                 if stu_name != query_name:  # 代表学生名字和学号不对应
                                     legality[f'{user_id}'] = -1
                                 elif stu_id.startswith("2456"):  # 对留学生进行特判
-                                    if stu_major not in major_lists:
-                                        legality[f'{user_id}'] = -4
+                                    pass
                                 elif stu_id.startswith("24"):
                                     if stu_major not in school_lists:
                                         legality[f'{user_id}'] = -4
@@ -198,8 +197,6 @@ class CardComf(Plugins):
                             stu_id = card_cuts[0]
                             if stu_id.startswith("24"):
                                 if stu_id.startswith("2456"):  # 对留学生进行特判
-                                    if stu_major not in major_lists:
-                                        legality[f'{user_id}'] = -4
                                     continue
                                 elif stu_major not in school_lists:
                                     legality[f'{user_id}'] = -4
