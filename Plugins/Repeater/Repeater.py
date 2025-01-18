@@ -21,8 +21,8 @@ class Repeater(Plugins):
                                 插件功能：当群聊有一定数量条复读消息时，bot会撤回最后一个复读消息并禁言该用户十分钟
                             """
         self.init_status()
-        self.message_latest: str = ""
-        self.counts = 0
+        self.message_latest = {}
+        self.counts = {}
         
     async def main(self, event: GroupMessageEvent, debug):
         
@@ -41,16 +41,19 @@ class Repeater(Plugins):
         for_everyone = bool(self.config.get("for_everyone"))
         if group_id not in effected_group:
             return
+
+        if not self.message_latest.get(group_id):
+            self.message_latest[group_id] = ""
         
         message_newest = event.message
-        if message_newest != self.message_latest:
-            self.message_latest = message_newest
-            self.counts = 1
+        if message_newest != self.message_latest[group_id]:
+            self.message_latest[group_id] = message_newest
+            self.counts[group_id] = 1
         else:
-            self.counts += 1
+            self.counts[group_id] += 1
 
-        #到达阈值时正式进行插件的运行
-        if self.counts >= threshold:
+        # 到达阈值时正式进行插件的运行
+        if self.counts[group_id] >= threshold:
             ignored_ids: list = self.config.get("ignored_ids")
             reply_message = self.config.get("normal_message")
             card_cuts = event.card.split("-")
