@@ -127,8 +127,6 @@ class CardComf(Plugins):
                         continue
                     card_cuts = members['card'].split("-")
                     if len(card_cuts) != 3:
-                        if card_cuts[0] == "bot":
-                            continue
                         legality[f'{user_id}'] = 0  # 代表群名片没有分三项
                     else:
                         try:
@@ -136,7 +134,9 @@ class CardComf(Plugins):
                         except:  # 学号不是纯数字
                             legality[f'{user_id}'] = -6
                             continue
-                        if stu_id // 1000000 == 0:  # 学号不是七位
+                        if " " in card_cuts[0]:  # 学号不是纯数字
+                            legality[f'{user_id}'] = -6
+                        if stu_id // 1000000 == 0 or stu_id // 1000000 > 2:  # 学号不是七位或者数值有误
                             legality[f'{user_id}'] = -6
                             continue
                         stu_major = card_cuts[1]
