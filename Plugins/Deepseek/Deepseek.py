@@ -134,17 +134,18 @@ class Deepseek(Plugins):
                 ],
                 stream=False
             )
-            self.api.groupService.send_group_msg(group_id=group_id, 
-                                                message=f"{At(qq=sender_id)}"+"\n"+response.choices[0].message.content)
-            # print((response)) #TO DO：长文本限制没做
-            # if len(response.choices[0].message.content)<= limit_len:
-            #     self.api.groupService.send_group_msg(group_id=group_id, 
-            #                                     message=f"{At(qq=sender_id)}"+"\n"+response.choices[0].message.content)
-            # else:
-            #     self.api.groupService.send_group_msg(group_id=group_id, 
-            #                                     message=f"{At(qq=sender_id)}"+"\n对不起,回复文本太长了")
-            # log.debug(f"deepseek 插件成功回复")
+            
+            reply = response.choices[0].message.content
+            
+            if len(reply) < limit_len:
+                self.api.groupService.send_group_msg(group_id=group_id, 
+                                                message=f"{At(qq=sender_id)}"+"\n"+reply)
+            else:
+                self.api.groupService.send_group_msg(group_id=group_id, 
+                                                message=f"{At(qq=sender_id)}"+"\n对不起,回复文本太长了")
+            #log.debug(f"deepseek 插件成功回复")
+            
             return
         except Exception as e:
-            #  log.error(f"deepseek 插件出错：{e}")
-             return
+            print(f"deepseek 插件出错：{e}")
+            return
