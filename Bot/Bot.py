@@ -1,4 +1,6 @@
+from configparser import ConfigParser
 from importlib import import_module
+import os
 from pkgutil import iter_modules
 from sqlalchemy.ext.asyncio import create_async_engine
 from gevent import spawn, joinall
@@ -135,6 +137,21 @@ class Bot:
                 continue  # 如果不是插件包就跳过
 
             try:
+                plugin_config_path = os.path.join(plugins_path, name, 'config.ini')
+
+                 # 检查配置文件是否存在
+                if os.path.exists(plugin_config_path):
+                    log.debug(f"找到插件 {name} 的配置文件")
+                    config = ConfigParser()
+                    config.read(plugin_config_path)
+
+                    if config.getboolean(name, 'exclude', fallback=False):  # 如果 exclude=true，跳过加载
+                        log.info(f"插件 {name} 被排除，跳过加载")
+                        continue
+                else:
+                    log.warning(f"插件 {name} 的配置文件不存在，跳过加载")
+                    continue
+
                 # 从Plugins包动态导入子包
                 plugin_module = import_module(f".{name}", 'Plugins')
                 # 获取子包中的插件类，假设类名与模块名相同
