@@ -31,8 +31,10 @@ class CQHelper:
         instance = dynamic_class()
         setattr(instance, 'cq_type', cq_type)
 
-        for attr in attrs.split(','):
-            key, value = attr.split('=')
+        # 改进的属性解析逻辑
+        for attr in re.finditer(r'(\w+)=([^,]+)', attrs):
+            key = attr.group(1)
+            value = attr.group(2)
             setattr(instance, key, value)
 
         return instance
