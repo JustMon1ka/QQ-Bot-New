@@ -107,7 +107,7 @@ class CardComf(Plugins):
                             self.api.groupService.send_group_msg(group_id=group_id, message="big胆，敢冒充助教")
                             return
                 else:
-                    if event.user_id == "278787983":  # 这个是渣哥的QQ号
+                    if event.user_id == 278787983:  # 这个是渣哥的QQ号
                         pass
                     else:
                         self.api.groupService.send_group_msg(group_id=group_id, message="连自己名片都改不对还想检查别人名片？")
@@ -127,8 +127,6 @@ class CardComf(Plugins):
                         continue
                     card_cuts = members['card'].split("-")
                     if len(card_cuts) != 3:
-                        if card_cuts[0] == "bot":
-                            continue
                         legality[f'{user_id}'] = 0  # 代表群名片没有分三项
                     else:
                         try:
@@ -136,7 +134,9 @@ class CardComf(Plugins):
                         except:  # 学号不是纯数字
                             legality[f'{user_id}'] = -6
                             continue
-                        if stu_id // 1000000 == 0:  # 学号不是七位
+                        if " " in card_cuts[0]:  # 学号不是纯数字
+                            legality[f'{user_id}'] = -6
+                        if stu_id // 1000000 == 0 or stu_id // 1000000 > 2:  # 学号不是七位或者数值有误
                             legality[f'{user_id}'] = -6
                             continue
                         stu_major = card_cuts[1]
@@ -185,7 +185,7 @@ class CardComf(Plugins):
                                     elif stu_major not in school_lists:
                                         if check_23:  # 启用核对23届信息的情况
                                             if stu_id.startswith("2356"):  # 对留学生进行特判
-                                                pass
+                                                continue
                                             legality[f'{user_id}'] = -4
                                         else:
                                             legality[f'{user_id}'] = 1
@@ -197,16 +197,14 @@ class CardComf(Plugins):
                             stu_id = card_cuts[0]
                             if stu_id.startswith("24"):
                                 if stu_id.startswith("2456"):  # 对留学生进行特判
-                                    pass
-                                if stu_major not in school_lists:
+                                    continue
+                                elif stu_major not in school_lists:
                                     legality[f'{user_id}'] = -4
                             else:  # 将降转和应届学生区分
                                 if self.is_assistant(user_id, assistants_list):  # 在助教群但没有更改为助教或围观
                                     legality[f'{user_id}'] = -7
                                 elif stu_major not in major_lists:
                                     if check_23:  # 启用核对23届信息的情况
-                                        if stu_id.startswith("2356"):  # 对留学生进行特判
-                                            pass
                                         legality[f'{user_id}'] = -4
                                     else:
                                         legality[f'{user_id}'] = 1
