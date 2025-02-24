@@ -71,6 +71,16 @@ class At(CQMessage):
         self.qq = qq
 
 
+class Reply(CQMessage):
+    def __init__(self, message_id):
+        """
+        CQ:reply 回复某条消息
+        :param message_id: 消息的id
+        """
+        super().__init__()
+        self.id = message_id
+
+
 ...
 # 更多CQ消息段等待补充
 
