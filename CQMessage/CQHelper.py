@@ -14,7 +14,7 @@ class CQHelper:
         :return: 一个实例化对象，可以直接取出其中的成员变量
         """
         # 匹配消息中的类型和属性
-        cq_pattern = re.compile(r'\[CQ:(\w+),([\w=,\/.]+)\]')
+        cq_pattern = re.compile(r'\[CQ:(\w+),([^\]]+)\]')
         match = cq_pattern.search(message)
 
         if not match:
@@ -60,7 +60,7 @@ class CQHelper:
 if __name__ == "__main__":
     # 示例
     msg1 = "[CQ:at,qq=12345]"
-    msg2 = "[CQ:image,file=xx/xx]"
+    msg2 = "[CQ:image,file=000000a64e61704361744f6e65426f747c4d736746696c657c327c3832343339353639347c373437343932333338363336393734373135357c373437343932333338363336393734373135347c32363539343435333236.{211857B2-AB29-C99B-BF33-7E3E8C78B593}.jpg,sub_type=0,file_id=000000a64e61704361744f6e65426f747c4d736746696c657c327c3832343339353639347c373437343932333338363336393734373135357c373437343932333338363336393734373135347c32363539343435333236.{211857B2-AB29-C99B-BF33-7E3E8C78B593}.jpg,url=https://gchat.qpic.cn/gchatpic_new/0/0-0-211857B2AB29C99BBF337E3E8C78B593/0,file_size=8443,file_unique=211857b2ab29c99bbf337e3e8c78b593]"
     msg3 = "123[CQ:image,file=xx/xx]321"
     msg4 = "123[CQ321]"
 
