@@ -33,6 +33,8 @@ class CardComf(Plugins):
         self.at: bool = self.config.get('at')
         self.threshold = self.config.get('threshold')
         self.kick: bool = self.config.get('kick')
+        self.kick_type2: bool = self.config.get('kick_type2')
+        self.check_not_present: bool = self.config.get('check_not_present')
 
     async def main(self, event: GroupMessageEvent, debug):
 
@@ -52,6 +54,8 @@ class CardComf(Plugins):
         self.at: bool = self.config.get('at')
         self.threshold = self.config.get('threshold')
         self.kick: bool = self.config.get('kick')
+        self.kick_type2: bool = self.config.get('kick_type2')
+        self.check_not_present: bool = self.config.get('check_not_present')
 
         if check_with_stu_list:
             if self.all_stu_info is None:
@@ -119,7 +123,8 @@ class CardComf(Plugins):
 
                 user_ids = []
                 legality = {}
-
+                if self.kick_type2:
+                    kick_type2_ids = []
                 for members in group_member_list:
                     user_id = members['user_id']
                     legality[f'{user_id}'] = 1
@@ -191,8 +196,11 @@ class CardComf(Plugins):
                                             legality[f'{user_id}'] = 1
                                     # elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
                                     #    legality[f'{user_id}'] = -2
+                                self.all_stu_info['data'][int(stu_id)]['is_present'] = True
                             else:  # 代表学生名单中没有这个学号的信息
                                 legality[f'{user_id}'] = -3
+                                if self.kick_type2:
+                                    kick_type2_ids.append(user_id)
                         else:
                             stu_id = card_cuts[0]
                             if stu_id.startswith("24"):
@@ -241,6 +249,13 @@ class CardComf(Plugins):
                 ))
                 grouped_messages = list(sorted_messages.keys())
 
+                if self.check_not_present:
+                    message2 = "以下在选课名单内的同学还未进群：\n"
+                    grouped_messages.append(message2)
+                    for stu_id, stu_info in self.all_stu_info['data'].items():
+                        if not stu_info['is_present']:
+                            message3 = f"学号：{stu_id} 姓名：{stu_info['name']} \n"
+                            grouped_messages.append(message3)
                 kicks = 0
 
                 try:
@@ -256,6 +271,11 @@ class CardComf(Plugins):
                                 self.api.groupService.set_group_kick(group_id=group_id,
                                                                            user_id=members['user_id'])
                                 kicks += 1
+
+                    if self.kick_type2:
+                        for id_ in kick_type2_ids:
+                            self.api.groupService.set_group_kick(group_id=group_id,
+                                                                 user_id=id_)
 
                 except Exception as e:
                     log.error(f"插件：{self.name}运行时出错：{e}")
@@ -337,7 +357,7 @@ class CardComf(Plugins):
             results = await sessions.execute(raw_table)
 
             indexs = results.scalars().all()
-            indexs_dict = {lc.stu_id: {'name': lc.name} for lc in
+            indexs_dict = {lc.stu_id: {'name': lc.name, 'is_present': False} for lc in
                            indexs}
             #indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major_short, 'ingroup': lc.ingroup} for lc in indexs}
 
