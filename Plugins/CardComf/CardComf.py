@@ -165,7 +165,7 @@ class CardComf(Plugins):
                             if select_result:
                                 query_name = select_result.get("name")
                                 if '·' in query_name:
-                                    query_name1 = query_name.splite('·')[0]
+                                    query_name1 = query_name.split('·')[0]
                                 else:
                                     query_name1 = query_name
                                 #query_major = select_result.get("major_short")  # 指专业简写
@@ -181,7 +181,7 @@ class CardComf(Plugins):
                                 stu_id = card_cuts[0]
                                 if stu_name != query_name:  # 代表学生名字和学号不对应
                                     if query_name1:
-                                        if stu_name != query_name1:
+                                        if stu_name == query_name1:
                                             continue
                                     legality[f'{user_id}'] = -1
                                 elif stu_id.startswith("2456"):  # 对留学生进行特判
