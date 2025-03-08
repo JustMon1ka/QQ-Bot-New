@@ -35,6 +35,7 @@ class CardComf(Plugins):
         self.kick: bool = self.config.get('kick')
         self.kick_type2: bool = self.config.get('kick_type2')
         self.check_not_present: bool = self.config.get('check_not_present')
+        self.check_major: bool = self.config.get('check_major')
 
     async def main(self, event: GroupMessageEvent, debug):
 
@@ -56,6 +57,7 @@ class CardComf(Plugins):
         self.kick: bool = self.config.get('kick')
         self.kick_type2: bool = self.config.get('kick_type2')
         self.check_not_present: bool = self.config.get('check_not_present')
+        self.check_major: bool = self.config.get('check_major')
 
         if check_with_stu_list:
             if self.all_stu_info is None:
@@ -168,29 +170,36 @@ class CardComf(Plugins):
                                     query_name1 = query_name.split('·')[0]
                                 else:
                                     query_name1 = query_name
-                                #query_major = select_result.get("major_short")  # 指专业简写
-                                #query_group = select_result.get("ingroup")  # 指的是信xx中的xx
-                                full_major = ""
+                                if self.check_major:
+                                    query_major = select_result.get("major_short")  # 指专业简写
+                                    if "强" in query_major:
+                                        query_major.replace("强", "")
+                                    query_group = select_result.get("ingroup")  # 指的是信xx中的xx
+                                    full_major = ""
 
-                                #if not query_group:
-                                #    full_major += query_major
-                                #else:
-                                #    full_major += query_major + (
-                                #        f"0{query_group}" if query_group < 10 else str(query_group))  # 这一步是确定学生的专业名称
+                                    if not query_group:
+                                        full_major += query_major
+                                    else:
+                                        full_major += query_major + (
+                                            f"0{query_group}" if query_group < 10
+                                            else str(query_group))  # 这一步是确定学生的专业名称
+
                                 school_lists: list = self.config.get("school_lists")
                                 stu_id = card_cuts[0]
                                 if stu_name != query_name:  # 代表学生名字和学号不对应
                                     if query_name1:
-                                        if stu_name == query_name1:
-                                            continue
-                                    legality[f'{user_id}'] = -1
-                                elif stu_id.startswith("2456"):  # 对留学生进行特判
+                                        if stu_name != query_name1:
+                                            legality[f'{user_id}'] = -1
+                                    else:
+                                        legality[f'{user_id}'] = -1
+                                if stu_id.startswith("2456"):  # 对留学生进行特判
                                     pass
                                 elif stu_id.startswith("24"):
                                     if stu_major not in school_lists:
                                         legality[f'{user_id}'] = -4
-                                    # elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
-                                    #    legality[f'{user_id}'] = -2
+                                    if self.check_major:
+                                        if stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                            legality[f'{user_id}'] = -2
                                 else:  # 将降转和应届学生区分
                                     if self.is_assistant(user_id, assistants_list):  # 在助教群但没有更改为助教或围观
                                         legality[f'{user_id}'] = -7
@@ -201,8 +210,9 @@ class CardComf(Plugins):
                                             legality[f'{user_id}'] = -4
                                         else:
                                             legality[f'{user_id}'] = 1
-                                    # elif stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
-                                    #    legality[f'{user_id}'] = -2
+                                    elif self.check_major:
+                                        if stu_major != full_major:  # 代表学生的专业名称与学生名单中的信息不对应
+                                            legality[f'{user_id}'] = -2
                                 self.all_stu_info['data'][int(stu_id)]['is_present'] = True
                             else:  # 代表学生名单中没有这个学号的信息
                                 legality[f'{user_id}'] = -3
@@ -313,13 +323,13 @@ class CardComf(Plugins):
                 select_result = data.get(stu_id)
             except Exception as e:
                 raise e
-            #query_major = select_result.get("major_short")
-            #query_group = select_result.get("ingroup")
-            #full_major = ""
-            #if not query_group:
-            #    full_major += query_major
-            #else:
-            #    full_major += query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
+            query_major = select_result.get("major_short")
+            query_group = select_result.get("ingroup")
+            full_major = ""
+            if not query_group:
+                full_major += query_major
+            else:
+                full_major += query_major + (f"0{query_group}" if query_group < 10 else str(query_group))
             message += f"，名片:{members['card']},专业名称({card_cuts[1]})与名单册的信息({full_major})不符,提醒次数为{user_counts_map[members['user_id']]}"
         elif legality[f'{mem_id}'] == -3:
             message += f"，名片:{members['card']},该学号未在学生名单中,提醒次数为{user_counts_map[members['user_id']]}"
@@ -364,9 +374,12 @@ class CardComf(Plugins):
             results = await sessions.execute(raw_table)
 
             indexs = results.scalars().all()
-            indexs_dict = {lc.stu_id: {'name': lc.name, 'is_present': False} for lc in
+            if self.check_major:
+                indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major} for lc in indexs}
+            else:
+                indexs_dict = {lc.stu_id: {'name': lc.name, 'is_present': False} for lc in
                            indexs}
-            #indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major_short, 'ingroup': lc.ingroup} for lc in indexs}
+
 
             return {'data': indexs_dict}
 
@@ -445,7 +458,7 @@ class CardComf(Plugins):
         __tablename__ = 'stu_information'
         stu_id = Column(Integer, primary_key=True)
         name = Column(String)
-        #major_short = Column(String)
+        major = Column(String)
         #ingroup = Column(Integer)
 
     class warn_counts(Basement):
