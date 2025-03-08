@@ -375,7 +375,7 @@ class CardComf(Plugins):
 
             indexs = results.scalars().all()
             if self.check_major:
-                indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major} for lc in indexs}
+                indexs_dict = {lc.stu_id: {'name': lc.name, 'major_short': lc.major, 'is_present': False} for lc in indexs}
             else:
                 indexs_dict = {lc.stu_id: {'name': lc.name, 'is_present': False} for lc in
                            indexs}
