@@ -50,6 +50,9 @@ class GoodMorning(Plugins):
         if command[0] != self.bot.bot_name:
             return
 
+        if event.group_id not in self.config.get("effected_groups"):
+            return
+
         if command[1] == self.config.get("good_morning"):
             morning_time = datetime.strptime(self.config.get("morning_time"), "%H:%M:%S").time()
             current_time = datetime.now().time()
