@@ -50,6 +50,9 @@ class RecallPrevent(Plugins):
         if group_id not in effected_group_id:
             return
 
+
+        for_administer = bool(self.config.get("for_administer"))
+
         if event.post_type == "message":  # 当获取消息时将消息的信息存入redis
             # 获取消息和消息ID
             message = event.message
@@ -58,6 +61,8 @@ class RecallPrevent(Plugins):
                 "message": message,
                 "card": sender
             }
+            if not for_administer and event.role in ['admin','owner']:
+                return
 
             message_id = event.message_id
 
@@ -104,6 +109,7 @@ class RecallPrevent(Plugins):
                     return
         if event.user_id in ignored_ids:
             return
+
         if user_id == operator_id:  # 正式进入插件运行部分
             reply_message = f"{At(qq=user_id)} 撤回的消息是：{recalled_message}"
             try:
