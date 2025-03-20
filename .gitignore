@@ -4,3 +4,4 @@ log.out
 BotConfig.ini
 __pycache__/
 .idea
+venv/

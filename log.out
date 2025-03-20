@@ -1,0 +1,1460 @@
+2025.03.20-20:30:49 - [INFO] - 开始加载Bot配置文件，文件路径：BotConfig.ini
+2025.03.20-20:30:49 - [INFO] - 成功加载配置文件
+2025.03.20-20:30:49 - [INFO] - 加载的bot初始化配置信息如下：
+2025.03.20-20:30:49 - [INFO] - ('server_address', '127.0.0.1:5700')
+2025.03.20-20:30:49 - [INFO] - ('client_address', '0.0.0.0:5701')
+2025.03.20-20:30:49 - [INFO] - ('web_controller', '127.0.0.1:7001')
+2025.03.20-20:30:49 - [INFO] - ('bot_name', 'gbz')
+2025.03.20-20:30:49 - [INFO] - ('debug', 'True')
+2025.03.20-20:30:49 - [INFO] - ('database_enable', 'False')
+2025.03.20-20:30:49 - [INFO] - ('database_username', 'admin')
+2025.03.20-20:30:49 - [INFO] - ('database_address', 'bot.database.address:3306')
+2025.03.20-20:30:49 - [INFO] - ('database_passwd', '<passwd>')
+2025.03.20-20:30:49 - [INFO] - ('database_name', 'bot')
+2025.03.20-20:30:49 - [INFO] - 获取到Bot的登录信息：LLOneBot server 已启动
+2025.03.20-20:30:49 - [INFO] - Bot初始化成功！
+2025.03.20-20:30:49 - [INFO] - 开始加载插件
+2025.03.20-20:30:49 - [INFO] - 成功加载插件：AddStuToDB，插件类型：Group，插件作者just monika
+2025.03.20-20:30:49 - [INFO] - 成功加载插件：Anitabi，插件类型：Group，插件作者Yuyu
+2025.03.20-20:30:49 - [INFO] - 成功加载插件：CardComf，插件类型：Group，插件作者kiriko
+2025.03.20-20:30:49 - [INFO] - 成功加载插件：Ciallo，插件类型：Group，插件作者just monika
+2025.03.20-20:30:49 - [INFO] - 成功加载插件：DailyWord，插件类型：Private，插件作者x1x
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Deepseek，插件类型：Group，插件作者budenghao
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：ErrorTest，插件类型：Private，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：GoodMorning，插件类型：Group，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Goujiao，插件类型：Group，插件作者budenghao
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：GroupApprove，插件类型：GroupRequest，插件作者kiriko
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Guigbz，插件类型：Group，插件作者Yuyu
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Otto，插件类型：Group，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：QiuDao，插件类型：Group，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：RecallPrevent，插件类型：GroupRecall，插件作者kiriko
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Repeater，插件类型：Group，插件作者kiriko
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：SayHello，插件类型：Private，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Screenshot，插件类型：Group，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：SelectLineCount，插件类型：Group，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：TestPlugins，插件类型：Group，插件作者somebody
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：TestTimer，插件类型：Group，插件作者somebody
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Voicemaker，插件类型：Group，插件作者Yuyu
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：Wallpaper，插件类型：Group，插件作者Yuyu
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：WebControllerTestPlugins，插件类型：Private，插件作者just monika
+2025.03.20-20:30:50 - [INFO] - 成功加载插件：goblintools，插件类型：Group，插件作者kiriko
+2025.03.20-20:30:50 - [INFO] - 初始化配置{database_enable}项为：False，将不尝试连接数据库
+2025.03.20-20:30:50 - [INFO] - 初始化事件处理器成功！
+2025.03.20-20:30:50 - [INFO] - 尝试将监听服务启动在 0.0.0.0:5701
+2025.03.20-20:30:50 - [INFO] - 监听服务启动成功！
+2025.03.20-20:30:50 - [INFO] - 启动web controller服务 127.0.0.1:7001
+2025.03.20-20:30:50 - [INFO] - web controller服务启动成功！
+2025.03.20-20:30:52 - [DEBUG] - 收到来自群聊 1022783072 的消息：三木.(群名片：，QQ号：2512364312)说：[{'type': 'image', 'data': {'file': '2DB9C2524896C161F7763E7FD14E158A.jpg', 'subType': 1, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhSBTVJjPerWFufDSjXCWv6UKIeSVBjWvwcg_wootu_N9tSYjAMyBHByb2RQgL2jAVoQHxNN6rsbCGZMM3kkUuCEMA&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '122838'}}]
+2025.03.20-20:30:52 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:52 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [DEBUG] - 收到来自群聊 1022783072 的消息：🦌(群名片：爱莉仙尊，QQ号：2657802787)说：[{'type': 'image', 'data': {'file': '5B77C805894A051377A67D2321EFF724.jpg', 'subType': 1, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhRMzUF3XFAwv4JsoqKu8VZA2pNWeBjr2wgg_woo1vis-tSYjAMyBHByb2RQgL2jAVoQ1C-4ZRZvwwULbDmSARApxQ&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '142827'}}]
+2025.03.20-20:30:58 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:58 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [DEBUG] - 收到来自群聊 1022783072 的消息：真苍(群名片：，QQ号：2833565796)说：[{'type': 'reply', 'data': {'id': '1655793820'}}, {'type': 'at', 'data': {'qq': '1293942148', 'name': '憨憨球球'}}, {'type': 'text', 'data': {'text': ' 你自己摇'}}]
+2025.03.20-20:30:59 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:30:59 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [DEBUG] - 收到来自群聊 1022783072 的消息：范小白(群名片：，QQ号：1223424418)说：[{'type': 'image', 'data': {'file': '954063D19D0A5B1438A0650257E89B6C.jpg', 'subType': 2, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhQjcjrpFC_jcaGWmhhb9Q5_gBd3fRjvNiD_CijqiaP81JiMAzIEcHJvZFCAvaMBWhAealZlxrnZl6Nif_-LgaM1&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '7023'}}]
+2025.03.20-20:31:02 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:02 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [DEBUG] - 收到来自群聊 1022783072 的消息：范小白(群名片：，QQ号：1223424418)说：[{'type': 'image', 'data': {'file': 'B29EF8814C7E4341BD1CA3EA61FC7FCC.jpg', 'subType': 2, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhT_8N7bdAehoHfZv0dLDK8L_cgM0BjC_wIg_woosbuJ_dSYjAMyBHByb2RQgL2jAVoQEf_UdybM7P76xroPMFQl-Q&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '49090'}}]
+2025.03.20-20:31:04 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:04 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [DEBUG] - 收到来自群聊 1022783072 的消息：摸鱼仔皮皮(群名片：摸鱼仔皮皮，QQ号：3309446749)说：[{'type': 'image', 'data': {'file': '374D41AF2C6D151FD105822D5024DDA1.jpg', 'subType': 0, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhQg7lP8z83r1EdG453jaYQIDFYvJBjg-Qgg_woooJrk_dSYjAMyBHByb2RQgL2jAVoQXeQ2h2ad6GNEffhNisGRrw&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '146656'}}]
+2025.03.20-20:31:06 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:06 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [DEBUG] - 收到来自群聊 1022783072 的消息：三木.(群名片：，QQ号：2512364312)说：[{'type': 'image', 'data': {'file': '0AAAE06E3D9C668F8BD56AF5C58345CB.jpg', 'subType': 0, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhRS_9TWjJEvAiIYr5LOYp81HCgTShjv7Qgg_woox9uKjtWYjAMyBHByb2RQgL2jAVoQh2ocrmVAmjqrlBXLl2P4zQ&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '145135'}}]
+2025.03.20-20:31:41 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:41 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [DEBUG] - 收到来自群聊 1022783072 的消息：三木.(群名片：，QQ号：2512364312)说：[{'type': 'text', 'data': {'text': '已经吃上了'}}]
+2025.03.20-20:31:43 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:43 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [DEBUG] - 收到来自群聊 1022783072 的消息：三木.(群名片：，QQ号：2512364312)说：[{'type': 'text', 'data': {'text': '永劫无间联动KFC'}}]
+2025.03.20-20:31:51 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:51 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [DEBUG] - 收到来自群聊 1022783072 的消息：三木.(群名片：，QQ号：2512364312)说：[{'type': 'image', 'data': {'file': '478165A8C0A49BB75DF46B2C1E35944C.jpg', 'subType': 1, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhSqOTLx0lwG-qBEsyhhanbarCMWeRjd6QEg_woottnZlNWYjAMyBHByb2RQgL2jAVoQUTNrE25LOho53gQnizbzHg&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '29917'}}]
+2025.03.20-20:31:54 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:31:54 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [DEBUG] - 收到来自群聊 1022783072 的消息：摸鱼仔皮皮(群名片：摸鱼仔皮皮，QQ号：3309446749)说：[{'type': 'text', 'data': {'text': '吃上了你还要？'}}]
+2025.03.20-20:32:22 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [DEBUG] - 收到来自群聊 1022783072 的消息：我觉得海欣(群名片：，QQ号：3381862587)说：[{'type': 'image', 'data': {'file': '4F0BC008D632521B2047290185BB01A6.jpg', 'subType': 0, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhQ_uYsYQfl7Pm_8d7R_420BhnwjvRiwtg0g_woo7_-LotWYjAMyBHByb2RQgL2jAVoQq6Z2qsknPHrKSPVAL09olw&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '219952'}}]
+2025.03.20-20:32:22 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:22 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [DEBUG] - 收到来自群聊 1022783072 的消息：我觉得海欣(群名片：，QQ号：3381862587)说：[{'type': 'text', 'data': {'text': '还有三个头没开'}}]
+2025.03.20-20:32:30 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:30 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [DEBUG] - 收到来自群聊 1022783072 的消息：摸鱼仔皮皮(群名片：摸鱼仔皮皮，QQ号：3309446749)说：[{'type': 'image', 'data': {'file': '7F897F4454C514E89FA697CBA4638934.jpg', 'subType': 1, 'url': 'https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=EhQwCa8BDH0iNJC5Yo_9RlVwIArZShjXngIg_woohd_7p9WYjAMyBHByb2RQgL2jAVoQcIok7tZdt0NQGDk4njKEOg&spec=0&rkey=CAQSKAB6JWENi5LMJN0buHDkH3dDbr0edab1JQtECTvO5-GqSO-dxiv-TXk', 'file_size': '36695'}}]
+2025.03.20-20:32:34 - [ERROR] - 插件：Anitabi运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Anitabi\Anitabi.py", line 82, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Ciallo运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Ciallo\Ciallo.py", line 30, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Deepseek运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Deepseek\Deepseek.py", line 103, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：GoodMorning运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\GoodMorning\GoodMorning.py", line 47, in main
+    command = message.split(" ")
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Goujiao运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：budenghao
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Goujiao\Goujiao.py", line 57, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Guigbz运行时出错：cannot access local variable 'num' where it is not associated with a value，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Guigbz\Guigbz.py", line 49, in main
+    num += 1
+    ^^^
+UnboundLocalError: cannot access local variable 'num' where it is not associated with a value
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Otto运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：just monika
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Otto\Otto.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Voicemaker运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Voicemaker\Voicemaker.py", line 40, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：Wallpaper运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：Yuyu
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\Wallpaper\Wallpaper.py", line 45, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
+2025.03.20-20:32:34 - [ERROR] - 插件：goblintools运行时出错：'list' object has no attribute 'split'，请联系该插件的作者：kiriko
+详细信息：
+Traceback (most recent call last):
+  File "D:\code\python_code\QQ-Bot-New\Event\EventController.py", line 134, in run_group_plugins
+    await plugins.main(event, self.debug)
+  File "D:\code\python_code\QQ-Bot-New\Plugins\goblintools\goblintools.py", line 39, in main
+    command_list = message.split(" ")
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'split'
+
