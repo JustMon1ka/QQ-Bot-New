@@ -1,3 +1,5 @@
+import requests
+
 from CQMessage.CQType import At
 from Event.EventHandler import GroupMessageEventHandler
 from Logging.PrintLog import Log
@@ -60,15 +62,7 @@ class GoodMorning(Plugins):
             if current_time < morning_time:
                 self.api.groupService.send_group_msg(group_id=event.group_id, message=f"还没有到{morning_time}哦，再睡一会儿吧！")
             else:
-                while True:
-                    try:
-                        result = await self.good_morning_sign_in(event.user_id)
-                        break
-                    except AttributeError as e:
-                        log.debug("尝试重连...", debug)
-                        continue
-                    except Exception as e:
-                        raise e
+                result = self.good_morning_sign_in(event.user_id)
                 if result.get("result"):
                     rank = result.get("rank")
                     if current_time < datetime.strptime("11:00:00", "%H:%M:%S").time():
@@ -131,7 +125,7 @@ class GoodMorning(Plugins):
         rank = Column(Integer)
         counts = Column(Integer)
 
-    async def good_morning_sign_in(self, user_id: int):
+    def good_morning_sign_in(self, user_id: int):
         """
         处理用户的签到操作。
 
@@ -141,69 +135,7 @@ class GoodMorning(Plugins):
         返回:
             dict: 包含 morning_time 和 rank 的字典
         """
-        async with AsyncSession(self.bot.database) as session:
-            # 获取当前时间和今天的日期范围
-            now = datetime.now()
-            today = now.date()
-            tomorrow = today + timedelta(days=1)
-
-            # 检查今日是否已签到
-            stmt = select(self.GoodMorningDB).where(
-                self.GoodMorningDB.user_id == user_id,
-                self.GoodMorningDB.morning_time >= today,
-                self.GoodMorningDB.morning_time < tomorrow,
-                self.GoodMorningDB.rank.isnot(None)
-            )
-            result = await session.execute(stmt)
-            existing_record = result.scalar_one_or_none()
-
-            if existing_record:
-                await session.close()
-                # 如果今日已签到，返回已有数据
-                return {
-                    "result": False,
-                    "morning_time": existing_record.morning_time,
-                    "rank": existing_record.rank
-                }
-
-            # 获取今日已签到用户数量
-            stmt_count = select(func.count()).where(
-                self.GoodMorningDB.morning_time >= today,
-                self.GoodMorningDB.morning_time < tomorrow,
-                self.GoodMorningDB.rank.isnot(None)
-            )
-            result_count = await session.execute(stmt_count)
-            today_count = result_count.scalar() or 0
-
-            # 计算新用户的 rank
-            new_rank = today_count + 1
-
-            # 检查用户记录是否已存在
-            stmt_check = select(self.GoodMorningDB).where(self.GoodMorningDB.user_id == user_id)
-            result_check = await session.execute(stmt_check)
-            record = result_check.scalar_one_or_none()
-
-            if record:
-                # 如果记录存在，更新数据
-                record.morning_time = now
-                record.rank = new_rank
-                record.counts += 1
-            else:
-                # 如果记录不存在，插入新数据
-                new_record = self.GoodMorningDB(
-                    user_id=user_id,
-                    morning_time=now,
-                    rank=new_rank,
-                    counts=1
-                )
-                session.add(new_record)
-
-            await session.commit()
-
-            # 返回新签到结果
-            await session.close()
-            return {
-                "result": True,
-                "morning_time": now,
-                "rank": new_rank
-            }
+        params = {
+            "user_id": user_id,
+        }
+        return requests.get(self.config.get("morning_api"), params=params).json()
