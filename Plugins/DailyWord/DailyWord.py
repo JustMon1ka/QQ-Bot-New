@@ -17,6 +17,13 @@ class DailyWord(Plugins):
         self.author = "x1x"  # 插件开发作者（不用留真名，但是当插件报错的时候需要根据这个名字找到对应的人来修）
         self.introduction = """
                                 每日一词小程序^_^
+                                可用命令：
+                                word 注册青年大学习   注册
+                                word 每日n词         练习拼写n个词
+                                word 复习n词         练习拼写n个词（从已学习的词库中选取)
+                                word 看答案          查看答案
+                                word 取消           取消拼写
+                                word <word>         提交答案
                             """
         self.init_status()
 
