@@ -97,6 +97,13 @@ class Api:
             response = requests.post(self.api.bot_api_address + "set_group_add_request", params=params)
             return response.json()
 
+        def get_group_info(self, group_id):
+            params = {
+                "group_id": group_id
+            }
+            response = requests.post(self.api.bot_api_address + "get_group_info", params=params)
+            return response.json()
+
     class MessageService:
         def __init__(self, api_instance):
             self.api = api_instance  # 保存对Api类实例的引用
