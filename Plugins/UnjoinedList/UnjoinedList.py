@@ -95,14 +95,18 @@ class UnjoinedList(Plugins):
                     "data")
                 group_name = self.api.GroupService.get_group_info(self, group_id=group_id).get(
                     "data").get("group_name")
-                class_part = re.search(r'高程(.*)实验群', group_name).group(1)
-                class_numbers = re.findall(r'\d{2}', class_part)
-                stu_in_class = {}
-                for number in class_numbers:
-                    number = "100717" + number
-                    for stu_id, stu_info in self.all_stu_info.get("data").items():
-                        if stu_info["experiment"] == number:
-                            stu_in_class[stu_id] = stu_info
+                match = re.search(r'高程(.*)实验群', group_name)
+                if match:
+                    class_part = match.group(1)
+                    class_numbers = re.findall(r'\d{2}', class_part)
+                    stu_in_class = {}
+                    for number in class_numbers:
+                        number = "100717" + number
+                        for stu_id, stu_info in self.all_stu_info.get("data").items():
+                            if stu_info["experiment"] == number:
+                                stu_in_class[stu_id] = stu_info
+                else:
+                    stu_in_class = self.all_stu_info.get("data")
 
                 for member in group_member_list:
                     card_cuts = member['card'].split("-")
