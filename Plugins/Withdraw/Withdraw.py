@@ -1,3 +1,4 @@
+
 from CQMessage.CQType import At
 import random
 import re
@@ -5,6 +6,9 @@ from CQMessage.CQHelper import CQHelper
 from Event.EventHandler import GroupMessageEventHandler
 from Logging.PrintLog import Log
 from Plugins import Plugins
+
+
+
 log = Log()
 
 class Withdraw(Plugins):
@@ -28,6 +32,7 @@ class Withdraw(Plugins):
         if self.status != "error":
             self.set_status("running")
 
+
         full_message: str = event.message
         pattern = re.compile(r'(\[CQ:reply,id=.+\])(.+)')
         p = pattern.match(full_message)
@@ -41,6 +46,7 @@ class Withdraw(Plugins):
             return
         if len_of_command < 2:
             return
+
         if command_list[1] != command:
             return
         else:
@@ -49,6 +55,7 @@ class Withdraw(Plugins):
             if group_id not in effected_group:
                 self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
                 return
+
             else:  #插件正式执行
                 user_id = event.user_id
                 assistants_list = self.handle_raw_list(self.get_assistant_raw_list())
@@ -103,3 +110,4 @@ class Withdraw(Plugins):
             user_id = info.get("user_id")
             assistants_user_id_list.append(user_id)
         return assistants_user_id_list
+
