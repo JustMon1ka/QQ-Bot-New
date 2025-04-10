@@ -219,13 +219,6 @@ class DailyWord(Plugins):
         if not enable:
             self.set_status("disable")
             return
-        # 检查是否为生效群聊
-        group_id = event.group_id
-        if group_id not in self.config.get("effected_group"):
-            self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
-            return
-        if self.status != "error":
-            self.set_status("running")
         # 是否触发关键词
         message = event.message  # [{'type': 'text', 'data': {'text': 'hello'}}]
         try:
@@ -238,7 +231,13 @@ class DailyWord(Plugins):
         except Exception as e:
             log.error(f"daily_word: 解析消息失败，{e}")
             return
-
+        # 检查是否为生效群聊
+        group_id = event.group_id
+        if group_id not in self.config.get("effected_group"):
+            self.api.groupService.send_group_msg(group_id=group_id, message=f"该功能未在此群{group_id}生效")
+            return
+        if self.status != "error":
+            self.set_status("running")
         # 解析参数
         user_id = event.user_id
         log.debug(f"插件：{self.name}收到一条消息：{message}，来自{user_id}", debug)
