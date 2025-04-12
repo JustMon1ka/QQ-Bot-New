@@ -89,10 +89,13 @@ class Withdraw(Plugins):
                 target_message_id = obj.reply
                 try:
                     self.api.groupService.delete_msg(message_id=target_message_id)
+                    recall_command = self.config.get("recall_command")
+                    if recall_command:
+                        self.api.groupService.delete_msg(message_id=event.message_id)
                 except Exception as e:
-                    log.error(f"插件：{self.name}运行时出错：{e}")
+                    log.error(f"插件：{self.name}由{event.user_id}发起，但运行时出错：{e}")
                 else:
-                    log.debug(f"插件：{self.name}运行正确，成功在{group_id}中撤回了一条消息：{event.message}", debug)
+                    log.debug(f"插件：{self.name}由{event.user_id}发起，运行正确，，成功在{group_id}中撤回了一条消息：{event.message}", debug)
 
     @classmethod
     def is_assistant(cls, user_id, assistant_list):
