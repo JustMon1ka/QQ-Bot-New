@@ -2,12 +2,13 @@ import requests
 import re
 import os
 import platform
+import time
 from PIL import Image
 import pytesseract
 from Event.EventHandler import GroupMessageEventHandler
 from Logging.PrintLog import Log
 from Plugins import Plugins
-from CQMessage.CQType import At
+from CQMessage.CQType import At, Reply
 
 log = Log()
 
@@ -33,6 +34,9 @@ class AIAssistant(Plugins):
         self.user_id = ''  # 默认用户ID
         self.api_token = ''  # API访问令牌
         self.base_url = ''  # Coze API基础URL
+
+        self.user_cooldown = {}  # 用户冷却时间记录字典
+        self.cooldown_time = 5   # 冷却时间（秒）
 
         # OCR配置
         if platform.system() == "Windows":
@@ -65,7 +69,22 @@ class AIAssistant(Plugins):
         if not message.startswith(f"{self.bot.bot_name} ask"):
             return
         
+        # 冷却检查
+        current_time = time.time()
+        last_ask_time = self.user_cooldown.get(event.user_id, 0)
+        
+        if current_time - last_ask_time < self.cooldown_time:
+            remaining = self.cooldown_time - int(current_time - last_ask_time)
+            self.api.groupService.send_group_msg(
+                group_id=event.group_id,
+                message=f"{At(qq=event.user_id)} 提问太快啦，请等待{remaining}秒后再问哦~"
+            )
+            return
+
         try:
+            # 更新用户最后提问时间
+            self.user_cooldown[event.user_id] = current_time
+
             self.api.groupService.send_group_msg(group_id=event.group_id, message="小莫正在思考中~")
 
             # 提取问题内容
@@ -98,7 +117,7 @@ class AIAssistant(Plugins):
             response = self.get_coze_response(question)
             
             # 发送回复到群聊
-            reply_message = f"{At(qq=event.user_id)}\n{response}"
+            reply_message = f"[CQ:reply,id={event.message_id}]{response}"
             self.api.groupService.send_group_msg(group_id=event.group_id, message=reply_message)
             
             log.debug(f"插件：{self.name}运行正确，成功回答用户{event.user_id}的问题", debug)
