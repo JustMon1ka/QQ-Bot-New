@@ -36,7 +36,7 @@ class AIAssistant(Plugins):
         self.base_url = ''  # Coze API基础URL
 
         self.user_cooldown = {}  # 用户冷却时间记录字典
-        self.cooldown_time = 5   # 冷却时间（秒）
+        self.cooldown_time = int(self.config.get("cooldown_time"))   # 冷却时间（秒）
 
         # OCR配置
         if platform.system() == "Windows":
