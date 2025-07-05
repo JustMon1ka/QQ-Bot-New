@@ -55,7 +55,8 @@ class QiuDao(Plugins):
             return
 
         command = self.config.get("command")
-        if command_list[1] != command:
+        valid_commands = [command, f"{command}1", f"{command}2"]
+        if command_list[1] not in valid_commands:
             return
         else:  # 正式进入插件运行部分
             group_id = event.group_id
@@ -84,30 +85,26 @@ class QiuDao(Plugins):
                     query_user_id = select_result.get("user_id")
                     if int(query_user_id) != user_id:
                         self.api.groupService.send_group_msg(group_id=group_id,
-                                                                   message=f"{At(qq=user_id)} "
-                                                                           f"该学号所有者的QQ号{query_user_id}，与你的QQ号{user_id}不匹配，不予查询！")
+                                                             message=f"{At(qq=user_id)} "
+                                                                     f"该学号所有者的QQ号{query_user_id}，与你的QQ号{user_id}不匹配，不予查询！")
                         return
                     else:
+                        is_mode2 = command_list[1] == f"{command}2"
                         self.api.groupService.send_group_msg(group_id=group_id,
-                                                                   message=f"{At(qq=user_id)} {self.trans_score(score)}")
+                                                             message=f"{At(qq=user_id)} "
+                                                                     f"{self.trans_score(score, is_mode2)}")
                 else:
                     self.api.groupService.send_group_msg(group_id=group_id,
-                                                               message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
+                                                         message=f"{At(qq=user_id)} 未查询到学号{stu_id}的信息！")
 
     @classmethod
-    def trans_score(cls, score):
+    def trans_score(cls, score, is_mode2=False):
         if score == 0:
             return Face(id=63)  # 这个是花的id
-        elif score == 1:
-            return Face(id=112)  # 这个是刀的id
-        elif score == 2:
-            return f"{Face(id=112)}{Face(id=112)}"
-        elif score == 3:
-            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}"
-        elif score == 4:
-            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}"
-        else:
+        elif score < 0:
             return f"你的分数是-114514，超越了全同济-100%的同学！你无敌啦孩子！"  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
+        max_knives = score if is_mode2 else min(score, 4)
+        return "".join([Face(id=112) for _ in range(max_knives)])
 
     def query_by_stu_id(self, stu_id):
         data = self.all_line_count.get("data")
