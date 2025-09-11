@@ -99,12 +99,23 @@ class QiuDao(Plugins):
 
     @classmethod
     def trans_score(cls, score, is_mode2=False):
-        if score == 0:
-            return Face(id=63)  # 这个是花的id
-        elif score < 0:
-            return f"你的分数是-114514，超越了全同济-100%的同学！你无敌啦孩子！"  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
         max_knives = score if is_mode2 else min(score, 4)
-        return "".join([Face(id=112) for _ in range(max_knives)])
+        if max_knives == 0:
+            return Face(id=63)  # 这个是花的id
+        elif max_knives == 1:
+            return Face(id=112)  # 这个是刀的id
+        elif max_knives == 2:
+            return f"{Face(id=112)}{Face(id=112)}"
+        elif max_knives == 3:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}"
+        elif max_knives == 4:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}"
+        elif max_knives == 5:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}"
+        elif max_knives == 6:
+            return f"{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}{Face(id=112)}"
+        else:
+            return f"你的分数是-114514，超越了全同济-100%的同学！你无敌啦孩子！"  # 虽然理论上不可能有低于0分的，但是还是做了这个的情况, 59是便便表情
 
     def query_by_stu_id(self, stu_id):
         data = self.all_line_count.get("data")
