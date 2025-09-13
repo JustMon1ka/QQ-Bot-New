@@ -103,6 +103,14 @@ class Api:
             }
             response = requests.post(self.api.bot_api_address + "get_group_info", params=params)
             return response.json()
+        
+        def set_msg_emoji_like(self, message_id, emoji_id):
+            params = {
+                "message_id": message_id,
+                "emoji_id": emoji_id
+            }
+            response = requests.post(self.api.bot_api_address + "set_msg_emoji_like", params=params)
+            return response.json()
 
     class MessageService:
         def __init__(self, api_instance):
