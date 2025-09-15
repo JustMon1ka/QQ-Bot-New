@@ -34,8 +34,6 @@ class EmojiLike(Plugins):
 
         frequency = int(self.config.get("frequency"))
 
-        message = event.message
-
         emoji_ids = [
             4, 5, 8, 9, 10, 12, 14, 16, 21, 23, 24, 25, 26, 27, 28, 29, 30, 
             32, 33, 34, 38, 39, 41, 42, 43, 49, 53, 60, 63, 66, 74, 75, 76, 
