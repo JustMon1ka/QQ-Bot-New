@@ -8,7 +8,7 @@ from gevent.pywsgi import WSGIServer
 
 from Event.EventHandler.GroupMessageEventHandler import GroupMessageEvent
 from Event.EventHandler.PrivateMessageEventHandler import PrivateMessageEvent
-from Event.EventHandler.NoticeEventHandler import GroupRecallEvent
+from Event.EventHandler.NoticeEventHandler import GroupRecallEvent, GroupPokeEvent
 from Event.EventHandler.RequestEventHandler import GroupRequestEvent
 from Logging.PrintLog import Log
 from Plugins import Plugins
@@ -45,6 +45,15 @@ def create_event_app(event_controller):
                 event.post_event(event_controller.debug)
                 thread = Thread(target=event_controller.handle_group_recall, args=(event,))
                 thread.start()
+            elif notice_type == "notify":
+                sub_type = data.get("sub_type")
+                if sub_type == "poke":
+                    event = GroupPokeEvent(data)
+                    event.poke_event(event_controller.debug)
+                    thread = Thread(target=event_controller.handle_group_poke, args=(event,))
+                    thread.start()
+                else:
+                    ...
             else:
                 ...
         elif post_type == "request":
@@ -165,6 +174,24 @@ class Event:
             plugins_name = plugins.name
             plugins_author = plugins.author
             if plugins_type == "GroupRequest":
+                try:
+                    plugins.load_config()
+                    await plugins.main(event, self.debug)
+                except Exception as e:
+                    traceback_info = traceback.format_exc()
+                    error_info = f"插件：{plugins_name}运行时出错：{e}，请联系该插件的作者：{plugins_author}\n详细信息：\n{traceback_info}"
+                    plugins.set_status("error", error_info)
+                    log.error(error_info)
+    
+    def handle_group_poke(self, event):
+        asyncio.run(self.run_group_poke(event))
+    
+    async def run_group_poke(self, event):
+        for plugins in self.plugins_list:
+            plugins_type = plugins.type
+            plugins_name = plugins.name
+            plugins_author = plugins.author
+            if plugins_type == "Poke":
                 try:
                     plugins.load_config()
                     await plugins.main(event, self.debug)
