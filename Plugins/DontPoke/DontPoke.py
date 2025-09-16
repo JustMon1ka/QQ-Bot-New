@@ -11,7 +11,7 @@ class DontPoke(Plugins):
     """
     插件名：DontPoke \n
     插件类型：群聊戳一戳插件 \n
-    插件功能：当有人戳一戳时，bot作出回复（PokeHandler测试） \n
+    插件功能：当有人戳一戳时，bot作出回复\n
     """
 
     def __init__(self, server_address, bot):
@@ -20,8 +20,7 @@ class DontPoke(Plugins):
         self.type = "Poke"
         self.author = "Heai"
         self.introduction = """
-                                插件描述：戳什么戳！
-                                插件功能：回复戳一戳
+                                回复戳一戳（收发戳一戳测试）
                             """
         self.init_status()
 
@@ -65,4 +64,7 @@ class DontPoke(Plugins):
             message = f"{At(qq=user_id)} " + message_list[randint(0, len(message_list) - 1)]
         self.api.groupService.send_group_msg(group_id=group_id, message=message)
 
+        repoke_frequency = self.config.get("repoke_frequency")
+        if randint(0, 99) < int(repoke_frequency):
+            self.api.groupService.send_group_poke(group_id=group_id, user_id=user_id)
         return
